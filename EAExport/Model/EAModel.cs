@@ -290,6 +290,8 @@ namespace EAExport.Model
 
             string owner = null;
             string package = null;
+            string package2 = null;
+            string parentElement = null;
             string tpos = null;
             string text = null;
 
@@ -305,6 +307,10 @@ namespace EAExport.Model
                             tpos = xmlReader["value"];
                         } else if (xmlReader["tag"].Equals("documentation")) {
                             text = xmlReader["value"];
+                        } else if (xmlReader["tag"].Equals("package2")) {
+                            package2 = xmlReader["value"];
+                        } else if (xmlReader["tag"].Equals("parent")) {
+                            parentElement = xmlReader["value"];
                         }
 
                         if (!xmlReader.IsEmptyElement) {
@@ -318,12 +324,20 @@ namespace EAExport.Model
                 case XmlNodeType.EndElement:
                     if (xmlReader.Name.Equals(endElement)) {
                         if (parent.ParentId == null) {
-                            if (owner == null) {
-                                parent.ParentId = package;
-                            } else {
+                            if (owner != null) {
                                 parent.ParentId = owner;
+                            } else if (package != null) {
+                                parent.ParentId = package;
                             }
                         }
+                        
+                        if (package2 != null) {
+                            // In EA, we see a package contains a ClassifierRole object as well as a Package.
+                            // We need to filter these ClassifierRole objects out, else they occur twice in
+                            // the tree. We assume that 'package2' is the same as the element ID.
+                            m_PackageElements.Add(parent.Id, parent);
+                        }
+
                         if (tpos != null) parent.Pos = int.Parse(tpos);
                         parent.Text = text;
                         return;
@@ -385,6 +399,8 @@ namespace EAExport.Model
 
         private Dictionary<string, EATree> m_Elements = new Dictionary<string, EATree>();
 
+        private Dictionary<string, EATree> m_PackageElements = new Dictionary<string, EATree>();
+
         private void AddElement(EATree element)
         {
             if (m_Elements.ContainsKey(element.Id))
@@ -394,6 +410,15 @@ namespace EAExport.Model
 
         private void BuildTree()
         {
+            foreach (EATree element in m_PackageElements.Values) {
+                string package = "EAPK" + element.Id.Substring(4);
+                EATree packageElement;
+                if (m_Elements.TryGetValue(package, out packageElement)) {
+                    packageElement.Text = element.Text;
+                    m_Elements.Remove(element.Id);
+                }
+            }
+
             foreach (EATree element in m_Elements.Values) {
                 if (element.ParentId != null) {
                     EATree parent = m_Elements[element.ParentId];
