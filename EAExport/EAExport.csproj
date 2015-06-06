@@ -49,8 +49,10 @@
     <Compile Include="EAExportForm.Designer.cs">
       <DependentUpon>EAExportForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\CsvDoorsTreeExport.cs" />
     <Compile Include="Model\EAModel.cs" />
     <Compile Include="Model\EATree.cs" />
+    <Compile Include="Model\ITreeExport.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="EAExportForm.resx">

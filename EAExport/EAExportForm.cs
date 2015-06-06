@@ -34,6 +34,7 @@ namespace EAExport
             string fileName = openDialog.FileName;
 
             eaModel = Model.EAModel.LoadXmi(fileName);
+            mnuFileExportCsv.Enabled = true;
             BuildTree();
         }
 
@@ -88,6 +89,29 @@ namespace EAExport
         private void mnuFileExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void mnuFileExportCsv_Click(object sender, EventArgs e)
+        {
+            Model.EATree element;
+            if (treXmiStructure.SelectedNode == null) {
+                element = eaModel.Root;
+            } else {
+                element = treXmiStructure.SelectedNode.Tag as Model.EATree;
+            }
+            if (element == null) return;
+
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.CheckPathExists = true;
+            saveDialog.DefaultExt = "csv";
+            saveDialog.Filter = "CSV (*.csv)|*.csv";
+            saveDialog.Title = "Save CSV File";
+            saveDialog.ShowDialog();
+            string fileName = saveDialog.FileName;
+
+            Model.ITreeExport exportFormat = new Model.CsvDoorsTreeExport(fileName);
+            exportFormat.ExportTree(element, false);
+            exportFormat.Dispose();
         }
     }
 }

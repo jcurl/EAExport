@@ -190,12 +190,14 @@
             // 
             // mnuFileExportCsv
             // 
+            this.mnuFileExportCsv.Enabled = false;
             this.mnuFileExportCsv.Image = global::EAExport.Properties.Resources.SaveAs;
             this.mnuFileExportCsv.Name = "mnuFileExportCsv";
             this.mnuFileExportCsv.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
             this.mnuFileExportCsv.Size = new System.Drawing.Size(203, 22);
             this.mnuFileExportCsv.Text = "&Export CSV";
+            this.mnuFileExportCsv.Click += new System.EventHandler(this.mnuFileExportCsv_Click);
             // 
             // mnuFileExit
             // 
