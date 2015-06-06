@@ -72,6 +72,10 @@ namespace EAExport.Model
         {
             Console.WriteLine("{0}", xmlReader.Name);
 
+            if (!xmlReader["xmi.version"].Equals("1.1")) {
+                throw new FileFormatException("Unexpected version. Got " + xmlReader["xmi.version"] + "; expected 1.1");
+            }
+
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
 
