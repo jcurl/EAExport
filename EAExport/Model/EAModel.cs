@@ -71,6 +71,7 @@ namespace EAExport.Model
         private void LoadXmiRoot(XmlReader xmlReader)
         {
             Console.WriteLine("{0}", xmlReader.Name);
+
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
 
@@ -97,6 +98,7 @@ namespace EAExport.Model
         private void LoadXmiContent(XmlReader xmlReader)
         {
             Console.WriteLine("{0}", xmlReader.Name);
+
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
 
@@ -161,6 +163,7 @@ namespace EAExport.Model
         private void LoadUmlNamespaceOwnedElement(XmlReader xmlReader, EATree parent)
         {
             Console.WriteLine("{0}", xmlReader.Name);
+
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
 
@@ -223,6 +226,7 @@ namespace EAExport.Model
         private void LoadUmlCollaboration(XmlReader xmlReader, EATree parent)
         {
             Console.WriteLine("{0}", xmlReader.Name);
+
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
 
@@ -280,6 +284,7 @@ namespace EAExport.Model
         private void LoadUmlModelElementTaggedValue(XmlReader xmlReader, EATree parent)
         {
             Console.WriteLine("{0}", xmlReader.Name);
+
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
 
@@ -300,6 +305,10 @@ namespace EAExport.Model
                             tpos = xmlReader["value"];
                         } else if (xmlReader["tag"].Equals("documentation")) {
                             text = xmlReader["value"];
+                        }
+
+                        if (!xmlReader.IsEmptyElement) {
+                            ReadIgnoreSubElements(xmlReader);
                         }
                     } else {
                         ReadIgnoreSubElements(xmlReader);
