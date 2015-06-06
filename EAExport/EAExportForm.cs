@@ -16,6 +16,7 @@ namespace EAExport
         public frmEAExport()
         {
             InitializeComponent();
+            Text = Text + " (version " + typeof(frmEAExport).Assembly.GetName().Version + ")";
         }
 
         private void mnuFileOpenXmi_Click(object sender, EventArgs e)
