@@ -84,5 +84,10 @@ namespace EAExport
             txtIdentifier.Text = element.Id;
             txtNotes.Text = element.Text;
         }
+
+        private void mnuFileExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

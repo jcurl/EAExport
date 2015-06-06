@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEAExport));
             this.mnuStrip = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treXmiStructure = new System.Windows.Forms.TreeView();
             this.imgIcons = new System.Windows.Forms.ImageList(this.components);
@@ -44,6 +43,7 @@
             this.mnuDash1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFileOpenXmi = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileExportCsv = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -71,14 +71,6 @@
             this.mnuFile.Name = "mnuFile";
             this.mnuFile.Size = new System.Drawing.Size(37, 20);
             this.mnuFile.Text = "&File";
-            // 
-            // mnuFileExit
-            // 
-            this.mnuFileExit.Image = global::EAExport.Properties.Resources.Exit;
-            this.mnuFileExit.Name = "mnuFileExit";
-            this.mnuFileExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.mnuFileExit.Size = new System.Drawing.Size(203, 22);
-            this.mnuFileExit.Text = "E&xit";
             // 
             // splitContainer1
             // 
@@ -204,6 +196,15 @@
             | System.Windows.Forms.Keys.S)));
             this.mnuFileExportCsv.Size = new System.Drawing.Size(203, 22);
             this.mnuFileExportCsv.Text = "&Export CSV";
+            // 
+            // mnuFileExit
+            // 
+            this.mnuFileExit.Image = global::EAExport.Properties.Resources.Exit;
+            this.mnuFileExit.Name = "mnuFileExit";
+            this.mnuFileExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.mnuFileExit.Size = new System.Drawing.Size(203, 22);
+            this.mnuFileExit.Text = "E&xit";
+            this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
             // 
             // frmEAExport
             // 
