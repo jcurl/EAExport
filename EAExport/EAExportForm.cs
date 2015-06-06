@@ -61,10 +61,13 @@ namespace EAExport
 
             if (element.Id.StartsWith("MX_EAID_")) {
                 node.ImageKey = "Model";
+                node.SelectedImageKey = "Model";
             } else if (element.Id.StartsWith("EAPK")) {
                 node.ImageKey = "Specification";
+                node.SelectedImageKey = "Specification";
             } else {
                 node.ImageKey = "Requirement";
+                node.SelectedImageKey = "Requirement";
             }
 
             foreach (Model.EATree child in element.Children) {
