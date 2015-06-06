@@ -215,6 +215,7 @@
             this.ClientSize = new System.Drawing.Size(654, 427);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.mnuStrip);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuStrip;
             this.Name = "frmEAExport";
             this.Text = "EA XMI Export Tool";
