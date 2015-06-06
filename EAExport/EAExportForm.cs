@@ -32,10 +32,17 @@ namespace EAExport
             openDialog.Title = "Open XMI File";
             openDialog.ShowDialog();
             string fileName = openDialog.FileName;
+            if (string.IsNullOrWhiteSpace(fileName)) return;
 
-            eaModel = Model.EAModel.LoadXmi(fileName);
-            mnuFileExportCsv.Enabled = true;
-            BuildTree();
+            try {
+                Model.EAModel loadModel = Model.EAModel.LoadXmi(fileName);
+                mnuFileExportCsv.Enabled = true;
+                eaModel = loadModel;
+                BuildTree();
+            } catch (System.Exception exception) {
+                EATrace.XmiImport(System.Diagnostics.TraceEventType.Warning, "EAExport Load Failure: {0}", exception.Message);
+                MessageBox.Show(exception.Message, "EAExport Load Failure");
+            }
         }
 
         private void BuildTree()
@@ -108,10 +115,16 @@ namespace EAExport
             saveDialog.Title = "Save CSV File";
             saveDialog.ShowDialog();
             string fileName = saveDialog.FileName;
+            if (string.IsNullOrWhiteSpace(fileName)) return;
 
-            Model.ITreeExport exportFormat = new Model.CsvDoorsTreeExport(fileName);
-            exportFormat.ExportTree(element, false);
-            exportFormat.Dispose();
+            try {
+                using (Model.ITreeExport exportFormat = new Model.CsvDoorsTreeExport(fileName)) {
+                    exportFormat.ExportTree(element, false);
+                }
+            } catch (System.Exception exception) {
+                EATrace.XmiImport(System.Diagnostics.TraceEventType.Warning, "EAExport CSV Export Failure: {0}", exception.Message);
+                MessageBox.Show(exception.Message, "EAExport CSV Export Failure");
+            }
         }
     }
 }
