@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -22,31 +23,25 @@ namespace EAExport.Model
         public static EAModel LoadXmi(string fileName)
         {
             EAModel model = new EAModel();
-            using (XmlReader xmlReader = XmlReader.Create(fileName, ReadXmlSettings())) {
+
+            EATrace.XmiImport(TraceEventType.Information, "Time: {0}", DateTime.Now.ToString("G"));
+            EATrace.XmiImport(TraceEventType.Information, "Loading file {0}", fileName);
+            using (XmlTextReader xmlReader = new XmlTextReader(fileName)) {
                 model.LoadXmi(xmlReader);
                 model.BuildTree();
                 return model;
             }
         }
 
-        /// <summary>
-        /// The default XML settings when reading the local configuration.
-        /// </summary>
-        /// <returns>The settings for reading.</returns>
-        private static XmlReaderSettings ReadXmlSettings()
+        private void FileFormatException(string format, params object[] args)
         {
-            XmlReaderSettings xmlSettings = new XmlReaderSettings();
-            xmlSettings.IgnoreComments = true;
-            xmlSettings.ConformanceLevel = ConformanceLevel.Document;
-            xmlSettings.ValidationType = ValidationType.None;
-            xmlSettings.ValidationFlags = XmlSchemaValidationFlags.ReportValidationWarnings;
-            xmlSettings.ValidationEventHandler += xmlSettings_ValidationEventHandler;
-            return xmlSettings;
+            FileFormatException(null, format, args);
         }
 
-        private static void xmlSettings_ValidationEventHandler(object sender, ValidationEventArgs e)
+        private void FileFormatException(XmlReader xmlReader, string format, params object[] args)
         {
-            throw new InvalidDataException("Can't parse this XMI file");
+            string message = EATrace.XmiImport(xmlReader, TraceEventType.Warning, format, args);
+            throw new FileFormatException(message);
         }
 
         private void LoadXmi(XmlReader xmlReader)
@@ -70,10 +65,11 @@ namespace EAExport.Model
 
         private void LoadXmiRoot(XmlReader xmlReader)
         {
-            Console.WriteLine("{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
 
             if (!xmlReader["xmi.version"].Equals("1.1")) {
-                throw new FileFormatException("Unexpected version. Got " + xmlReader["xmi.version"] + "; expected 1.1");
+                FileFormatException(xmlReader, "Unexpected version. Got {0}; Expected 1.1", xmlReader["xmi.version"]);
+                return;
             }
 
             if (xmlReader.IsEmptyElement) return;
@@ -92,16 +88,17 @@ namespace EAExport.Model
                     break;
                 case XmlNodeType.EndElement:
                     if (xmlReader.Name.Equals(endElement)) return;
-                    throw new FileFormatException("Invalid configuration XML format (expected </" + endElement + ">)");
+                    FileFormatException(xmlReader, "Invalid XML format (expected </{0}>)", endElement);
+                    return;
                 }
             }
 
-            throw new FileFormatException("Unexpected end of stream");
+            FileFormatException(xmlReader, "Unexpected end of stream");
         }
 
         private void LoadXmiContent(XmlReader xmlReader)
         {
-            Console.WriteLine("{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
 
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
@@ -119,16 +116,17 @@ namespace EAExport.Model
                     break;
                 case XmlNodeType.EndElement:
                     if (xmlReader.Name.Equals(endElement)) return;
-                    throw new FileFormatException("Invalid configuration XML format (expected </" + endElement + ">)");
+                    FileFormatException(xmlReader, "Invalid XML format (expected </{0}>)", endElement);
+                    return;
                 }
             }
 
-            throw new FileFormatException("Unexpected end of stream");
+            FileFormatException(xmlReader, "Unexpected end of stream");
         }
 
         private void LoadUmlModel(XmlReader xmlReader)
         {
-            Console.WriteLine("{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
 
             EATree element;
             if (Root == null) {
@@ -157,16 +155,17 @@ namespace EAExport.Model
                     break;
                 case XmlNodeType.EndElement:
                     if (xmlReader.Name.Equals(endElement)) return;
-                    throw new FileFormatException("Invalid configuration XML format (expected </" + endElement + ">)");
+                    FileFormatException(xmlReader, "Invalid XML format (expected </{0}>)", endElement);
+                    return;
                 }
             }
 
-            throw new FileFormatException("Unexpected end of stream");
+            FileFormatException(xmlReader, "Unexpected end of stream");
         }
 
         private void LoadUmlNamespaceOwnedElement(XmlReader xmlReader, EATree parent)
         {
-            Console.WriteLine("{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
 
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
@@ -188,16 +187,17 @@ namespace EAExport.Model
                     break;
                 case XmlNodeType.EndElement:
                     if (xmlReader.Name.Equals(endElement)) return;
-                    throw new FileFormatException("Invalid configuration XML format (expected </" + endElement + ">)");
+                    FileFormatException(xmlReader, "Invalid configuration XML format (expected </{0}>)", endElement);
+                    return;
                 }
             }
 
-            throw new FileFormatException("Unexpected end of stream");
+            FileFormatException(xmlReader, "Unexpected end of stream");
         }
 
         private void LoadUmlPackage(XmlReader xmlReader, EATree parent)
         {
-            Console.WriteLine("{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
 
             EATree package = new EATree(parent.Id, xmlReader["xmi.id"], xmlReader["name"], string.Empty, 0);
             AddElement(package);
@@ -220,16 +220,17 @@ namespace EAExport.Model
                     break;
                 case XmlNodeType.EndElement:
                     if (xmlReader.Name.Equals(endElement)) return;
-                    throw new FileFormatException("Invalid configuration XML format (expected </" + endElement + ">)");
+                    FileFormatException(xmlReader, "Invalid configuration XML format (expected </{0}>)", endElement);
+                    return;
                 }
             }
 
-            throw new FileFormatException("Unexpected end of stream");
+            FileFormatException(xmlReader, "Unexpected end of stream");
         }
 
         private void LoadUmlCollaboration(XmlReader xmlReader, EATree parent)
         {
-            Console.WriteLine("{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
 
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
@@ -247,16 +248,17 @@ namespace EAExport.Model
                     break;
                 case XmlNodeType.EndElement:
                     if (xmlReader.Name.Equals(endElement)) return;
-                    throw new FileFormatException("Invalid configuration XML format (expected </" + endElement + ">)");
+                    FileFormatException(xmlReader, "Invalid configuration XML format (expected </{0}>)", endElement);
+                    return;
                 }
             }
 
-            throw new FileFormatException("Unexpected end of stream");
+            FileFormatException(xmlReader, "Unexpected end of stream");
         }
 
         private void LoadUmlClassifierRole(XmlReader xmlReader, EATree parent)
         {
-            Console.WriteLine("{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
 
             // We can only tell the parent after parsing the tagged values.
             EATree element = new EATree(xmlReader["xmi.id"], xmlReader["name"], string.Empty, 0);
@@ -278,16 +280,17 @@ namespace EAExport.Model
                     break;
                 case XmlNodeType.EndElement:
                     if (xmlReader.Name.Equals(endElement)) return;
-                    throw new FileFormatException("Invalid configuration XML format (expected </" + endElement + ">)");
+                    FileFormatException(xmlReader, "Invalid configuration XML format (expected </{0}>)", endElement);
+                    return;
                 }
             }
 
-            throw new FileFormatException("Unexpected end of stream");
+            FileFormatException(xmlReader, "Unexpected end of stream");
         }
 
         private void LoadUmlModelElementTaggedValue(XmlReader xmlReader, EATree parent)
         {
-            Console.WriteLine("{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
 
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
@@ -303,6 +306,7 @@ namespace EAExport.Model
                 switch (xmlReader.NodeType) {
                 case XmlNodeType.Element:
                     if (xmlReader.Name.Equals("UML:TaggedValue")) {
+                        EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "Tagged Value: {0} = {1}", xmlReader["tag"], xmlReader["value"]);
                         if (xmlReader["tag"].Equals("owner")) {
                             owner = xmlReader["value"];
                         } else if (xmlReader["tag"].Equals("package")) {
@@ -346,11 +350,12 @@ namespace EAExport.Model
                         parent.Text = text;
                         return;
                     }
-                    throw new FileFormatException("Invalid configuration XML format (expected </" + endElement + ">)");
+                    FileFormatException(xmlReader, "Invalid configuration XML format (expected </{0}>)", endElement);
+                    return;
                 }
             }
 
-            throw new FileFormatException("Unexpected end of stream");
+            FileFormatException(xmlReader, "Unexpected end of stream");
         }
 
         /// <summary>
@@ -369,9 +374,13 @@ namespace EAExport.Model
         {
             if (xmlReader == null) return;
 
+            EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "{0} - Ignoring", xmlReader.Name);
+
             if (xmlReader.NodeType != XmlNodeType.Element) {
-                throw new FileFormatException("Expected NodeType of Element");
+                FileFormatException(xmlReader, "Expected NodeType of Element");
+                return;
             }
+
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
             Stack<string> subElements = new Stack<string>();
@@ -388,12 +397,14 @@ namespace EAExport.Model
                 case XmlNodeType.EndElement:
                     if (subElements.Count == 0) {
                         if (xmlReader.Name.Equals(endElement)) return;
-                        throw new FileFormatException("Invalid tag " + xmlReader.Name + ", expecting " + endElement);
+                        FileFormatException(xmlReader, "Invalid tag {0}, expecting {1}", xmlReader.Name, endElement);
+                        return;
                     } else {
                         if (xmlReader.Name.Equals(subElements.Peek())) {
                             subElements.Pop();
                         } else {
-                            throw new FileFormatException("Invalid tag " + xmlReader.Name + ", expecting " + subElements.Peek());
+                            FileFormatException(xmlReader, "Invalid tag {0}, expecting {1}", xmlReader.Name, subElements.Peek());
+                            return;
                         }
                     }
                     break;
@@ -407,8 +418,10 @@ namespace EAExport.Model
 
         private void AddElement(EATree element)
         {
-            if (m_Elements.ContainsKey(element.Id))
-                throw new FileFormatException("XMI malformed, XMI.ID " + element.Id + " occurs multiple times");
+            if (m_Elements.ContainsKey(element.Id)) {
+                FileFormatException("XMI malformed, XMI.ID {0} occurs multiple times", element.Id);
+                return;
+            }
             m_Elements.Add(element.Id, element);
         }
 
