@@ -31,18 +31,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEAExport));
             this.mnuStrip = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuFileOpenXmi = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuFileExportCsv = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treXmiStructure = new System.Windows.Forms.TreeView();
-            this.lblHeading = new System.Windows.Forms.Label();
-            this.lblIdentifier = new System.Windows.Forms.Label();
-            this.lblNotes = new System.Windows.Forms.Label();
-            this.txtHeading = new System.Windows.Forms.TextBox();
-            this.txtIdentifier = new System.Windows.Forms.TextBox();
-            this.txtNotes = new System.Windows.Forms.TextBox();
             this.imgIcons = new System.Windows.Forms.ImageList(this.components);
+            this.txtNotes = new System.Windows.Forms.TextBox();
+            this.txtIdentifier = new System.Windows.Forms.TextBox();
+            this.txtHeading = new System.Windows.Forms.TextBox();
+            this.lblNotes = new System.Windows.Forms.Label();
+            this.lblIdentifier = new System.Windows.Forms.Label();
+            this.lblHeading = new System.Windows.Forms.Label();
+            this.mnuDash1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuFileOpenXmi = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileExportCsv = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -65,28 +66,18 @@
             this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFileOpenXmi,
             this.mnuFileExportCsv,
+            this.mnuDash1,
             this.mnuFileExit});
             this.mnuFile.Name = "mnuFile";
             this.mnuFile.Size = new System.Drawing.Size(37, 20);
             this.mnuFile.Text = "&File";
             // 
-            // mnuFileOpenXmi
-            // 
-            this.mnuFileOpenXmi.Name = "mnuFileOpenXmi";
-            this.mnuFileOpenXmi.Size = new System.Drawing.Size(131, 22);
-            this.mnuFileOpenXmi.Text = "&Open XMI";
-            this.mnuFileOpenXmi.Click += new System.EventHandler(this.mnuFileOpenXmi_Click);
-            // 
-            // mnuFileExportCsv
-            // 
-            this.mnuFileExportCsv.Name = "mnuFileExportCsv";
-            this.mnuFileExportCsv.Size = new System.Drawing.Size(131, 22);
-            this.mnuFileExportCsv.Text = "&Export CSV";
-            // 
             // mnuFileExit
             // 
+            this.mnuFileExit.Image = global::EAExport.Properties.Resources.Exit;
             this.mnuFileExit.Name = "mnuFileExit";
-            this.mnuFileExit.Size = new System.Drawing.Size(131, 22);
+            this.mnuFileExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.mnuFileExit.Size = new System.Drawing.Size(203, 22);
             this.mnuFileExit.Text = "E&xit";
             // 
             // splitContainer1
@@ -126,50 +117,13 @@
             this.treXmiStructure.TabIndex = 2;
             this.treXmiStructure.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treXmiStructure_AfterSelect);
             // 
-            // lblHeading
+            // imgIcons
             // 
-            this.lblHeading.Location = new System.Drawing.Point(12, 0);
-            this.lblHeading.Name = "lblHeading";
-            this.lblHeading.Size = new System.Drawing.Size(65, 17);
-            this.lblHeading.TabIndex = 0;
-            this.lblHeading.Text = "Heading: ";
-            this.lblHeading.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblIdentifier
-            // 
-            this.lblIdentifier.Location = new System.Drawing.Point(21, 26);
-            this.lblIdentifier.Name = "lblIdentifier";
-            this.lblIdentifier.Size = new System.Drawing.Size(56, 17);
-            this.lblIdentifier.TabIndex = 1;
-            this.lblIdentifier.Text = "Identifier: ";
-            this.lblIdentifier.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblNotes
-            // 
-            this.lblNotes.Location = new System.Drawing.Point(24, 49);
-            this.lblNotes.Name = "lblNotes";
-            this.lblNotes.Size = new System.Drawing.Size(53, 16);
-            this.lblNotes.TabIndex = 2;
-            this.lblNotes.Text = "Notes: ";
-            this.lblNotes.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // txtHeading
-            // 
-            this.txtHeading.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtHeading.Location = new System.Drawing.Point(83, -3);
-            this.txtHeading.Name = "txtHeading";
-            this.txtHeading.Size = new System.Drawing.Size(568, 20);
-            this.txtHeading.TabIndex = 3;
-            // 
-            // txtIdentifier
-            // 
-            this.txtIdentifier.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIdentifier.Location = new System.Drawing.Point(83, 23);
-            this.txtIdentifier.Name = "txtIdentifier";
-            this.txtIdentifier.Size = new System.Drawing.Size(568, 20);
-            this.txtIdentifier.TabIndex = 4;
+            this.imgIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgIcons.ImageStream")));
+            this.imgIcons.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgIcons.Images.SetKeyName(0, "Model");
+            this.imgIcons.Images.SetKeyName(1, "Requirement");
+            this.imgIcons.Images.SetKeyName(2, "Specification");
             // 
             // txtNotes
             // 
@@ -182,13 +136,74 @@
             this.txtNotes.Size = new System.Drawing.Size(568, 154);
             this.txtNotes.TabIndex = 5;
             // 
-            // imgIcons
+            // txtIdentifier
             // 
-            this.imgIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgIcons.ImageStream")));
-            this.imgIcons.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgIcons.Images.SetKeyName(0, "Model");
-            this.imgIcons.Images.SetKeyName(1, "Requirement");
-            this.imgIcons.Images.SetKeyName(2, "Specification");
+            this.txtIdentifier.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtIdentifier.Location = new System.Drawing.Point(83, 23);
+            this.txtIdentifier.Name = "txtIdentifier";
+            this.txtIdentifier.Size = new System.Drawing.Size(568, 20);
+            this.txtIdentifier.TabIndex = 4;
+            // 
+            // txtHeading
+            // 
+            this.txtHeading.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtHeading.Location = new System.Drawing.Point(83, -3);
+            this.txtHeading.Name = "txtHeading";
+            this.txtHeading.Size = new System.Drawing.Size(568, 20);
+            this.txtHeading.TabIndex = 3;
+            // 
+            // lblNotes
+            // 
+            this.lblNotes.Location = new System.Drawing.Point(24, 49);
+            this.lblNotes.Name = "lblNotes";
+            this.lblNotes.Size = new System.Drawing.Size(53, 16);
+            this.lblNotes.TabIndex = 2;
+            this.lblNotes.Text = "Notes: ";
+            this.lblNotes.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblIdentifier
+            // 
+            this.lblIdentifier.Location = new System.Drawing.Point(21, 26);
+            this.lblIdentifier.Name = "lblIdentifier";
+            this.lblIdentifier.Size = new System.Drawing.Size(56, 17);
+            this.lblIdentifier.TabIndex = 1;
+            this.lblIdentifier.Text = "Identifier: ";
+            this.lblIdentifier.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblHeading
+            // 
+            this.lblHeading.Location = new System.Drawing.Point(12, 0);
+            this.lblHeading.Name = "lblHeading";
+            this.lblHeading.Size = new System.Drawing.Size(65, 17);
+            this.lblHeading.TabIndex = 0;
+            this.lblHeading.Text = "Heading: ";
+            this.lblHeading.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // mnuDash1
+            // 
+            this.mnuDash1.Name = "mnuDash1";
+            this.mnuDash1.Size = new System.Drawing.Size(200, 6);
+            // 
+            // mnuFileOpenXmi
+            // 
+            this.mnuFileOpenXmi.Image = global::EAExport.Properties.Resources.Open;
+            this.mnuFileOpenXmi.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.mnuFileOpenXmi.Name = "mnuFileOpenXmi";
+            this.mnuFileOpenXmi.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.mnuFileOpenXmi.Size = new System.Drawing.Size(203, 22);
+            this.mnuFileOpenXmi.Text = "&Open XMI";
+            this.mnuFileOpenXmi.Click += new System.EventHandler(this.mnuFileOpenXmi_Click);
+            // 
+            // mnuFileExportCsv
+            // 
+            this.mnuFileExportCsv.Image = global::EAExport.Properties.Resources.SaveAs;
+            this.mnuFileExportCsv.Name = "mnuFileExportCsv";
+            this.mnuFileExportCsv.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.mnuFileExportCsv.Size = new System.Drawing.Size(203, 22);
+            this.mnuFileExportCsv.Text = "&Export CSV";
             // 
             // frmEAExport
             // 
@@ -228,6 +243,7 @@
         private System.Windows.Forms.Label lblIdentifier;
         private System.Windows.Forms.Label lblHeading;
         private System.Windows.Forms.ImageList imgIcons;
+        private System.Windows.Forms.ToolStripSeparator mnuDash1;
     }
 }
 
