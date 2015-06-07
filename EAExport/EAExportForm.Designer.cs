@@ -31,19 +31,19 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEAExport));
             this.mnuStrip = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileOpenXmi = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileExportCsv = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDash1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treXmiStructure = new System.Windows.Forms.TreeView();
             this.imgIcons = new System.Windows.Forms.ImageList(this.components);
-            this.txtNotes = new System.Windows.Forms.TextBox();
             this.txtIdentifier = new System.Windows.Forms.TextBox();
             this.txtHeading = new System.Windows.Forms.TextBox();
             this.lblNotes = new System.Windows.Forms.Label();
             this.lblIdentifier = new System.Windows.Forms.Label();
             this.lblHeading = new System.Windows.Forms.Label();
-            this.mnuDash1 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuFileOpenXmi = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuFileExportCsv = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.htmlNotes = new TheArtOfDev.HtmlRenderer.WinForms.HtmlPanel();
             this.mnuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -72,6 +72,41 @@
             this.mnuFile.Size = new System.Drawing.Size(37, 20);
             this.mnuFile.Text = "&File";
             // 
+            // mnuFileOpenXmi
+            // 
+            this.mnuFileOpenXmi.Image = global::EAExport.Properties.Resources.Open;
+            this.mnuFileOpenXmi.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.mnuFileOpenXmi.Name = "mnuFileOpenXmi";
+            this.mnuFileOpenXmi.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.mnuFileOpenXmi.Size = new System.Drawing.Size(203, 22);
+            this.mnuFileOpenXmi.Text = "&Open XMI";
+            this.mnuFileOpenXmi.Click += new System.EventHandler(this.mnuFileOpenXmi_Click);
+            // 
+            // mnuFileExportCsv
+            // 
+            this.mnuFileExportCsv.Enabled = false;
+            this.mnuFileExportCsv.Image = global::EAExport.Properties.Resources.SaveAs;
+            this.mnuFileExportCsv.Name = "mnuFileExportCsv";
+            this.mnuFileExportCsv.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.mnuFileExportCsv.Size = new System.Drawing.Size(203, 22);
+            this.mnuFileExportCsv.Text = "&Export CSV";
+            this.mnuFileExportCsv.Click += new System.EventHandler(this.mnuFileExportCsv_Click);
+            // 
+            // mnuDash1
+            // 
+            this.mnuDash1.Name = "mnuDash1";
+            this.mnuDash1.Size = new System.Drawing.Size(200, 6);
+            // 
+            // mnuFileExit
+            // 
+            this.mnuFileExit.Image = global::EAExport.Properties.Resources.Exit;
+            this.mnuFileExit.Name = "mnuFileExit";
+            this.mnuFileExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.mnuFileExit.Size = new System.Drawing.Size(203, 22);
+            this.mnuFileExit.Text = "E&xit";
+            this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -85,7 +120,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.txtNotes);
+            this.splitContainer1.Panel2.Controls.Add(this.htmlNotes);
             this.splitContainer1.Panel2.Controls.Add(this.txtIdentifier);
             this.splitContainer1.Panel2.Controls.Add(this.txtHeading);
             this.splitContainer1.Panel2.Controls.Add(this.lblNotes);
@@ -117,23 +152,14 @@
             this.imgIcons.Images.SetKeyName(1, "Requirement");
             this.imgIcons.Images.SetKeyName(2, "Specification");
             // 
-            // txtNotes
-            // 
-            this.txtNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNotes.Location = new System.Drawing.Point(83, 49);
-            this.txtNotes.Multiline = true;
-            this.txtNotes.Name = "txtNotes";
-            this.txtNotes.Size = new System.Drawing.Size(568, 154);
-            this.txtNotes.TabIndex = 5;
-            // 
             // txtIdentifier
             // 
             this.txtIdentifier.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtIdentifier.BackColor = System.Drawing.SystemColors.Window;
             this.txtIdentifier.Location = new System.Drawing.Point(83, 23);
             this.txtIdentifier.Name = "txtIdentifier";
+            this.txtIdentifier.ReadOnly = true;
             this.txtIdentifier.Size = new System.Drawing.Size(568, 20);
             this.txtIdentifier.TabIndex = 4;
             // 
@@ -141,8 +167,10 @@
             // 
             this.txtHeading.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtHeading.BackColor = System.Drawing.SystemColors.Window;
             this.txtHeading.Location = new System.Drawing.Point(83, -3);
             this.txtHeading.Name = "txtHeading";
+            this.txtHeading.ReadOnly = true;
             this.txtHeading.Size = new System.Drawing.Size(568, 20);
             this.txtHeading.TabIndex = 3;
             // 
@@ -173,40 +201,20 @@
             this.lblHeading.Text = "Heading: ";
             this.lblHeading.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // mnuDash1
+            // htmlNotes
             // 
-            this.mnuDash1.Name = "mnuDash1";
-            this.mnuDash1.Size = new System.Drawing.Size(200, 6);
-            // 
-            // mnuFileOpenXmi
-            // 
-            this.mnuFileOpenXmi.Image = global::EAExport.Properties.Resources.Open;
-            this.mnuFileOpenXmi.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.mnuFileOpenXmi.Name = "mnuFileOpenXmi";
-            this.mnuFileOpenXmi.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.mnuFileOpenXmi.Size = new System.Drawing.Size(203, 22);
-            this.mnuFileOpenXmi.Text = "&Open XMI";
-            this.mnuFileOpenXmi.Click += new System.EventHandler(this.mnuFileOpenXmi_Click);
-            // 
-            // mnuFileExportCsv
-            // 
-            this.mnuFileExportCsv.Enabled = false;
-            this.mnuFileExportCsv.Image = global::EAExport.Properties.Resources.SaveAs;
-            this.mnuFileExportCsv.Name = "mnuFileExportCsv";
-            this.mnuFileExportCsv.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.S)));
-            this.mnuFileExportCsv.Size = new System.Drawing.Size(203, 22);
-            this.mnuFileExportCsv.Text = "&Export CSV";
-            this.mnuFileExportCsv.Click += new System.EventHandler(this.mnuFileExportCsv_Click);
-            // 
-            // mnuFileExit
-            // 
-            this.mnuFileExit.Image = global::EAExport.Properties.Resources.Exit;
-            this.mnuFileExit.Name = "mnuFileExit";
-            this.mnuFileExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.mnuFileExit.Size = new System.Drawing.Size(203, 22);
-            this.mnuFileExit.Text = "E&xit";
-            this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
+            this.htmlNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.htmlNotes.AutoScroll = true;
+            this.htmlNotes.BackColor = System.Drawing.SystemColors.Window;
+            this.htmlNotes.BaseStylesheet = null;
+            this.htmlNotes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.htmlNotes.Location = new System.Drawing.Point(83, 49);
+            this.htmlNotes.Name = "htmlNotes";
+            this.htmlNotes.Size = new System.Drawing.Size(568, 154);
+            this.htmlNotes.TabIndex = 5;
+            this.htmlNotes.UseSystemCursors = true;
             // 
             // frmEAExport
             // 
@@ -217,6 +225,7 @@
             this.Controls.Add(this.mnuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuStrip;
+            this.MinimumSize = new System.Drawing.Size(320, 240);
             this.Name = "frmEAExport";
             this.Text = "EA XMI Export Tool";
             this.mnuStrip.ResumeLayout(false);
@@ -240,7 +249,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuFileExit;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView treXmiStructure;
-        private System.Windows.Forms.TextBox txtNotes;
         private System.Windows.Forms.TextBox txtIdentifier;
         private System.Windows.Forms.TextBox txtHeading;
         private System.Windows.Forms.Label lblNotes;
@@ -248,6 +256,7 @@
         private System.Windows.Forms.Label lblHeading;
         private System.Windows.Forms.ImageList imgIcons;
         private System.Windows.Forms.ToolStripSeparator mnuDash1;
+        private TheArtOfDev.HtmlRenderer.WinForms.HtmlPanel htmlNotes;
     }
 }
 

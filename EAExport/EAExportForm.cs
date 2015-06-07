@@ -90,7 +90,7 @@ namespace EAExport
 
             txtHeading.Text = element.Heading;
             txtIdentifier.Text = element.Id;
-            txtNotes.Text = element.Text;
+            htmlNotes.Text = element.Text;
         }
 
         private void mnuFileExit_Click(object sender, EventArgs e)
