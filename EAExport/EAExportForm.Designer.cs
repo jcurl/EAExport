@@ -38,12 +38,14 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treXmiStructure = new System.Windows.Forms.TreeView();
             this.imgIcons = new System.Windows.Forms.ImageList(this.components);
+            this.htmlNotes = new TheArtOfDev.HtmlRenderer.WinForms.HtmlPanel();
             this.txtIdentifier = new System.Windows.Forms.TextBox();
             this.txtHeading = new System.Windows.Forms.TextBox();
             this.lblNotes = new System.Windows.Forms.Label();
             this.lblIdentifier = new System.Windows.Forms.Label();
             this.lblHeading = new System.Windows.Forms.Label();
-            this.htmlNotes = new TheArtOfDev.HtmlRenderer.WinForms.HtmlPanel();
+            this.lblAlias = new System.Windows.Forms.Label();
+            this.txtAlias = new System.Windows.Forms.TextBox();
             this.mnuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -57,7 +59,7 @@
             this.mnuFile});
             this.mnuStrip.Location = new System.Drawing.Point(0, 0);
             this.mnuStrip.Name = "mnuStrip";
-            this.mnuStrip.Size = new System.Drawing.Size(654, 24);
+            this.mnuStrip.Size = new System.Drawing.Size(540, 24);
             this.mnuStrip.TabIndex = 0;
             this.mnuStrip.Text = "menuStrip1";
             // 
@@ -120,14 +122,16 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.txtAlias);
+            this.splitContainer1.Panel2.Controls.Add(this.lblAlias);
             this.splitContainer1.Panel2.Controls.Add(this.htmlNotes);
             this.splitContainer1.Panel2.Controls.Add(this.txtIdentifier);
             this.splitContainer1.Panel2.Controls.Add(this.txtHeading);
             this.splitContainer1.Panel2.Controls.Add(this.lblNotes);
             this.splitContainer1.Panel2.Controls.Add(this.lblIdentifier);
             this.splitContainer1.Panel2.Controls.Add(this.lblHeading);
-            this.splitContainer1.Size = new System.Drawing.Size(654, 403);
-            this.splitContainer1.SplitterDistance = 193;
+            this.splitContainer1.Size = new System.Drawing.Size(540, 648);
+            this.splitContainer1.SplitterDistance = 245;
             this.splitContainer1.TabIndex = 2;
             // 
             // treXmiStructure
@@ -140,7 +144,7 @@
             this.treXmiStructure.Location = new System.Drawing.Point(3, 3);
             this.treXmiStructure.Name = "treXmiStructure";
             this.treXmiStructure.SelectedImageIndex = 0;
-            this.treXmiStructure.Size = new System.Drawing.Size(648, 187);
+            this.treXmiStructure.Size = new System.Drawing.Size(534, 239);
             this.treXmiStructure.TabIndex = 2;
             this.treXmiStructure.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treXmiStructure_AfterSelect);
             // 
@@ -152,6 +156,22 @@
             this.imgIcons.Images.SetKeyName(1, "Requirement");
             this.imgIcons.Images.SetKeyName(2, "Specification");
             // 
+            // htmlNotes
+            // 
+            this.htmlNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.htmlNotes.AutoScroll = true;
+            this.htmlNotes.BackColor = System.Drawing.SystemColors.Window;
+            this.htmlNotes.BaseStylesheet = null;
+            this.htmlNotes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.htmlNotes.Location = new System.Drawing.Point(83, 75);
+            this.htmlNotes.Name = "htmlNotes";
+            this.htmlNotes.Size = new System.Drawing.Size(454, 321);
+            this.htmlNotes.TabIndex = 5;
+            this.htmlNotes.Text = null;
+            this.htmlNotes.UseSystemCursors = true;
+            // 
             // txtIdentifier
             // 
             this.txtIdentifier.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -160,7 +180,7 @@
             this.txtIdentifier.Location = new System.Drawing.Point(83, 23);
             this.txtIdentifier.Name = "txtIdentifier";
             this.txtIdentifier.ReadOnly = true;
-            this.txtIdentifier.Size = new System.Drawing.Size(568, 20);
+            this.txtIdentifier.Size = new System.Drawing.Size(454, 20);
             this.txtIdentifier.TabIndex = 4;
             // 
             // txtHeading
@@ -171,12 +191,12 @@
             this.txtHeading.Location = new System.Drawing.Point(83, -3);
             this.txtHeading.Name = "txtHeading";
             this.txtHeading.ReadOnly = true;
-            this.txtHeading.Size = new System.Drawing.Size(568, 20);
+            this.txtHeading.Size = new System.Drawing.Size(454, 20);
             this.txtHeading.TabIndex = 3;
             // 
             // lblNotes
             // 
-            this.lblNotes.Location = new System.Drawing.Point(24, 49);
+            this.lblNotes.Location = new System.Drawing.Point(24, 75);
             this.lblNotes.Name = "lblNotes";
             this.lblNotes.Size = new System.Drawing.Size(53, 16);
             this.lblNotes.TabIndex = 2;
@@ -201,26 +221,31 @@
             this.lblHeading.Text = "Heading: ";
             this.lblHeading.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // htmlNotes
+            // lblAlias
             // 
-            this.htmlNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblAlias.AutoSize = true;
+            this.lblAlias.Location = new System.Drawing.Point(42, 52);
+            this.lblAlias.Name = "lblAlias";
+            this.lblAlias.Size = new System.Drawing.Size(35, 13);
+            this.lblAlias.TabIndex = 6;
+            this.lblAlias.Text = "Alias: ";
+            // 
+            // txtAlias
+            // 
+            this.txtAlias.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.htmlNotes.AutoScroll = true;
-            this.htmlNotes.BackColor = System.Drawing.SystemColors.Window;
-            this.htmlNotes.BaseStylesheet = null;
-            this.htmlNotes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.htmlNotes.Location = new System.Drawing.Point(83, 49);
-            this.htmlNotes.Name = "htmlNotes";
-            this.htmlNotes.Size = new System.Drawing.Size(568, 154);
-            this.htmlNotes.TabIndex = 5;
-            this.htmlNotes.UseSystemCursors = true;
+            this.txtAlias.BackColor = System.Drawing.SystemColors.Window;
+            this.txtAlias.Location = new System.Drawing.Point(83, 49);
+            this.txtAlias.Name = "txtAlias";
+            this.txtAlias.ReadOnly = true;
+            this.txtAlias.Size = new System.Drawing.Size(454, 20);
+            this.txtAlias.TabIndex = 7;
             // 
             // frmEAExport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(654, 427);
+            this.ClientSize = new System.Drawing.Size(540, 672);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.mnuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -257,6 +282,8 @@
         private System.Windows.Forms.ImageList imgIcons;
         private System.Windows.Forms.ToolStripSeparator mnuDash1;
         private TheArtOfDev.HtmlRenderer.WinForms.HtmlPanel htmlNotes;
+        private System.Windows.Forms.TextBox txtAlias;
+        private System.Windows.Forms.Label lblAlias;
     }
 }
 

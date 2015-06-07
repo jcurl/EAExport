@@ -59,7 +59,14 @@ namespace EAExport
         {
             TreeNode node;
 
-            node = new TreeNode(element.Heading);
+            string heading;
+            if (string.IsNullOrWhiteSpace(element.Alias)) {
+                heading = element.Heading;
+            } else {
+                heading = string.Format("{0} ({1})", element.Heading, element.Alias);
+            }
+
+            node = new TreeNode(heading);
             node.Tag = element;
             if (parent == null) {
                 treXmiStructure.Nodes.Add(node);
@@ -91,6 +98,7 @@ namespace EAExport
             txtHeading.Text = element.Heading;
             txtIdentifier.Text = element.Id;
             htmlNotes.Text = element.Text;
+            txtAlias.Text = element.Alias;
         }
 
         private void mnuFileExit_Click(object sender, EventArgs e)

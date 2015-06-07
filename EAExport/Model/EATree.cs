@@ -70,6 +70,12 @@ namespace EAExport.Model
         /// <value>The relative position of this object.</value>
         public int Pos { get; set; }
 
+        /// <summary>
+        /// Gets or sets the alias for the object.
+        /// </summary>
+        /// <value>The alias for the object.</value>
+        public string Alias { get; set; }
+
         private LinkedList<EATree> m_Children = new LinkedList<EATree>();
 
         /// <summary>

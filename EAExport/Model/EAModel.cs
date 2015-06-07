@@ -301,6 +301,7 @@ namespace EAExport.Model
             string parentElement = null;
             string tpos = null;
             string text = null;
+            string alias = null;
 
             while (xmlReader.Read()) {
                 switch (xmlReader.NodeType) {
@@ -319,6 +320,8 @@ namespace EAExport.Model
                             package2 = xmlReader["value"];
                         } else if (xmlReader["tag"].Equals("parent")) {
                             parentElement = xmlReader["value"];
+                        } else if (xmlReader["tag"].Equals("alias")) {
+                            alias = xmlReader["value"];
                         }
 
                         if (!xmlReader.IsEmptyElement) {
@@ -348,6 +351,7 @@ namespace EAExport.Model
 
                         if (tpos != null) parent.Pos = int.Parse(tpos);
                         parent.Text = text;
+                        parent.Alias = alias;
                         return;
                     }
                     FileFormatException(xmlReader, "Invalid configuration XML format (expected </{0}>)", endElement);
