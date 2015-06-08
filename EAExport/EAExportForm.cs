@@ -19,6 +19,41 @@ namespace EAExport
             Text = Text + " (version " + typeof(frmEAExport).Assembly.GetName().Version + ")";
         }
 
+        private int m_FormWidthOnLoad;
+        private int m_Text1WidthOnLoad;
+        private int m_Text2WidthOnLoad;
+        private int m_Text2LeftOnLoad;
+        private int m_Label2LeftOnLoad;
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            m_FormWidthOnLoad = Width;
+            m_Text1WidthOnLoad = txtAuthor.Width;
+            m_Text2WidthOnLoad = txtVersion.Width;
+            m_Text2LeftOnLoad = txtVersion.Left;
+            m_Label2LeftOnLoad = lblVersion.Left;
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            if (m_FormWidthOnLoad == 0) return;
+
+            int newWidth = Width;
+
+            txtAuthor.Width = m_Text1WidthOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
+            txtStereotype.Width = m_Text1WidthOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
+            txtVersion.Width = m_Text2WidthOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
+            txtVersion.Left = m_Text2LeftOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
+            txtStatus.Width = m_Text2WidthOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
+            txtStatus.Left = m_Text2LeftOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
+            lblVersion.Left = m_Label2LeftOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
+            lblStatus.Left = m_Label2LeftOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
+        }
+
         private void mnuFileOpenXmi_Click(object sender, EventArgs e)
         {
             OpenFileDialog openDialog = new OpenFileDialog();
@@ -59,14 +94,16 @@ namespace EAExport
         {
             TreeNode node;
 
-            string heading;
-            if (string.IsNullOrWhiteSpace(element.Alias)) {
-                heading = element.Heading;
-            } else {
-                heading = string.Format("{0} ({1})", element.Heading, element.Alias);
+            StringBuilder heading = new StringBuilder();
+            if (!string.IsNullOrWhiteSpace(element.Stereotype)) {
+                heading.Append("«").Append(element.Stereotype).Append("» ");
+            }
+            heading.Append(element.Heading);
+            if (!string.IsNullOrWhiteSpace(element.Alias)) {
+                heading.Append(" (").Append(element.Alias).Append(")");
             }
 
-            node = new TreeNode(heading);
+            node = new TreeNode(heading.ToString());
             node.Tag = element;
             if (parent == null) {
                 treXmiStructure.Nodes.Add(node);
@@ -99,6 +136,10 @@ namespace EAExport
             txtIdentifier.Text = element.Id;
             htmlNotes.Text = element.Text;
             txtAlias.Text = element.Alias;
+            txtAuthor.Text = element.Author;
+            txtStatus.Text = element.Status;
+            txtStereotype.Text = element.Stereotype;
+            txtVersion.Text = element.Version;
         }
 
         private void mnuFileExit_Click(object sender, EventArgs e)

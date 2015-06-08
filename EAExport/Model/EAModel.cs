@@ -211,6 +211,8 @@ namespace EAExport.Model
                     // This is where you would add support for more fields in the configuration file
                     if (xmlReader.Name.Equals("UML:ModelElement.taggedValue")) {
                         LoadUmlModelElementTaggedValue(xmlReader, package);
+                    } else if (xmlReader.Name.Equals("UML:ModelElement.stereotype")) {
+                        LoadUmlModelElementStereotype(xmlReader, package);
                     } else if (xmlReader.Name.Equals("UML:Namespace.ownedElement")) {
                         LoadUmlNamespaceOwnedElement(xmlReader, package);
                     } else {
@@ -273,6 +275,8 @@ namespace EAExport.Model
                     // This is where you would add support for more fields in the configuration file
                     if (xmlReader.Name.Equals("UML:ModelElement.taggedValue")) {
                         LoadUmlModelElementTaggedValue(xmlReader, element);
+                    } else if (xmlReader.Name.Equals("UML:ModelElement.stereotype")) {
+                        LoadUmlModelElementStereotype(xmlReader, element);
                     } else {
                         ReadIgnoreSubElements(xmlReader);
                         break;
@@ -300,8 +304,6 @@ namespace EAExport.Model
             string package2 = null;
             string parentElement = null;
             string tpos = null;
-            string text = null;
-            string alias = null;
 
             while (xmlReader.Read()) {
                 switch (xmlReader.NodeType) {
@@ -315,13 +317,19 @@ namespace EAExport.Model
                         } else if (xmlReader["tag"].Equals("tpos")) {
                             tpos = xmlReader["value"];
                         } else if (xmlReader["tag"].Equals("documentation")) {
-                            text = xmlReader["value"];
+                            parent.Text = xmlReader["value"];
                         } else if (xmlReader["tag"].Equals("package2")) {
                             package2 = xmlReader["value"];
                         } else if (xmlReader["tag"].Equals("parent")) {
                             parentElement = xmlReader["value"];
                         } else if (xmlReader["tag"].Equals("alias")) {
-                            alias = xmlReader["value"];
+                            parent.Alias = xmlReader["value"];
+                        } else if (xmlReader["tag"].Equals("version")) {
+                            parent.Version = xmlReader["value"];
+                        } else if (xmlReader["tag"].Equals("author")) {
+                            parent.Author = xmlReader["value"];
+                        } else if (xmlReader["tag"].Equals("status")) {
+                            parent.Status = xmlReader["value"];
                         }
 
                         if (!xmlReader.IsEmptyElement) {
@@ -350,10 +358,35 @@ namespace EAExport.Model
                         }
 
                         if (tpos != null) parent.Pos = int.Parse(tpos);
-                        parent.Text = text;
-                        parent.Alias = alias;
                         return;
                     }
+                    FileFormatException(xmlReader, "Invalid configuration XML format (expected </{0}>)", endElement);
+                    return;
+                }
+            }
+
+            FileFormatException(xmlReader, "Unexpected end of stream");
+        }
+
+        private void LoadUmlModelElementStereotype(XmlReader xmlReader, EATree parent)
+        {
+            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
+
+            if (xmlReader.IsEmptyElement) return;
+            string endElement = xmlReader.Name;
+
+            while (xmlReader.Read()) {
+                switch (xmlReader.NodeType) {
+                case XmlNodeType.Element:
+                    if (xmlReader.Name.Equals("UML:Stereotype")) {
+                        parent.Stereotype = xmlReader["name"];
+                    } else {
+                        ReadIgnoreSubElements(xmlReader);
+                        break;
+                    }
+                    break;
+                case XmlNodeType.EndElement:
+                    if (xmlReader.Name.Equals(endElement)) return;
                     FileFormatException(xmlReader, "Invalid configuration XML format (expected </{0}>)", endElement);
                     return;
                 }

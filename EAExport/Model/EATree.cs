@@ -76,6 +76,30 @@ namespace EAExport.Model
         /// <value>The alias for the object.</value>
         public string Alias { get; set; }
 
+        /// <summary>
+        /// Gets or sets the stereotype associated with the object.
+        /// </summary>
+        /// <value>The stereotype associated with the object.</value>
+        public string Stereotype { get; set; }
+
+        /// <summary>
+        /// Gets or sets the author of the object.
+        /// </summary>
+        /// <value>The author of the object.</value>
+        public string Author { get; set; }
+
+        /// <summary>
+        /// Gets or sets the version of the object.
+        /// </summary>
+        /// <value>The version of the object.</value>
+        public string Version { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status of the object.
+        /// </summary>
+        /// <value>The status of the object.</value>
+        public string Status { get; set; }
+
         private LinkedList<EATree> m_Children = new LinkedList<EATree>();
 
         /// <summary>

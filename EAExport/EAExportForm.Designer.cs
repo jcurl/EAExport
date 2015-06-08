@@ -38,14 +38,22 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treXmiStructure = new System.Windows.Forms.TreeView();
             this.imgIcons = new System.Windows.Forms.ImageList(this.components);
+            this.txtAlias = new System.Windows.Forms.TextBox();
+            this.lblAlias = new System.Windows.Forms.Label();
             this.htmlNotes = new TheArtOfDev.HtmlRenderer.WinForms.HtmlPanel();
             this.txtIdentifier = new System.Windows.Forms.TextBox();
             this.txtHeading = new System.Windows.Forms.TextBox();
             this.lblNotes = new System.Windows.Forms.Label();
             this.lblIdentifier = new System.Windows.Forms.Label();
             this.lblHeading = new System.Windows.Forms.Label();
-            this.lblAlias = new System.Windows.Forms.Label();
-            this.txtAlias = new System.Windows.Forms.TextBox();
+            this.lblAuthor = new System.Windows.Forms.Label();
+            this.txtAuthor = new System.Windows.Forms.TextBox();
+            this.txtVersion = new System.Windows.Forms.TextBox();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.txtStatus = new System.Windows.Forms.TextBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.txtStereotype = new System.Windows.Forms.TextBox();
+            this.lblSteroetype = new System.Windows.Forms.Label();
             this.mnuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -122,6 +130,14 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.txtStatus);
+            this.splitContainer1.Panel2.Controls.Add(this.lblStatus);
+            this.splitContainer1.Panel2.Controls.Add(this.txtStereotype);
+            this.splitContainer1.Panel2.Controls.Add(this.lblSteroetype);
+            this.splitContainer1.Panel2.Controls.Add(this.txtVersion);
+            this.splitContainer1.Panel2.Controls.Add(this.lblVersion);
+            this.splitContainer1.Panel2.Controls.Add(this.txtAuthor);
+            this.splitContainer1.Panel2.Controls.Add(this.lblAuthor);
             this.splitContainer1.Panel2.Controls.Add(this.txtAlias);
             this.splitContainer1.Panel2.Controls.Add(this.lblAlias);
             this.splitContainer1.Panel2.Controls.Add(this.htmlNotes);
@@ -131,7 +147,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.lblIdentifier);
             this.splitContainer1.Panel2.Controls.Add(this.lblHeading);
             this.splitContainer1.Size = new System.Drawing.Size(540, 648);
-            this.splitContainer1.SplitterDistance = 245;
+            this.splitContainer1.SplitterDistance = 244;
             this.splitContainer1.TabIndex = 2;
             // 
             // treXmiStructure
@@ -144,7 +160,7 @@
             this.treXmiStructure.Location = new System.Drawing.Point(3, 3);
             this.treXmiStructure.Name = "treXmiStructure";
             this.treXmiStructure.SelectedImageIndex = 0;
-            this.treXmiStructure.Size = new System.Drawing.Size(534, 239);
+            this.treXmiStructure.Size = new System.Drawing.Size(534, 238);
             this.treXmiStructure.TabIndex = 2;
             this.treXmiStructure.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treXmiStructure_AfterSelect);
             // 
@@ -156,6 +172,26 @@
             this.imgIcons.Images.SetKeyName(1, "Requirement");
             this.imgIcons.Images.SetKeyName(2, "Specification");
             // 
+            // txtAlias
+            // 
+            this.txtAlias.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtAlias.BackColor = System.Drawing.SystemColors.Window;
+            this.txtAlias.Location = new System.Drawing.Point(83, 49);
+            this.txtAlias.Name = "txtAlias";
+            this.txtAlias.ReadOnly = true;
+            this.txtAlias.Size = new System.Drawing.Size(454, 20);
+            this.txtAlias.TabIndex = 7;
+            // 
+            // lblAlias
+            // 
+            this.lblAlias.AutoSize = true;
+            this.lblAlias.Location = new System.Drawing.Point(42, 52);
+            this.lblAlias.Name = "lblAlias";
+            this.lblAlias.Size = new System.Drawing.Size(35, 13);
+            this.lblAlias.TabIndex = 6;
+            this.lblAlias.Text = "Alias: ";
+            // 
             // htmlNotes
             // 
             this.htmlNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -165,9 +201,9 @@
             this.htmlNotes.BackColor = System.Drawing.SystemColors.Window;
             this.htmlNotes.BaseStylesheet = null;
             this.htmlNotes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.htmlNotes.Location = new System.Drawing.Point(83, 75);
+            this.htmlNotes.Location = new System.Drawing.Point(83, 127);
             this.htmlNotes.Name = "htmlNotes";
-            this.htmlNotes.Size = new System.Drawing.Size(454, 321);
+            this.htmlNotes.Size = new System.Drawing.Size(454, 270);
             this.htmlNotes.TabIndex = 5;
             this.htmlNotes.Text = null;
             this.htmlNotes.UseSystemCursors = true;
@@ -196,7 +232,7 @@
             // 
             // lblNotes
             // 
-            this.lblNotes.Location = new System.Drawing.Point(24, 75);
+            this.lblNotes.Location = new System.Drawing.Point(24, 127);
             this.lblNotes.Name = "lblNotes";
             this.lblNotes.Size = new System.Drawing.Size(53, 16);
             this.lblNotes.TabIndex = 2;
@@ -221,25 +257,77 @@
             this.lblHeading.Text = "Heading: ";
             this.lblHeading.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // lblAlias
+            // lblAuthor
             // 
-            this.lblAlias.AutoSize = true;
-            this.lblAlias.Location = new System.Drawing.Point(42, 52);
-            this.lblAlias.Name = "lblAlias";
-            this.lblAlias.Size = new System.Drawing.Size(35, 13);
-            this.lblAlias.TabIndex = 6;
-            this.lblAlias.Text = "Alias: ";
+            this.lblAuthor.AutoSize = true;
+            this.lblAuthor.Location = new System.Drawing.Point(33, 78);
+            this.lblAuthor.Name = "lblAuthor";
+            this.lblAuthor.Size = new System.Drawing.Size(44, 13);
+            this.lblAuthor.TabIndex = 8;
+            this.lblAuthor.Text = "Author: ";
             // 
-            // txtAlias
+            // txtAuthor
             // 
-            this.txtAlias.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAlias.BackColor = System.Drawing.SystemColors.Window;
-            this.txtAlias.Location = new System.Drawing.Point(83, 49);
-            this.txtAlias.Name = "txtAlias";
-            this.txtAlias.ReadOnly = true;
-            this.txtAlias.Size = new System.Drawing.Size(454, 20);
-            this.txtAlias.TabIndex = 7;
+            this.txtAuthor.BackColor = System.Drawing.SystemColors.Window;
+            this.txtAuthor.Location = new System.Drawing.Point(83, 75);
+            this.txtAuthor.Name = "txtAuthor";
+            this.txtAuthor.ReadOnly = true;
+            this.txtAuthor.Size = new System.Drawing.Size(193, 20);
+            this.txtAuthor.TabIndex = 9;
+            // 
+            // txtVersion
+            // 
+            this.txtVersion.BackColor = System.Drawing.SystemColors.Window;
+            this.txtVersion.Location = new System.Drawing.Point(344, 75);
+            this.txtVersion.Name = "txtVersion";
+            this.txtVersion.ReadOnly = true;
+            this.txtVersion.Size = new System.Drawing.Size(193, 20);
+            this.txtVersion.TabIndex = 11;
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(294, 78);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(48, 13);
+            this.lblVersion.TabIndex = 10;
+            this.lblVersion.Text = "Version: ";
+            // 
+            // txtStatus
+            // 
+            this.txtStatus.BackColor = System.Drawing.SystemColors.Window;
+            this.txtStatus.Location = new System.Drawing.Point(344, 101);
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ReadOnly = true;
+            this.txtStatus.Size = new System.Drawing.Size(193, 20);
+            this.txtStatus.TabIndex = 15;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(294, 104);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(43, 13);
+            this.lblStatus.TabIndex = 14;
+            this.lblStatus.Text = "Status: ";
+            // 
+            // txtStereotype
+            // 
+            this.txtStereotype.BackColor = System.Drawing.SystemColors.Window;
+            this.txtStereotype.Location = new System.Drawing.Point(83, 101);
+            this.txtStereotype.Name = "txtStereotype";
+            this.txtStereotype.ReadOnly = true;
+            this.txtStereotype.Size = new System.Drawing.Size(193, 20);
+            this.txtStereotype.TabIndex = 13;
+            // 
+            // lblSteroetype
+            // 
+            this.lblSteroetype.AutoSize = true;
+            this.lblSteroetype.Location = new System.Drawing.Point(13, 104);
+            this.lblSteroetype.Name = "lblSteroetype";
+            this.lblSteroetype.Size = new System.Drawing.Size(64, 13);
+            this.lblSteroetype.TabIndex = 12;
+            this.lblSteroetype.Text = "Stereotype: ";
             // 
             // frmEAExport
             // 
@@ -284,6 +372,14 @@
         private TheArtOfDev.HtmlRenderer.WinForms.HtmlPanel htmlNotes;
         private System.Windows.Forms.TextBox txtAlias;
         private System.Windows.Forms.Label lblAlias;
+        private System.Windows.Forms.TextBox txtStatus;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.TextBox txtStereotype;
+        private System.Windows.Forms.Label lblSteroetype;
+        private System.Windows.Forms.TextBox txtVersion;
+        private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.TextBox txtAuthor;
+        private System.Windows.Forms.Label lblAuthor;
     }
 }
 
