@@ -26,7 +26,8 @@ namespace EAExport.Model
 
             EATrace.XmiImport(TraceEventType.Information, "Time: {0}", DateTime.Now.ToString("G"));
             EATrace.XmiImport(TraceEventType.Information, "Loading file {0}", fileName);
-            using (XmlTextReader xmlReader = new XmlTextReader(fileName)) {
+            using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (XmlTextReader xmlReader = new XmlTextReader(fs)) {
                 model.LoadXmi(xmlReader);
                 model.BuildTree();
                 return model;
