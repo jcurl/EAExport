@@ -113,14 +113,24 @@ namespace EAExport
 
             if (element.Id.StartsWith("MX_EAID_")) {
                 node.ImageKey = "Model";
-                node.SelectedImageKey = "Model";
             } else if (element.Id.StartsWith("EAPK")) {
                 node.ImageKey = "Specification";
-                node.SelectedImageKey = "Specification";
             } else {
-                node.ImageKey = "Requirement";
-                node.SelectedImageKey = "Requirement";
+                if (element.Status.Equals("Approved", StringComparison.InvariantCultureIgnoreCase)) {
+                    node.ImageKey = "RequirementApproved";
+                } else if (element.Status.Equals("Implemented", StringComparison.InvariantCultureIgnoreCase)) {
+                    node.ImageKey = "RequirementImplemented";
+                } else if (element.Status.Equals("Mandatory", StringComparison.InvariantCultureIgnoreCase)) {
+                    node.ImageKey = "RequirementMandatory";
+                } else if (element.Status.Equals("Proposed", StringComparison.InvariantCultureIgnoreCase)) {
+                    node.ImageKey = "RequirementProposed";
+                } else if (element.Status.Equals("Validated", StringComparison.InvariantCultureIgnoreCase)) {
+                    node.ImageKey = "RequirementValidated";
+                } else {
+                    node.ImageKey = "Requirement";
+                }
             }
+            node.SelectedImageKey = node.ImageKey;
 
             foreach (Model.EATree child in element.Children) {
                 BuildTree(node, child);

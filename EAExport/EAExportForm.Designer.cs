@@ -38,6 +38,14 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treXmiStructure = new System.Windows.Forms.TreeView();
             this.imgIcons = new System.Windows.Forms.ImageList(this.components);
+            this.txtStatus = new System.Windows.Forms.TextBox();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.txtStereotype = new System.Windows.Forms.TextBox();
+            this.lblSteroetype = new System.Windows.Forms.Label();
+            this.txtVersion = new System.Windows.Forms.TextBox();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.txtAuthor = new System.Windows.Forms.TextBox();
+            this.lblAuthor = new System.Windows.Forms.Label();
             this.txtAlias = new System.Windows.Forms.TextBox();
             this.lblAlias = new System.Windows.Forms.Label();
             this.htmlNotes = new TheArtOfDev.HtmlRenderer.WinForms.HtmlPanel();
@@ -46,14 +54,6 @@
             this.lblNotes = new System.Windows.Forms.Label();
             this.lblIdentifier = new System.Windows.Forms.Label();
             this.lblHeading = new System.Windows.Forms.Label();
-            this.lblAuthor = new System.Windows.Forms.Label();
-            this.txtAuthor = new System.Windows.Forms.TextBox();
-            this.txtVersion = new System.Windows.Forms.TextBox();
-            this.lblVersion = new System.Windows.Forms.Label();
-            this.txtStatus = new System.Windows.Forms.TextBox();
-            this.lblStatus = new System.Windows.Forms.Label();
-            this.txtStereotype = new System.Windows.Forms.TextBox();
-            this.lblSteroetype = new System.Windows.Forms.Label();
             this.mnuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -171,6 +171,83 @@
             this.imgIcons.Images.SetKeyName(0, "Model");
             this.imgIcons.Images.SetKeyName(1, "Requirement");
             this.imgIcons.Images.SetKeyName(2, "Specification");
+            this.imgIcons.Images.SetKeyName(3, "RequirementApproved");
+            this.imgIcons.Images.SetKeyName(4, "RequirementImplemented");
+            this.imgIcons.Images.SetKeyName(5, "RequirementMandatory");
+            this.imgIcons.Images.SetKeyName(6, "RequirementProposed");
+            this.imgIcons.Images.SetKeyName(7, "RequirementValidated");
+            // 
+            // txtStatus
+            // 
+            this.txtStatus.BackColor = System.Drawing.SystemColors.Window;
+            this.txtStatus.Location = new System.Drawing.Point(344, 101);
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ReadOnly = true;
+            this.txtStatus.Size = new System.Drawing.Size(193, 20);
+            this.txtStatus.TabIndex = 15;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(294, 104);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(43, 13);
+            this.lblStatus.TabIndex = 14;
+            this.lblStatus.Text = "Status: ";
+            // 
+            // txtStereotype
+            // 
+            this.txtStereotype.BackColor = System.Drawing.SystemColors.Window;
+            this.txtStereotype.Location = new System.Drawing.Point(83, 101);
+            this.txtStereotype.Name = "txtStereotype";
+            this.txtStereotype.ReadOnly = true;
+            this.txtStereotype.Size = new System.Drawing.Size(193, 20);
+            this.txtStereotype.TabIndex = 13;
+            // 
+            // lblSteroetype
+            // 
+            this.lblSteroetype.AutoSize = true;
+            this.lblSteroetype.Location = new System.Drawing.Point(13, 104);
+            this.lblSteroetype.Name = "lblSteroetype";
+            this.lblSteroetype.Size = new System.Drawing.Size(64, 13);
+            this.lblSteroetype.TabIndex = 12;
+            this.lblSteroetype.Text = "Stereotype: ";
+            // 
+            // txtVersion
+            // 
+            this.txtVersion.BackColor = System.Drawing.SystemColors.Window;
+            this.txtVersion.Location = new System.Drawing.Point(344, 75);
+            this.txtVersion.Name = "txtVersion";
+            this.txtVersion.ReadOnly = true;
+            this.txtVersion.Size = new System.Drawing.Size(193, 20);
+            this.txtVersion.TabIndex = 11;
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(294, 78);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(48, 13);
+            this.lblVersion.TabIndex = 10;
+            this.lblVersion.Text = "Version: ";
+            // 
+            // txtAuthor
+            // 
+            this.txtAuthor.BackColor = System.Drawing.SystemColors.Window;
+            this.txtAuthor.Location = new System.Drawing.Point(83, 75);
+            this.txtAuthor.Name = "txtAuthor";
+            this.txtAuthor.ReadOnly = true;
+            this.txtAuthor.Size = new System.Drawing.Size(193, 20);
+            this.txtAuthor.TabIndex = 9;
+            // 
+            // lblAuthor
+            // 
+            this.lblAuthor.AutoSize = true;
+            this.lblAuthor.Location = new System.Drawing.Point(33, 78);
+            this.lblAuthor.Name = "lblAuthor";
+            this.lblAuthor.Size = new System.Drawing.Size(44, 13);
+            this.lblAuthor.TabIndex = 8;
+            this.lblAuthor.Text = "Author: ";
             // 
             // txtAlias
             // 
@@ -256,78 +333,6 @@
             this.lblHeading.TabIndex = 0;
             this.lblHeading.Text = "Heading: ";
             this.lblHeading.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblAuthor
-            // 
-            this.lblAuthor.AutoSize = true;
-            this.lblAuthor.Location = new System.Drawing.Point(33, 78);
-            this.lblAuthor.Name = "lblAuthor";
-            this.lblAuthor.Size = new System.Drawing.Size(44, 13);
-            this.lblAuthor.TabIndex = 8;
-            this.lblAuthor.Text = "Author: ";
-            // 
-            // txtAuthor
-            // 
-            this.txtAuthor.BackColor = System.Drawing.SystemColors.Window;
-            this.txtAuthor.Location = new System.Drawing.Point(83, 75);
-            this.txtAuthor.Name = "txtAuthor";
-            this.txtAuthor.ReadOnly = true;
-            this.txtAuthor.Size = new System.Drawing.Size(193, 20);
-            this.txtAuthor.TabIndex = 9;
-            // 
-            // txtVersion
-            // 
-            this.txtVersion.BackColor = System.Drawing.SystemColors.Window;
-            this.txtVersion.Location = new System.Drawing.Point(344, 75);
-            this.txtVersion.Name = "txtVersion";
-            this.txtVersion.ReadOnly = true;
-            this.txtVersion.Size = new System.Drawing.Size(193, 20);
-            this.txtVersion.TabIndex = 11;
-            // 
-            // lblVersion
-            // 
-            this.lblVersion.AutoSize = true;
-            this.lblVersion.Location = new System.Drawing.Point(294, 78);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(48, 13);
-            this.lblVersion.TabIndex = 10;
-            this.lblVersion.Text = "Version: ";
-            // 
-            // txtStatus
-            // 
-            this.txtStatus.BackColor = System.Drawing.SystemColors.Window;
-            this.txtStatus.Location = new System.Drawing.Point(344, 101);
-            this.txtStatus.Name = "txtStatus";
-            this.txtStatus.ReadOnly = true;
-            this.txtStatus.Size = new System.Drawing.Size(193, 20);
-            this.txtStatus.TabIndex = 15;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(294, 104);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(43, 13);
-            this.lblStatus.TabIndex = 14;
-            this.lblStatus.Text = "Status: ";
-            // 
-            // txtStereotype
-            // 
-            this.txtStereotype.BackColor = System.Drawing.SystemColors.Window;
-            this.txtStereotype.Location = new System.Drawing.Point(83, 101);
-            this.txtStereotype.Name = "txtStereotype";
-            this.txtStereotype.ReadOnly = true;
-            this.txtStereotype.Size = new System.Drawing.Size(193, 20);
-            this.txtStereotype.TabIndex = 13;
-            // 
-            // lblSteroetype
-            // 
-            this.lblSteroetype.AutoSize = true;
-            this.lblSteroetype.Location = new System.Drawing.Point(13, 104);
-            this.lblSteroetype.Name = "lblSteroetype";
-            this.lblSteroetype.Size = new System.Drawing.Size(64, 13);
-            this.lblSteroetype.TabIndex = 12;
-            this.lblSteroetype.Text = "Stereotype: ";
             // 
             // frmEAExport
             // 
