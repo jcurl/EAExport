@@ -35,6 +35,9 @@
             this.mnuFileExportCsv = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDash1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuEditSearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuEditSearchAlias = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.treXmiStructure = new System.Windows.Forms.TreeView();
             this.imgIcons = new System.Windows.Forms.ImageList(this.components);
@@ -64,7 +67,8 @@
             // mnuStrip
             // 
             this.mnuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.mnuEdit});
             this.mnuStrip.Location = new System.Drawing.Point(0, 0);
             this.mnuStrip.Name = "mnuStrip";
             this.mnuStrip.Size = new System.Drawing.Size(540, 24);
@@ -116,6 +120,32 @@
             this.mnuFileExit.Size = new System.Drawing.Size(203, 22);
             this.mnuFileExit.Text = "E&xit";
             this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
+            // 
+            // mnuEdit
+            // 
+            this.mnuEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuEditSearch});
+            this.mnuEdit.Name = "mnuEdit";
+            this.mnuEdit.Size = new System.Drawing.Size(39, 20);
+            this.mnuEdit.Text = "&Edit";
+            // 
+            // mnuEditSearch
+            // 
+            this.mnuEditSearch.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuEditSearchAlias});
+            this.mnuEditSearch.Enabled = false;
+            this.mnuEditSearch.Image = global::EAExport.Properties.Resources.Search;
+            this.mnuEditSearch.Name = "mnuEditSearch";
+            this.mnuEditSearch.Size = new System.Drawing.Size(152, 22);
+            this.mnuEditSearch.Text = "&Search";
+            // 
+            // mnuEditSearchAlias
+            // 
+            this.mnuEditSearchAlias.Name = "mnuEditSearchAlias";
+            this.mnuEditSearchAlias.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.mnuEditSearchAlias.Size = new System.Drawing.Size(168, 22);
+            this.mnuEditSearchAlias.Text = "For &Alias...";
+            this.mnuEditSearchAlias.Click += new System.EventHandler(this.mnuEditSearchAlias_Click);
             // 
             // splitContainer1
             // 
@@ -385,6 +415,9 @@
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.TextBox txtAuthor;
         private System.Windows.Forms.Label lblAuthor;
+        private System.Windows.Forms.ToolStripMenuItem mnuEdit;
+        private System.Windows.Forms.ToolStripMenuItem mnuEditSearch;
+        private System.Windows.Forms.ToolStripMenuItem mnuEditSearchAlias;
     }
 }
 

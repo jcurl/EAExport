@@ -72,6 +72,7 @@ namespace EAExport
             try {
                 Model.EAModel loadModel = Model.EAModel.LoadXmi(fileName);
                 mnuFileExportCsv.Enabled = true;
+                mnuEditSearch.Enabled = true;
                 eaModel = loadModel;
                 BuildTree();
             } catch (System.Exception exception) {
@@ -184,6 +185,38 @@ namespace EAExport
                 EATrace.XmiImport(System.Diagnostics.TraceEventType.Warning, "EAExport CSV Export Failure: {0}", exception.Message);
                 MessageBox.Show(exception.Message, "EAExport CSV Export Failure");
             }
+        }
+
+        private void mnuEditSearchAlias_Click(object sender, EventArgs e)
+        {
+            string search = frmSearch.Search("Search Alias", this);
+            if (search == null) return;
+
+            // Now iterate through the tree
+            TreeNode node = SearchTreeAlias(treXmiStructure.Nodes, search);
+            if (node == null) {
+                MessageBox.Show("Didn't find search term: " + search);
+                return;
+            }
+            treXmiStructure.SelectedNode = node;
+            node.EnsureVisible();
+        }
+
+        private TreeNode SearchTreeAlias(TreeNodeCollection nodes, string alias)
+        {
+            foreach (TreeNode node in nodes) {
+                Model.EATree element = node.Tag as Model.EATree;
+                if (element != null) {
+                    if (element.Alias != null && element.Alias.Equals(alias, StringComparison.CurrentCultureIgnoreCase)) {
+                        return node;
+                    }
+                    if (node.Nodes.Count > 0) {
+                        TreeNode subNode = SearchTreeAlias(node.Nodes, alias);
+                        if (subNode != null) return subNode;
+                    }
+                }
+            }
+            return null;
         }
     }
 }
