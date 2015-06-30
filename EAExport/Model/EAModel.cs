@@ -53,7 +53,7 @@ namespace EAExport.Model
                     if (xmlReader.Name.Equals("XMI")) {
                         LoadXmiRoot(xmlReader);
                     } else {
-                        ReadIgnoreSubElements(xmlReader);
+                        xmlReader.Skip();
                     }
                     break;
                 case XmlNodeType.EndElement:
@@ -83,7 +83,7 @@ namespace EAExport.Model
                     if (xmlReader.Name.Equals("XMI.content")) {
                         LoadXmiContent(xmlReader);
                     } else {
-                        ReadIgnoreSubElements(xmlReader);
+                        xmlReader.Skip();
                         break;
                     }
                     break;
@@ -111,7 +111,7 @@ namespace EAExport.Model
                     if (xmlReader.Name.Equals("UML:Model")) {
                         LoadUmlModel(xmlReader);
                     } else {
-                        ReadIgnoreSubElements(xmlReader);
+                        xmlReader.Skip();
                         break;
                     }
                     break;
@@ -136,7 +136,7 @@ namespace EAExport.Model
                 AddElement(element);
             } else {
                 // We only support a single model in our XMI for now.
-                ReadIgnoreSubElements(xmlReader);
+                xmlReader.Skip();
                 return;
             }
 
@@ -150,7 +150,7 @@ namespace EAExport.Model
                     if (xmlReader.Name.Equals("UML:Namespace.ownedElement")) {
                         LoadUmlNamespaceOwnedElement(xmlReader, element);
                     } else {
-                        ReadIgnoreSubElements(xmlReader);
+                        xmlReader.Skip();
                         break;
                     }
                     break;
@@ -182,7 +182,7 @@ namespace EAExport.Model
                     } else if (xmlReader.Name.Equals("UML:ClassifierRole")) {
                         LoadUmlClassifierRole(xmlReader, parent);
                     } else {
-                        ReadIgnoreSubElements(xmlReader);
+                        xmlReader.Skip();
                         break;
                     }
                     break;
@@ -217,7 +217,7 @@ namespace EAExport.Model
                     } else if (xmlReader.Name.Equals("UML:Namespace.ownedElement")) {
                         LoadUmlNamespaceOwnedElement(xmlReader, package);
                     } else {
-                        ReadIgnoreSubElements(xmlReader);
+                        xmlReader.Skip();
                         break;
                     }
                     break;
@@ -245,7 +245,7 @@ namespace EAExport.Model
                     if (xmlReader.Name.Equals("UML:Namespace.ownedElement")) {
                         LoadUmlNamespaceOwnedElement(xmlReader, parent);
                     } else {
-                        ReadIgnoreSubElements(xmlReader);
+                        xmlReader.Skip();
                         break;
                     }
                     break;
@@ -279,7 +279,7 @@ namespace EAExport.Model
                     } else if (xmlReader.Name.Equals("UML:ModelElement.stereotype")) {
                         LoadUmlModelElementStereotype(xmlReader, element);
                     } else {
-                        ReadIgnoreSubElements(xmlReader);
+                        xmlReader.Skip();
                         break;
                     }
                     break;
@@ -334,10 +334,10 @@ namespace EAExport.Model
                         }
 
                         if (!xmlReader.IsEmptyElement) {
-                            ReadIgnoreSubElements(xmlReader);
+                            xmlReader.Skip();
                         }
                     } else {
-                        ReadIgnoreSubElements(xmlReader);
+                        xmlReader.Skip();
                         break;
                     }
                     break;
@@ -382,7 +382,7 @@ namespace EAExport.Model
                     if (xmlReader.Name.Equals("UML:Stereotype")) {
                         parent.Stereotype = xmlReader["name"];
                     } else {
-                        ReadIgnoreSubElements(xmlReader);
+                        xmlReader.Skip();
                         break;
                     }
                     break;
@@ -394,60 +394,6 @@ namespace EAExport.Model
             }
 
             FileFormatException(xmlReader, "Unexpected end of stream");
-        }
-
-        /// <summary>
-        /// Ignore all nodes under the current XML node in the XML stream.
-        /// </summary>
-        /// <param name="xmlReader">The stream to parse.</param>
-        /// <remarks>
-        /// This function is normally called when a NodeType.Element is found and
-        /// the name is not supported, to parse through the tree and ignore all
-        /// information found. This allows for loading XML files that are similar
-        /// by different classes (upgrades, downgrades, etc.).
-        /// <para>It will read through the stream until the end element is found
-        /// which is the same as the current node element.</para>
-        /// </remarks>
-        private void ReadIgnoreSubElements(XmlReader xmlReader)
-        {
-            if (xmlReader == null) return;
-
-            EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "{0} - Ignoring", xmlReader.Name);
-
-            if (xmlReader.NodeType != XmlNodeType.Element) {
-                FileFormatException(xmlReader, "Expected NodeType of Element");
-                return;
-            }
-
-            if (xmlReader.IsEmptyElement) return;
-            string endElement = xmlReader.Name;
-            Stack<string> subElements = new Stack<string>();
-
-            while (xmlReader.Read()) {
-                switch (xmlReader.NodeType) {
-                case XmlNodeType.Element:
-                    if (!xmlReader.IsEmptyElement) {
-                        // We have a sub-element in XML that isn't understood by this
-                        // object
-                        subElements.Push(xmlReader.Name);
-                    }
-                    break;
-                case XmlNodeType.EndElement:
-                    if (subElements.Count == 0) {
-                        if (xmlReader.Name.Equals(endElement)) return;
-                        FileFormatException(xmlReader, "Invalid tag {0}, expecting {1}", xmlReader.Name, endElement);
-                        return;
-                    } else {
-                        if (xmlReader.Name.Equals(subElements.Peek())) {
-                            subElements.Pop();
-                        } else {
-                            FileFormatException(xmlReader, "Invalid tag {0}, expecting {1}", xmlReader.Name, subElements.Peek());
-                            return;
-                        }
-                    }
-                    break;
-                }
-            }
         }
 
         private Dictionary<string, EATree> m_Elements = new Dictionary<string, EATree>();
