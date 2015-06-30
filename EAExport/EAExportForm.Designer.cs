@@ -57,11 +57,14 @@
             this.lblNotes = new System.Windows.Forms.Label();
             this.lblIdentifier = new System.Windows.Forms.Label();
             this.lblHeading = new System.Windows.Forms.Label();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblElementCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.mnuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mnuStrip
@@ -71,7 +74,7 @@
             this.mnuEdit});
             this.mnuStrip.Location = new System.Drawing.Point(0, 0);
             this.mnuStrip.Name = "mnuStrip";
-            this.mnuStrip.Size = new System.Drawing.Size(540, 24);
+            this.mnuStrip.Size = new System.Drawing.Size(541, 24);
             this.mnuStrip.TabIndex = 0;
             this.mnuStrip.Text = "menuStrip1";
             // 
@@ -136,7 +139,7 @@
             this.mnuEditSearch.Enabled = false;
             this.mnuEditSearch.Image = global::EAExport.Properties.Resources.Search;
             this.mnuEditSearch.Name = "mnuEditSearch";
-            this.mnuEditSearch.Size = new System.Drawing.Size(152, 22);
+            this.mnuEditSearch.Size = new System.Drawing.Size(109, 22);
             this.mnuEditSearch.Text = "&Search";
             // 
             // mnuEditSearchAlias
@@ -149,7 +152,9 @@
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer1.Location = new System.Drawing.Point(0, 24);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -176,8 +181,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.lblNotes);
             this.splitContainer1.Panel2.Controls.Add(this.lblIdentifier);
             this.splitContainer1.Panel2.Controls.Add(this.lblHeading);
-            this.splitContainer1.Size = new System.Drawing.Size(540, 648);
-            this.splitContainer1.SplitterDistance = 244;
+            this.splitContainer1.Size = new System.Drawing.Size(541, 658);
+            this.splitContainer1.SplitterDistance = 247;
             this.splitContainer1.TabIndex = 2;
             // 
             // treXmiStructure
@@ -190,7 +195,7 @@
             this.treXmiStructure.Location = new System.Drawing.Point(3, 3);
             this.treXmiStructure.Name = "treXmiStructure";
             this.treXmiStructure.SelectedImageIndex = 0;
-            this.treXmiStructure.Size = new System.Drawing.Size(534, 238);
+            this.treXmiStructure.Size = new System.Drawing.Size(534, 241);
             this.treXmiStructure.TabIndex = 2;
             this.treXmiStructure.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treXmiStructure_AfterSelect);
             // 
@@ -310,7 +315,7 @@
             this.htmlNotes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.htmlNotes.Location = new System.Drawing.Point(83, 127);
             this.htmlNotes.Name = "htmlNotes";
-            this.htmlNotes.Size = new System.Drawing.Size(454, 270);
+            this.htmlNotes.Size = new System.Drawing.Size(454, 277);
             this.htmlNotes.TabIndex = 5;
             this.htmlNotes.Text = null;
             this.htmlNotes.UseSystemCursors = true;
@@ -364,11 +369,27 @@
             this.lblHeading.Text = "Heading: ";
             this.lblHeading.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblElementCount});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 686);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(541, 22);
+            this.statusStrip1.TabIndex = 3;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblElementCount
+            // 
+            this.lblElementCount.Name = "lblElementCount";
+            this.lblElementCount.Size = new System.Drawing.Size(0, 17);
+            // 
             // frmEAExport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(540, 672);
+            this.ClientSize = new System.Drawing.Size(541, 708);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.mnuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -383,6 +404,8 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -418,6 +441,8 @@
         private System.Windows.Forms.ToolStripMenuItem mnuEdit;
         private System.Windows.Forms.ToolStripMenuItem mnuEditSearch;
         private System.Windows.Forms.ToolStripMenuItem mnuEditSearchAlias;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel lblElementCount;
     }
 }
 

@@ -86,13 +86,15 @@ namespace EAExport
             treXmiStructure.BeginUpdate();
             treXmiStructure.Nodes.Clear();
 
-            BuildTree(null, eaModel.Root);
+            int nodes = BuildTree(null, eaModel.Root);
 
+            lblElementCount.Text = string.Format("Nodes: {0}", nodes);
             treXmiStructure.EndUpdate();
         }
 
-        private void BuildTree(TreeNode parent, Model.EATree element)
+        private int BuildTree(TreeNode parent, Model.EATree element)
         {
+            int nodes = 0;
             TreeNode node;
 
             StringBuilder heading = new StringBuilder();
@@ -111,6 +113,7 @@ namespace EAExport
             } else {
                 parent.Nodes.Add(node);
             }
+            nodes++;
 
             if (element.Id.StartsWith("MX_EAID_")) {
                 node.ImageKey = "Model";
@@ -134,8 +137,9 @@ namespace EAExport
             node.SelectedImageKey = node.ImageKey;
 
             foreach (Model.EATree child in element.Children) {
-                BuildTree(node, child);
+                nodes += BuildTree(node, child);
             }
+            return nodes;
         }
 
         private void treXmiStructure_AfterSelect(object sender, TreeViewEventArgs e)
