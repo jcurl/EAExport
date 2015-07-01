@@ -19,7 +19,7 @@ namespace EAExport.Model
         public CsvDoorsTreeExport(string fileName)
         {
             m_Writer = new StreamWriter(fileName);
-            m_Writer.WriteLine("ID;Level;Heading;Text");
+            m_Writer.WriteLine("EAID;EAParent;Heading;Text");
         }
 
         /// <summary>
@@ -30,19 +30,19 @@ namespace EAExport.Model
         /// if set to <c>false</c>, then the children are exported.</param>
         public void ExportTree(EATree root, bool includeRoot)
         {
-            ExportElement(root, includeRoot, includeRoot ? 1 : 0);
+            ExportElement(root, includeRoot, root.Id);
         }
 
-        private void ExportElement(EATree element, bool includeElement, int level)
+        private void ExportElement(EATree element, bool includeElement, string parentId)
         {
             if (includeElement) {
                 string heading = (element.Heading == null) ? string.Empty : element.Heading.Trim();
                 string text = (element.Text == null) ? string.Empty : element.Text.Trim();
-                m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"", element.Id, level, heading, text);
+                m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"", element.Id, includeElement ? parentId : string.Empty, heading, text);
             }
 
             foreach (EATree child in element.Children) {
-                ExportElement(child, true, level + 1);
+                ExportElement(child, true, includeElement ? element.Id : string.Empty);
             }
         }
 
