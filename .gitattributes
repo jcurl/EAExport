@@ -1,0 +1,45 @@
+*		text=auto
+ 
+*.txt		text
+*.cs		text diff=csharp
+*.java		text diff=java
+*.html		text diff=html
+*.css		text
+*.js		text
+*.sql		text
+*.c		text
+*.h		text
+*.xsl		text
+*.xml		text
+*.xsd		text
+  
+*.csproj	text merge=union eol=crlf
+*.sln		text merge=union eol=crlf
+*.settings	text merge=union eol=crlf
+*.shfbproj	text merge=union eol=crlf
+*.manifest	text merge=union eol=crlf
+*.bat		text eol=crlf
+*.resx		text eol=crlf
+*.config	text eol=crlf
+ 
+*.sh		text eol=lf
+*.svg		text eol=lf
+Makefile	text eol=lf
+Makefile.mk	text eol=lf
+      
+*.ico		binary
+*.png		binary diff=exif
+*.vsd		binary
+*.pdf		binary
+*.eap		binary
+*.doc		binary
+*.docx		binary
+*.xls		binary
+*.xlsx		binary
+*.7z		binary
+*.zip		binary
+*.dll		binary
+*.jpg		binary
+*.jpeg		binary
+*.gif		binary
+
