@@ -1,0 +1,3 @@
+[submodule "submodules/Automation"]
+	path = submodules/Automation
+	url = git@redjam.ddns.net:harman/Automation.git

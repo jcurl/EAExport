@@ -34,6 +34,7 @@ namespace EAExport.Model
             }
         }
 
+        #region Load the XMI file
         private void FileFormatException(string format, params object[] args)
         {
             FileFormatException(null, format, args);
@@ -427,11 +428,28 @@ namespace EAExport.Model
                 }
             }
         }
+        #endregion
 
         /// <summary>
         /// Gets the root tree of the model.
         /// </summary>
         /// <value>The root tree of the model.</value>
         public EATree Root { get; private set; }
+
+        public EATree FindGuid(string guid)
+        {
+            return FindGuid(Root, guid);
+        }
+
+        public EATree FindGuid(EATree node, string guid)
+        {
+            if (node == null) return null;
+            if (node.Id.Equals(guid)) return node;
+            foreach (EATree child in node.Children) {
+                EATree found = FindGuid(child, guid);
+                if (found != null) return found;
+            }
+            return null;
+        }
     }
 }
