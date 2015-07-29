@@ -325,7 +325,7 @@
             this.txtIdentifier.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIdentifier.BackColor = System.Drawing.SystemColors.Window;
-            this.txtIdentifier.Location = new System.Drawing.Point(83, 23);
+            this.txtIdentifier.Location = new System.Drawing.Point(83, 24);
             this.txtIdentifier.Name = "txtIdentifier";
             this.txtIdentifier.ReadOnly = true;
             this.txtIdentifier.Size = new System.Drawing.Size(454, 20);
@@ -336,7 +336,7 @@
             this.txtHeading.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtHeading.BackColor = System.Drawing.SystemColors.Window;
-            this.txtHeading.Location = new System.Drawing.Point(83, -3);
+            this.txtHeading.Location = new System.Drawing.Point(83, 0);
             this.txtHeading.Name = "txtHeading";
             this.txtHeading.ReadOnly = true;
             this.txtHeading.Size = new System.Drawing.Size(454, 20);
