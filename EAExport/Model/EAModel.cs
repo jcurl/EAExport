@@ -67,7 +67,7 @@ namespace EAExport.Model
 
         private void LoadXmiRoot(XmlReader xmlReader)
         {
-            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "{0}", xmlReader.Name);
 
             if (!xmlReader["xmi.version"].Equals("1.1")) {
                 FileFormatException(xmlReader, "Unexpected version. Got {0}; Expected 1.1", xmlReader["xmi.version"]);
@@ -100,7 +100,7 @@ namespace EAExport.Model
 
         private void LoadXmiContent(XmlReader xmlReader)
         {
-            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "{0}", xmlReader.Name);
 
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
@@ -128,7 +128,7 @@ namespace EAExport.Model
 
         private void LoadUmlModel(XmlReader xmlReader)
         {
-            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "{0}", xmlReader.Name);
 
             EATree element;
             if (Root == null) {
@@ -167,7 +167,7 @@ namespace EAExport.Model
 
         private void LoadUmlNamespaceOwnedElement(XmlReader xmlReader, EATree parent)
         {
-            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "{0}", xmlReader.Name);
 
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
@@ -199,7 +199,7 @@ namespace EAExport.Model
 
         private void LoadUmlPackage(XmlReader xmlReader, EATree parent)
         {
-            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "{0}", xmlReader.Name);
 
             EATree package = new EATree(parent.Id, xmlReader["xmi.id"], xmlReader["name"], string.Empty, 0);
             AddElement(package);
@@ -234,7 +234,7 @@ namespace EAExport.Model
 
         private void LoadUmlCollaboration(XmlReader xmlReader, EATree parent)
         {
-            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "{0}", xmlReader.Name);
 
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
@@ -262,7 +262,7 @@ namespace EAExport.Model
 
         private void LoadUmlClassifierRole(XmlReader xmlReader, EATree parent)
         {
-            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "{0}", xmlReader.Name);
 
             // We can only tell the parent after parsing the tagged values.
             EATree element = new EATree(xmlReader["xmi.id"], xmlReader["name"], string.Empty, 0);
@@ -296,7 +296,7 @@ namespace EAExport.Model
 
         private void LoadUmlModelElementTaggedValue(XmlReader xmlReader, EATree parent)
         {
-            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "{0}", xmlReader.Name);
 
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
@@ -372,7 +372,7 @@ namespace EAExport.Model
 
         private void LoadUmlModelElementStereotype(XmlReader xmlReader, EATree parent)
         {
-            EATrace.XmiImport(xmlReader, TraceEventType.Information, "{0}", xmlReader.Name);
+            EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "{0}", xmlReader.Name);
 
             if (xmlReader.IsEmptyElement) return;
             string endElement = xmlReader.Name;
