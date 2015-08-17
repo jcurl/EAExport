@@ -69,12 +69,14 @@
             // 
             // mnuStrip
             // 
+            this.mnuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.mnuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFile,
             this.mnuEdit});
             this.mnuStrip.Location = new System.Drawing.Point(0, 0);
             this.mnuStrip.Name = "mnuStrip";
-            this.mnuStrip.Size = new System.Drawing.Size(541, 24);
+            this.mnuStrip.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.mnuStrip.Size = new System.Drawing.Size(406, 24);
             this.mnuStrip.TabIndex = 0;
             this.mnuStrip.Text = "menuStrip1";
             // 
@@ -155,7 +157,8 @@
             this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(0, 24);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 30);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -181,8 +184,9 @@
             this.splitContainer1.Panel2.Controls.Add(this.lblNotes);
             this.splitContainer1.Panel2.Controls.Add(this.lblIdentifier);
             this.splitContainer1.Panel2.Controls.Add(this.lblHeading);
-            this.splitContainer1.Size = new System.Drawing.Size(541, 658);
-            this.splitContainer1.SplitterDistance = 247;
+            this.splitContainer1.Size = new System.Drawing.Size(406, 460);
+            this.splitContainer1.SplitterDistance = 171;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 2;
             // 
             // treXmiStructure
@@ -192,10 +196,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treXmiStructure.ImageIndex = 0;
             this.treXmiStructure.ImageList = this.imgIcons;
-            this.treXmiStructure.Location = new System.Drawing.Point(3, 3);
+            this.treXmiStructure.Location = new System.Drawing.Point(4, 4);
+            this.treXmiStructure.Margin = new System.Windows.Forms.Padding(4);
             this.treXmiStructure.Name = "treXmiStructure";
             this.treXmiStructure.SelectedImageIndex = 0;
-            this.treXmiStructure.Size = new System.Drawing.Size(534, 241);
+            this.treXmiStructure.Size = new System.Drawing.Size(396, 163);
             this.treXmiStructure.TabIndex = 2;
             this.treXmiStructure.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treXmiStructure_AfterSelect);
             // 
@@ -215,94 +220,109 @@
             // txtStatus
             // 
             this.txtStatus.BackColor = System.Drawing.SystemColors.Window;
-            this.txtStatus.Location = new System.Drawing.Point(344, 101);
+            this.txtStatus.Location = new System.Drawing.Point(264, 122);
+            this.txtStatus.Margin = new System.Windows.Forms.Padding(4);
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.ReadOnly = true;
-            this.txtStatus.Size = new System.Drawing.Size(193, 20);
+            this.txtStatus.Size = new System.Drawing.Size(135, 20);
             this.txtStatus.TabIndex = 15;
             // 
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(294, 104);
+            this.lblStatus.Location = new System.Drawing.Point(218, 125);
+            this.lblStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(43, 13);
             this.lblStatus.TabIndex = 14;
             this.lblStatus.Text = "Status: ";
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // txtStereotype
             // 
             this.txtStereotype.BackColor = System.Drawing.SystemColors.Window;
-            this.txtStereotype.Location = new System.Drawing.Point(83, 101);
+            this.txtStereotype.Location = new System.Drawing.Point(70, 122);
+            this.txtStereotype.Margin = new System.Windows.Forms.Padding(4);
             this.txtStereotype.Name = "txtStereotype";
             this.txtStereotype.ReadOnly = true;
-            this.txtStereotype.Size = new System.Drawing.Size(193, 20);
+            this.txtStereotype.Size = new System.Drawing.Size(135, 20);
             this.txtStereotype.TabIndex = 13;
             // 
             // lblSteroetype
             // 
             this.lblSteroetype.AutoSize = true;
-            this.lblSteroetype.Location = new System.Drawing.Point(13, 104);
+            this.lblSteroetype.Location = new System.Drawing.Point(5, 125);
+            this.lblSteroetype.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSteroetype.Name = "lblSteroetype";
             this.lblSteroetype.Size = new System.Drawing.Size(64, 13);
             this.lblSteroetype.TabIndex = 12;
             this.lblSteroetype.Text = "Stereotype: ";
+            this.lblSteroetype.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // txtVersion
             // 
             this.txtVersion.BackColor = System.Drawing.SystemColors.Window;
-            this.txtVersion.Location = new System.Drawing.Point(344, 75);
+            this.txtVersion.Location = new System.Drawing.Point(264, 94);
+            this.txtVersion.Margin = new System.Windows.Forms.Padding(4);
             this.txtVersion.Name = "txtVersion";
             this.txtVersion.ReadOnly = true;
-            this.txtVersion.Size = new System.Drawing.Size(193, 20);
+            this.txtVersion.Size = new System.Drawing.Size(135, 20);
             this.txtVersion.TabIndex = 11;
             // 
             // lblVersion
             // 
             this.lblVersion.AutoSize = true;
-            this.lblVersion.Location = new System.Drawing.Point(294, 78);
+            this.lblVersion.Location = new System.Drawing.Point(213, 97);
+            this.lblVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(48, 13);
+            this.lblVersion.Size = new System.Drawing.Size(45, 13);
             this.lblVersion.TabIndex = 10;
-            this.lblVersion.Text = "Version: ";
+            this.lblVersion.Text = "Version:";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // txtAuthor
             // 
             this.txtAuthor.BackColor = System.Drawing.SystemColors.Window;
-            this.txtAuthor.Location = new System.Drawing.Point(83, 75);
+            this.txtAuthor.Location = new System.Drawing.Point(70, 94);
+            this.txtAuthor.Margin = new System.Windows.Forms.Padding(4);
             this.txtAuthor.Name = "txtAuthor";
             this.txtAuthor.ReadOnly = true;
-            this.txtAuthor.Size = new System.Drawing.Size(193, 20);
+            this.txtAuthor.Size = new System.Drawing.Size(135, 20);
             this.txtAuthor.TabIndex = 9;
             // 
             // lblAuthor
             // 
             this.lblAuthor.AutoSize = true;
-            this.lblAuthor.Location = new System.Drawing.Point(33, 78);
+            this.lblAuthor.Location = new System.Drawing.Point(25, 97);
+            this.lblAuthor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAuthor.Name = "lblAuthor";
             this.lblAuthor.Size = new System.Drawing.Size(44, 13);
             this.lblAuthor.TabIndex = 8;
             this.lblAuthor.Text = "Author: ";
+            this.lblAuthor.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // txtAlias
             // 
             this.txtAlias.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtAlias.BackColor = System.Drawing.SystemColors.Window;
-            this.txtAlias.Location = new System.Drawing.Point(83, 49);
+            this.txtAlias.Location = new System.Drawing.Point(70, 63);
+            this.txtAlias.Margin = new System.Windows.Forms.Padding(4);
             this.txtAlias.Name = "txtAlias";
             this.txtAlias.ReadOnly = true;
-            this.txtAlias.Size = new System.Drawing.Size(454, 20);
+            this.txtAlias.Size = new System.Drawing.Size(330, 20);
             this.txtAlias.TabIndex = 7;
             // 
             // lblAlias
             // 
             this.lblAlias.AutoSize = true;
-            this.lblAlias.Location = new System.Drawing.Point(42, 52);
+            this.lblAlias.Location = new System.Drawing.Point(34, 66);
+            this.lblAlias.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblAlias.Name = "lblAlias";
             this.lblAlias.Size = new System.Drawing.Size(35, 13);
             this.lblAlias.TabIndex = 6;
             this.lblAlias.Text = "Alias: ";
+            this.lblAlias.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // htmlNotes
             // 
@@ -313,9 +333,10 @@
             this.htmlNotes.BackColor = System.Drawing.SystemColors.Window;
             this.htmlNotes.BaseStylesheet = null;
             this.htmlNotes.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.htmlNotes.Location = new System.Drawing.Point(83, 127);
+            this.htmlNotes.Location = new System.Drawing.Point(70, 158);
+            this.htmlNotes.Margin = new System.Windows.Forms.Padding(4);
             this.htmlNotes.Name = "htmlNotes";
-            this.htmlNotes.Size = new System.Drawing.Size(454, 277);
+            this.htmlNotes.Size = new System.Drawing.Size(330, 120);
             this.htmlNotes.TabIndex = 5;
             this.htmlNotes.Text = null;
             this.htmlNotes.UseSystemCursors = true;
@@ -325,10 +346,11 @@
             this.txtIdentifier.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtIdentifier.BackColor = System.Drawing.SystemColors.Window;
-            this.txtIdentifier.Location = new System.Drawing.Point(83, 24);
+            this.txtIdentifier.Location = new System.Drawing.Point(70, 32);
+            this.txtIdentifier.Margin = new System.Windows.Forms.Padding(4);
             this.txtIdentifier.Name = "txtIdentifier";
             this.txtIdentifier.ReadOnly = true;
-            this.txtIdentifier.Size = new System.Drawing.Size(454, 20);
+            this.txtIdentifier.Size = new System.Drawing.Size(330, 20);
             this.txtIdentifier.TabIndex = 4;
             // 
             // txtHeading
@@ -336,46 +358,52 @@
             this.txtHeading.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtHeading.BackColor = System.Drawing.SystemColors.Window;
-            this.txtHeading.Location = new System.Drawing.Point(83, 0);
+            this.txtHeading.Location = new System.Drawing.Point(70, 2);
+            this.txtHeading.Margin = new System.Windows.Forms.Padding(4);
             this.txtHeading.Name = "txtHeading";
             this.txtHeading.ReadOnly = true;
-            this.txtHeading.Size = new System.Drawing.Size(454, 20);
+            this.txtHeading.Size = new System.Drawing.Size(330, 20);
             this.txtHeading.TabIndex = 3;
             // 
             // lblNotes
             // 
-            this.lblNotes.Location = new System.Drawing.Point(24, 127);
+            this.lblNotes.Location = new System.Drawing.Point(8, 158);
+            this.lblNotes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNotes.Name = "lblNotes";
-            this.lblNotes.Size = new System.Drawing.Size(53, 16);
+            this.lblNotes.Size = new System.Drawing.Size(61, 20);
             this.lblNotes.TabIndex = 2;
             this.lblNotes.Text = "Notes: ";
             this.lblNotes.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblIdentifier
             // 
-            this.lblIdentifier.Location = new System.Drawing.Point(21, 26);
+            this.lblIdentifier.Location = new System.Drawing.Point(8, 35);
+            this.lblIdentifier.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblIdentifier.Name = "lblIdentifier";
-            this.lblIdentifier.Size = new System.Drawing.Size(56, 17);
+            this.lblIdentifier.Size = new System.Drawing.Size(61, 21);
             this.lblIdentifier.TabIndex = 1;
             this.lblIdentifier.Text = "Identifier: ";
             this.lblIdentifier.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblHeading
             // 
-            this.lblHeading.Location = new System.Drawing.Point(12, 0);
+            this.lblHeading.Location = new System.Drawing.Point(8, 5);
+            this.lblHeading.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblHeading.Name = "lblHeading";
-            this.lblHeading.Size = new System.Drawing.Size(65, 17);
+            this.lblHeading.Size = new System.Drawing.Size(61, 21);
             this.lblHeading.TabIndex = 0;
             this.lblHeading.Text = "Heading: ";
             this.lblHeading.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // statusStrip1
             // 
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblElementCount});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 686);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 487);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(541, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(406, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -386,15 +414,16 @@
             // 
             // frmEAExport
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(541, 708);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(406, 509);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.mnuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuStrip;
-            this.MinimumSize = new System.Drawing.Size(320, 240);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MinimumSize = new System.Drawing.Size(421, 285);
             this.Name = "frmEAExport";
             this.Text = "EA XMI Export Tool";
             this.mnuStrip.ResumeLayout(false);
