@@ -423,8 +423,13 @@ namespace EAExport.Model
 
             foreach (EATree element in m_Elements.Values) {
                 if (element.ParentId != null) {
-                    EATree parent = m_Elements[element.ParentId];
-                    parent.AddChild(element);
+                    EATree parent;
+                    if (!m_Elements.TryGetValue(element.ParentId, out parent)) {
+                        EATrace.XmiImport(TraceEventType.Warning, "Element: {0} disassociated with parent {1}. Object Heading is {2}.",
+                            element.Id, element.ParentId, element.Heading);
+                    } else {
+                        parent.AddChild(element);
+                    }
                 }
             }
         }
