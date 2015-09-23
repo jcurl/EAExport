@@ -102,6 +102,7 @@
     <Compile Include="Model\EATree.cs" />
     <Compile Include="Model\ITreeExport.cs" />
     <Compile Include="Model\Options.cs" />
+    <Compile Include="Model\StringUtilities.cs" />
     <Compile Include="Native\SafeNativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

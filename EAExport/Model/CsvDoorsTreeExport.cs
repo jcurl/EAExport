@@ -11,6 +11,7 @@ namespace EAExport.Model
     public class CsvDoorsTreeExport : ITreeExport
     {
         private StreamWriter m_Writer;
+        private Dictionary<string, string> m_Conversions = new Dictionary<string, string>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvDoorsTreeExport"/> class.
@@ -20,6 +21,11 @@ namespace EAExport.Model
         {
             m_Writer = new StreamWriter(fileName);
             m_Writer.WriteLine("EAID;EAParent;Heading;Text");
+
+            m_Conversions.Add("\"", "\"\"");
+            m_Conversions.Add("&gt;", ">");
+            m_Conversions.Add("&lt;", "<");
+            m_Conversions.Add("&amp;", "&");
         }
 
         /// <summary>
@@ -38,7 +44,11 @@ namespace EAExport.Model
             if (includeElement) {
                 string heading = (element.Heading == null) ? string.Empty : element.Heading.Trim();
                 string text = (element.Text == null) ? string.Empty : element.Text.Trim();
-                m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"", element.Id, includeElement ? parentId : string.Empty, heading, text);
+                m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"", 
+                    element.Id, 
+                    includeElement ? parentId : string.Empty, 
+                    heading, 
+                    StringUtilities.SearchAndReplace(text, m_Conversions));
             }
 
             foreach (EATree child in element.Children) {
