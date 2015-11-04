@@ -47,7 +47,7 @@ namespace EAExport.Model
                 m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"", 
                     element.Id, 
                     includeElement ? parentId : string.Empty, 
-                    heading, 
+                    StringUtilities.SearchAndReplace(heading, m_Conversions), 
                     StringUtilities.SearchAndReplace(text, m_Conversions));
             }
 
