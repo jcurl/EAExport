@@ -18,6 +18,9 @@
         [Option('?', "help")]
         public bool Help { get; private set; }
 
+        [Option('f', "format")]
+        public FormatType Format { get; private set; }
+
         [OptionArguments]
         private List<string> m_Arguments = new List<string>();
 
@@ -48,7 +51,7 @@
 
         public void Usage()
         {
-            Console.WriteLine("EAExport.exe /o|/output:<outputfile> [/r|/root:<guid>]");
+            Console.WriteLine("EAExport.exe /o|/output:<outputfile> [/r|/root:<guid>] [/f|/format:<format>]");
             Console.WriteLine("             <inputfile>");
             Console.WriteLine("");
             Console.WriteLine("Version: {0}", typeof(frmEAExport).Assembly.GetName().Version);
@@ -60,6 +63,10 @@
             Console.WriteLine("    The EA ID of the object that is the root element, to start dumping from.");
             Console.WriteLine("    You can get this easily when starting the GUI, by selecting the element");
             Console.WriteLine("    and noting the 'Identifier'.");
+            Console.WriteLine("  /f | /format <format>");
+            Console.WriteLine("    Defines the format to use.");
+            Console.WriteLine("     CSVHTML - HTML formatted CSV files. This is the default.");
+            Console.WriteLine("     CSVTEXT - Plain text formatted CSV files.");
             Console.WriteLine("");
             Console.WriteLine("  <inputfile>");
             Console.WriteLine("    The XML file from Enterprise Architect (XMI 1.1) to parse for requirements.");
