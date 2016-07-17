@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
-using System.Xml;
-using System.Xml.Schema;
-
-namespace EAExport.Model
+﻿namespace EAExport.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Xml;
+    using System.Xml.Schema;
+
     /// <summary>
     /// Enterprise Architect Model.
     /// </summary>
@@ -26,7 +25,7 @@ namespace EAExport.Model
 
             EATrace.XmiImport(TraceEventType.Information, "Time: {0}", DateTime.Now.ToString("G"));
             EATrace.XmiImport(TraceEventType.Information, "Loading file {0}", fileName);
-            using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
             using (XmlTextReader xmlReader = new XmlTextReader(fs)) {
                 model.LoadXmi(xmlReader);
                 model.BuildTree();
@@ -58,8 +57,6 @@ namespace EAExport.Model
                     }
                     break;
                 case XmlNodeType.EndElement:
-                    break;
-                default:
                     break;
                 }
             }
@@ -181,7 +178,7 @@ namespace EAExport.Model
                     } else if (xmlReader.Name.Equals("UML:Collaboration")) {
                         LoadUmlCollaboration(xmlReader, parent);
                     } else if (xmlReader.Name.Equals("UML:ClassifierRole")) {
-                        LoadUmlClassifierRole(xmlReader, parent);
+                        LoadUmlClassifierRole(xmlReader);
                     } else {
                         xmlReader.Skip();
                         break;
@@ -260,7 +257,7 @@ namespace EAExport.Model
             FileFormatException(xmlReader, "Unexpected end of stream");
         }
 
-        private void LoadUmlClassifierRole(XmlReader xmlReader, EATree parent)
+        private void LoadUmlClassifierRole(XmlReader xmlReader)
         {
             EATrace.XmiImport(xmlReader, TraceEventType.Verbose, "{0}", xmlReader.Name);
 
@@ -304,7 +301,6 @@ namespace EAExport.Model
             string owner = null;
             string package = null;
             string package2 = null;
-            string parentElement = null;
             string tpos = null;
 
             while (xmlReader.Read()) {
@@ -322,8 +318,6 @@ namespace EAExport.Model
                             parent.Text = xmlReader["value"];
                         } else if (xmlReader["tag"].Equals("package2")) {
                             package2 = xmlReader["value"];
-                        } else if (xmlReader["tag"].Equals("parent")) {
-                            parentElement = xmlReader["value"];
                         } else if (xmlReader["tag"].Equals("alias")) {
                             parent.Alias = xmlReader["value"];
                         } else if (xmlReader["tag"].Equals("version")) {
@@ -397,9 +391,9 @@ namespace EAExport.Model
             FileFormatException(xmlReader, "Unexpected end of stream");
         }
 
-        private Dictionary<string, EATree> m_Elements = new Dictionary<string, EATree>();
+        private readonly Dictionary<string, EATree> m_Elements = new Dictionary<string, EATree>();
 
-        private Dictionary<string, EATree> m_PackageElements = new Dictionary<string, EATree>();
+        private readonly Dictionary<string, EATree> m_PackageElements = new Dictionary<string, EATree>();
 
         private void AddElement(EATree element)
         {

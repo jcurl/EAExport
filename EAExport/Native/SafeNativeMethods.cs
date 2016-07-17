@@ -2,7 +2,7 @@
 {
     using System.Runtime.InteropServices;
 
-    internal class SafeNativeMethods
+    internal static class SafeNativeMethods
     {
         public const int ATTACH_PARENT_PROCESS = -1;
 

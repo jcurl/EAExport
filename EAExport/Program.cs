@@ -1,9 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
-using CommandLine = HBAS.Utilities.CommandLine;
-
-namespace EAExport
+﻿namespace EAExport
 {
+    using System;
+    using System.Windows.Forms;
+    using CommandLine = HBAS.Utilities.CommandLine;
+
     static class Program
     {
         private static Model.Options options = new Model.Options();

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-
-namespace EAExport.Model
+﻿namespace EAExport.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+
     /// <summary>
     /// Class to export the EATree objects in a CSV file for DOORs import.
     /// </summary>
     public class CsvDoorsTreeExport : ITreeExport
     {
-        private StreamWriter m_Writer;
-        private Dictionary<string, string> m_Conversions = new Dictionary<string, string>();
+        private readonly StreamWriter m_Writer;
+        private readonly Dictionary<string, string> m_Conversions = new Dictionary<string, string>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvDoorsTreeExport"/> class.
@@ -45,8 +45,7 @@ namespace EAExport.Model
                 string heading = (element.Heading == null) ? string.Empty : element.Heading.Trim();
                 string text = (element.Text == null) ? string.Empty : element.Text.Trim();
                 m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"", 
-                    element.Id, 
-                    includeElement ? parentId : string.Empty, 
+                    element.Id, parentId,
                     StringUtilities.SearchAndReplace(heading, m_Conversions), 
                     StringUtilities.SearchAndReplace(text, m_Conversions));
             }

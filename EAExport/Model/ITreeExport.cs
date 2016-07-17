@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace EAExport.Model
+﻿namespace EAExport.Model
 {
+    using System;
+
     /// <summary>
     /// A standard interface for exporting a tree to disk.
     /// </summary>

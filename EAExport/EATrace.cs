@@ -1,11 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.Text;
-using System.Xml;
-
-namespace EAExport
+﻿namespace EAExport
 {
-    public class EATrace
+    using System;
+    using System.Diagnostics;
+    using System.Text;
+    using System.Xml;
+
+    public static class EATrace
     {
         private static TraceSource s_XmiImport = new TraceSource("EAExport.XmiImport");
 

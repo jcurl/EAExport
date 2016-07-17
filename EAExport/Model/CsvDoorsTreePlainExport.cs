@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using HtmlAgilityPack;
-
-namespace EAExport.Model
+﻿namespace EAExport.Model
 {
+    using System;
+    using System.IO;
+    using System.Text;
+    using HtmlAgilityPack;
+
     /// <summary>
     /// Class to export the EATree objects in a CSV file for DOORs import.
     /// </summary>

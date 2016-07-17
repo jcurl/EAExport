@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Enum HtmlFormatMode
+    /// HtmlFormatMode.
     /// </summary>
     public enum HtmlFormatMode
     {
@@ -24,7 +24,7 @@
     }
 
     /// <summary>
-    /// Class HtmlFormat.
+    /// Formatting State Object.
     /// </summary>
     public class HtmlFormat
     {

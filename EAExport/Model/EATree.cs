@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-
-namespace EAExport.Model
+﻿namespace EAExport.Model
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Text;
+
     /// <summary>
     /// A structure describing a single Requirement object in Enterprise Architect.
     /// </summary>
@@ -100,7 +100,7 @@ namespace EAExport.Model
         /// <value>The status of the object.</value>
         public string Status { get; set; }
 
-        private LinkedList<EATree> m_Children = new LinkedList<EATree>();
+        private readonly LinkedList<EATree> m_Children = new LinkedList<EATree>();
 
         /// <summary>
         /// Gets the children of this object.
