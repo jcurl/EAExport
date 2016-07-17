@@ -54,12 +54,24 @@ namespace EAExport
                     }
                 }
 
-                using (Model.ITreeExport exportFormat = new Model.CsvDoorsTreeExport(options.Output)) {
+                using (Model.ITreeExport exportFormat = ExportFactory(options.Format, options.Output)) {
                     exportFormat.ExportTree(element, false);
                 }
             } catch (Exception exception) {
                 Console.WriteLine("Error exporting model {0} to {1}\n  {2}", options.Input, options.Output, exception.Message);
                 return;
+            }
+        }
+
+        static Model.ITreeExport ExportFactory(Model.FormatType format, string fileName)
+        {
+            switch (format) {
+            case Model.FormatType.CsvHtml:
+                return new Model.CsvDoorsTreeExport(fileName);
+            case Model.FormatType.CsvText:
+                return new Model.CsvDoorsTreePlainExport(fileName);
+            default:
+                return null;
             }
         }
     }

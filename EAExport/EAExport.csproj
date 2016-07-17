@@ -38,9 +38,13 @@
     <StartupObject>EAExport.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlRenderer, Version=1.5.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.5\lib\net40-client\HtmlRenderer.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net40\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlRenderer, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.6\lib\net40-client\HtmlRenderer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="HtmlRenderer.WinForms, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -98,8 +102,11 @@
     </Compile>
     <Compile Include="EATrace.cs" />
     <Compile Include="Model\CsvDoorsTreeExport.cs" />
+    <Compile Include="Model\CsvDoorsTreePlainExport.cs" />
     <Compile Include="Model\EAModel.cs" />
     <Compile Include="Model\EATree.cs" />
+    <Compile Include="Model\FormatType.cs" />
+    <Compile Include="Model\HtmlFormat.cs" />
     <Compile Include="Model\ITreeExport.cs" />
     <Compile Include="Model\Options.cs" />
     <Compile Include="Model\StringUtilities.cs" />
@@ -128,6 +135,14 @@
     <EmbeddedResource Include="SearchForm.resx">
       <DependentUpon>SearchForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="..\LICENSE.md">
+      <Link>Docs\LICENSE.md</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\USAGE.md">
+      <Link>Docs\USAGE.md</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
     <None Include="app.manifest" />
     <None Include="Icons\Search_48x48x32.png" />
@@ -153,16 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Icons\Search.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\LICENSE.txt">
-      <Link>LICENSE.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\USAGE.txt">
-      <Link>USAGE.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
