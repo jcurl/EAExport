@@ -32,6 +32,7 @@
             this.mnuStrip = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileOpenXmi = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileExport = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileExportCsv = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDash1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +60,7 @@
             this.lblHeading = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblElementCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.mnuFileExportCsvPlain = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -84,7 +86,7 @@
             // 
             this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFileOpenXmi,
-            this.mnuFileExportCsv,
+            this.mnuFileExport,
             this.mnuDash1,
             this.mnuFileExit});
             this.mnuFile.Name = "mnuFile";
@@ -97,32 +99,39 @@
             this.mnuFileOpenXmi.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.mnuFileOpenXmi.Name = "mnuFileOpenXmi";
             this.mnuFileOpenXmi.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.mnuFileOpenXmi.Size = new System.Drawing.Size(203, 22);
+            this.mnuFileOpenXmi.Size = new System.Drawing.Size(174, 26);
             this.mnuFileOpenXmi.Text = "&Open XMI";
             this.mnuFileOpenXmi.Click += new System.EventHandler(this.mnuFileOpenXmi_Click);
             // 
+            // mnuFileExport
+            // 
+            this.mnuFileExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuFileExportCsv,
+            this.mnuFileExportCsvPlain});
+            this.mnuFileExport.Enabled = false;
+            this.mnuFileExport.Image = global::EAExport.Properties.Resources.SaveAs;
+            this.mnuFileExport.Name = "mnuFileExport";
+            this.mnuFileExport.Size = new System.Drawing.Size(174, 26);
+            this.mnuFileExport.Text = "&Export";
+            // 
             // mnuFileExportCsv
             // 
-            this.mnuFileExportCsv.Enabled = false;
-            this.mnuFileExportCsv.Image = global::EAExport.Properties.Resources.SaveAs;
             this.mnuFileExportCsv.Name = "mnuFileExportCsv";
-            this.mnuFileExportCsv.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.S)));
-            this.mnuFileExportCsv.Size = new System.Drawing.Size(203, 22);
-            this.mnuFileExportCsv.Text = "&Export CSV";
+            this.mnuFileExportCsv.Size = new System.Drawing.Size(170, 22);
+            this.mnuFileExportCsv.Text = "As CSV...";
             this.mnuFileExportCsv.Click += new System.EventHandler(this.mnuFileExportCsv_Click);
             // 
             // mnuDash1
             // 
             this.mnuDash1.Name = "mnuDash1";
-            this.mnuDash1.Size = new System.Drawing.Size(200, 6);
+            this.mnuDash1.Size = new System.Drawing.Size(171, 6);
             // 
             // mnuFileExit
             // 
             this.mnuFileExit.Image = global::EAExport.Properties.Resources.Exit;
             this.mnuFileExit.Name = "mnuFileExit";
             this.mnuFileExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.mnuFileExit.Size = new System.Drawing.Size(203, 22);
+            this.mnuFileExit.Size = new System.Drawing.Size(174, 26);
             this.mnuFileExit.Text = "E&xit";
             this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
             // 
@@ -336,7 +345,7 @@
             this.htmlNotes.Location = new System.Drawing.Point(70, 158);
             this.htmlNotes.Margin = new System.Windows.Forms.Padding(4);
             this.htmlNotes.Name = "htmlNotes";
-            this.htmlNotes.Size = new System.Drawing.Size(330, 120);
+            this.htmlNotes.Size = new System.Drawing.Size(330, 117);
             this.htmlNotes.TabIndex = 5;
             this.htmlNotes.Text = null;
             this.htmlNotes.UseSystemCursors = true;
@@ -412,6 +421,13 @@
             this.lblElementCount.Name = "lblElementCount";
             this.lblElementCount.Size = new System.Drawing.Size(0, 17);
             // 
+            // mnuFileExportCsvPlain
+            // 
+            this.mnuFileExportCsvPlain.Name = "mnuFileExportCsvPlain";
+            this.mnuFileExportCsvPlain.Size = new System.Drawing.Size(170, 22);
+            this.mnuFileExportCsvPlain.Text = "As CSV PlainText...";
+            this.mnuFileExportCsvPlain.Click += new System.EventHandler(this.mnuFileExportCsvPlain_Click);
+            // 
             // frmEAExport
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -445,7 +461,6 @@
         private System.Windows.Forms.MenuStrip mnuStrip;
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
         private System.Windows.Forms.ToolStripMenuItem mnuFileOpenXmi;
-        private System.Windows.Forms.ToolStripMenuItem mnuFileExportCsv;
         private System.Windows.Forms.ToolStripMenuItem mnuFileExit;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView treXmiStructure;
@@ -472,6 +487,9 @@
         private System.Windows.Forms.ToolStripMenuItem mnuEditSearchAlias;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblElementCount;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileExport;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileExportCsv;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileExportCsvPlain;
     }
 }
 

@@ -71,7 +71,7 @@ namespace EAExport
 
             try {
                 Model.EAModel loadModel = Model.EAModel.LoadXmi(fileName);
-                mnuFileExportCsv.Enabled = true;
+                mnuFileExport.Enabled = true;
                 mnuEditSearch.Enabled = true;
                 eaModel = loadModel;
                 BuildTree();
@@ -164,22 +164,11 @@ namespace EAExport
 
         private void mnuFileExportCsv_Click(object sender, EventArgs e)
         {
-            Model.EATree element;
-            if (treXmiStructure.SelectedNode == null) {
-                element = eaModel.Root;
-            } else {
-                element = treXmiStructure.SelectedNode.Tag as Model.EATree;
-            }
+            Model.EATree element = GetElement();
             if (element == null) return;
 
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.CheckPathExists = true;
-            saveDialog.DefaultExt = "csv";
-            saveDialog.Filter = "CSV (*.csv)|*.csv";
-            saveDialog.Title = "Save CSV File";
-            saveDialog.ShowDialog();
-            string fileName = saveDialog.FileName;
-            if (string.IsNullOrWhiteSpace(fileName)) return;
+            string fileName = GetFileName("csv", "CSV (*.csv)|*.csv", "Save As CSV File");
+            if (fileName == null) return;
 
             try {
                 using (Model.ITreeExport exportFormat = new Model.CsvDoorsTreeExport(fileName)) {
@@ -189,6 +178,48 @@ namespace EAExport
                 EATrace.XmiImport(System.Diagnostics.TraceEventType.Warning, "EAExport CSV Export Failure: {0}", exception.Message);
                 MessageBox.Show(exception.Message, "EAExport CSV Export Failure");
             }
+        }
+
+        private void mnuFileExportCsvPlain_Click(object sender, EventArgs e)
+        {
+            Model.EATree element = GetElement();
+            if (element == null) return;
+
+            string fileName = GetFileName("csv", "CSV (*.csv)|*.csv", "Save As CSV Plain Text File");
+            if (fileName == null) return;
+
+            try {
+                using (Model.ITreeExport exportFormat = new Model.CsvDoorsTreePlainExport(fileName)) {
+                    exportFormat.ExportTree(element, false);
+                }
+            } catch (System.Exception exception) {
+                EATrace.XmiImport(System.Diagnostics.TraceEventType.Warning, "EAExport CSV Export Failure: {0}", exception.Message);
+                MessageBox.Show(exception.Message, "EAExport CSV Export Failure");
+            }
+        }
+
+        private Model.EATree GetElement()
+        {
+            Model.EATree element;
+            if (treXmiStructure.SelectedNode == null) {
+                element = eaModel.Root;
+            } else {
+                element = treXmiStructure.SelectedNode.Tag as Model.EATree;
+            }
+            return element;
+        }
+
+        private string GetFileName(string defaultExtension, string filter, string title)
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.CheckPathExists = true;
+            saveDialog.DefaultExt = defaultExtension;
+            saveDialog.Filter = filter;
+            saveDialog.Title = title;
+            saveDialog.ShowDialog();
+            string fileName = saveDialog.FileName;
+            if (string.IsNullOrWhiteSpace(fileName)) return null;
+            return fileName;
         }
 
         private void mnuEditSearchAlias_Click(object sender, EventArgs e)

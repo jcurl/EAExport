@@ -38,6 +38,10 @@
     <StartupObject>EAExport.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net40\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="HtmlRenderer, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlRenderer.Core.1.5.0.6\lib\net40-client\HtmlRenderer.dll</HintPath>
       <Private>True</Private>
@@ -98,6 +102,7 @@
     </Compile>
     <Compile Include="EATrace.cs" />
     <Compile Include="Model\CsvDoorsTreeExport.cs" />
+    <Compile Include="Model\CsvDoorsTreePlainExport.cs" />
     <Compile Include="Model\EAModel.cs" />
     <Compile Include="Model\EATree.cs" />
     <Compile Include="Model\ITreeExport.cs" />
