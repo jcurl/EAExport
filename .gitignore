@@ -1,5 +1,4 @@
-/*.suo
-/EAExport/bin
-/EAExport/obj
-/packages/HtmlRenderer.Core.1.5.0.5
-/packages/HtmlRenderer.WinForms.1.5.0.6
+*.suo
+bin
+obj
+/packages
