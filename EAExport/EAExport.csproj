@@ -128,6 +128,14 @@
     <EmbeddedResource Include="SearchForm.resx">
       <DependentUpon>SearchForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="..\LICENSE.md">
+      <Link>Docs\LICENSE.md</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\USAGE.md">
+      <Link>Docs\USAGE.md</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
     <None Include="app.manifest" />
     <None Include="Icons\Search_48x48x32.png" />
@@ -153,16 +161,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Icons\Search.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\LICENSE.txt">
-      <Link>LICENSE.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\USAGE.txt">
-      <Link>USAGE.txt</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
