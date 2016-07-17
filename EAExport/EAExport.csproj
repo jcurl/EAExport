@@ -106,6 +106,7 @@
     <Compile Include="Model\EAModel.cs" />
     <Compile Include="Model\EATree.cs" />
     <Compile Include="Model\FormatType.cs" />
+    <Compile Include="Model\HtmlFormat.cs" />
     <Compile Include="Model\ITreeExport.cs" />
     <Compile Include="Model\Options.cs" />
     <Compile Include="Model\StringUtilities.cs" />

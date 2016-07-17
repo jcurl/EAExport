@@ -36,16 +36,17 @@ namespace EAExport.Model
 
         private void ExportElement(EATree element, bool includeElement, string parentId)
         {
+            HtmlFormat format = new HtmlFormat(HtmlFormatMode.None);
+
             if (includeElement) {
                 string heading = (element.Heading == null) ? string.Empty : element.Heading.Trim();
                 string text = (element.Text == null) ? string.Empty : element.Text.Trim();
 
                 if (text != null) {
                     // Parse the text as HTML and strip all formatting
-                    string convertedText = ConvertHtmlToPlainText(text);
+                    string convertedText = ConvertHtmlToPlainText(format, text);
                     m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"",
-                        element.Id,
-                        includeElement ? parentId : string.Empty,
+                        element.Id, parentId,
                         heading != null ? heading : string.Empty,
                         convertedText != null ? convertedText : string.Empty);
                 }
@@ -56,18 +57,18 @@ namespace EAExport.Model
             }
         }
 
-        private string ConvertHtmlToPlainText(string text)
+        private string ConvertHtmlToPlainText(HtmlFormat format, string text)
         {
             StringBuilder sb = new StringBuilder();
             HtmlDocument html = new HtmlDocument();
 
             html.LoadHtml(text);
-            ParseHtml(html.DocumentNode, sb);
+            ParseHtml(format, html.DocumentNode, sb);
 
             return sb.ToString();
         }
 
-        private void ParseHtml(HtmlNode node, StringBuilder sb)
+        private void ParseHtml(HtmlFormat format, HtmlNode node, StringBuilder sb)
         {
             string html;
             switch (node.NodeType) {
@@ -75,7 +76,7 @@ namespace EAExport.Model
                 // Don't output comments
                 break;
             case HtmlNodeType.Document:
-                ParseHtmlChildren(node, sb);
+                ParseHtmlChildren(format, node, sb);
                 break;
             case HtmlNodeType.Text:
                 string parentName = node.ParentNode.Name;
@@ -94,22 +95,45 @@ namespace EAExport.Model
                 sb.Append(HtmlEntity.DeEntitize(html));
                 break;
             case HtmlNodeType.Element:
+                HtmlFormat nextFormat = format;
+
                 switch (node.Name) {
                 case "p":
                     sb.Append(Environment.NewLine);
                     break;
+                case "ol":
+                    nextFormat = new HtmlFormat(HtmlFormatMode.OrderedList);
+                    nextFormat.Indent = format.Indent + 1;
+                    break;
+                case "ul":
+                    nextFormat = new HtmlFormat(HtmlFormatMode.UnorderedList);
+                    nextFormat.Indent = format.Indent + 1;
+                    break;
+                case "li":
+                    nextFormat.Counter = nextFormat.Counter + 1;
+                    sb.Append(' ', nextFormat.Indent);
+                    switch(nextFormat.Mode) {
+                    case HtmlFormatMode.OrderedList:
+                        sb.Append(string.Format("{0}. ", nextFormat.Counter));
+                        break;
+                    case HtmlFormatMode.UnorderedList:
+                        sb.Append("* ");
+                        break;
+                    }
+                    break;
                 }
+
                 if (node.HasChildNodes) {
-                    ParseHtmlChildren(node, sb);
+                    ParseHtmlChildren(nextFormat, node, sb);
                 }
                 break;
             }
         }
 
-        private void ParseHtmlChildren(HtmlNode node, StringBuilder sb)
+        private void ParseHtmlChildren(HtmlFormat format, HtmlNode node, StringBuilder sb)
         {
             foreach (HtmlNode child in node.ChildNodes) {
-                ParseHtml(child, sb);
+                ParseHtml(format, child, sb);
             }
         }
 
