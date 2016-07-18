@@ -35,15 +35,14 @@
 
         private void ExportElement(EATree element, bool includeElement, string parentId)
         {
-            HtmlFormat format = new HtmlFormat(HtmlFormatMode.None);
-
             if (includeElement) {
                 string heading = (element.Heading == null) ? string.Empty : element.Heading.Trim();
                 string text = (element.Text == null) ? string.Empty : element.Text.Trim();
 
                 if (text != null) {
                     // Parse the text as HTML and strip all formatting
-                    string convertedText = ConvertHtmlToPlainText(format, text);
+                    string convertedTitle = ConvertHtmlToPlainText(new HtmlFormat(HtmlFormatMode.None), heading);
+                    string convertedText = ConvertHtmlToPlainText(new HtmlFormat(HtmlFormatMode.None), text);
                     m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"",
                         element.Id, parentId,
                         heading != null ? heading : string.Empty,
