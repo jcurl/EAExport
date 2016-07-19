@@ -18,7 +18,7 @@
         /// <param name="fileName">Name of the file to export to.</param>
         public CsvDoorsTreePlainExport(string fileName)
         {
-            m_Writer = new StreamWriter(fileName);
+            m_Writer = new StreamWriter(fileName, false, Encoding.GetEncoding("iso-8859-15"), 4096);
             m_Writer.WriteLine("EAID;EAParent;Heading;Text");
         }
 
