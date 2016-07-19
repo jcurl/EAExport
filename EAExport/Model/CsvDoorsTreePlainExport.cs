@@ -18,7 +18,7 @@
         /// <param name="fileName">Name of the file to export to.</param>
         public CsvDoorsTreePlainExport(string fileName)
         {
-            m_Writer = new StreamWriter(fileName);
+            m_Writer = new StreamWriter(fileName, false, Encoding.GetEncoding("iso-8859-15"), 4096);
             m_Writer.WriteLine("EAID;EAParent;Heading;Text");
         }
 
@@ -45,8 +45,8 @@
                     string convertedText = ConvertHtmlToPlainText(new HtmlFormat(HtmlFormatMode.None), text);
                     m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"",
                         element.Id, parentId,
-                        heading != null ? heading : string.Empty,
-                        convertedText != null ? convertedText : string.Empty);
+                        heading != null ? EscapeCsvText(heading) : string.Empty,
+                        convertedText != null ? EscapeCsvText(convertedText) : string.Empty);
                 }
             }
 
@@ -133,6 +133,27 @@
             foreach (HtmlNode child in node.ChildNodes) {
                 ParseHtml(format, child, sb);
             }
+        }
+
+        private static string EscapeCsvText(string text)
+        {
+            StringBuilder sb = null;
+            int l = text.Length;
+            int p = 0;
+            while (p < l) {
+                int cp = text.IndexOf('"', p);
+                if (p == 0 && cp == -1) return text;
+                if (sb == null) sb = new StringBuilder();
+
+                if (cp == -1) {
+                    sb.Append(text.Substring(p, l - p));
+                    p = l;
+                } else {
+                    sb.Append(text.Substring(p, cp + 1 - p)).Append('"');
+                    p = cp + 1;
+                }
+            }
+            return sb == null ? text : sb.ToString();
         }
 
         /// <summary>
