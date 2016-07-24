@@ -100,7 +100,7 @@
         /// <value>The status of the object.</value>
         public string Status { get; set; }
 
-        private readonly LinkedList<EATree> m_Children = new LinkedList<EATree>();
+        private LinkedList<EATree> m_Children = new LinkedList<EATree>();
 
         /// <summary>
         /// Gets the children of this object.
@@ -114,6 +114,7 @@
         /// <param name="element">The element to add.</param>
         public void AddChild(EATree element)
         {
+            if (element == null) throw new ArgumentNullException("element");
             if (m_Children.Count == 0) {
                 m_Children.AddFirst(element);
                 return;

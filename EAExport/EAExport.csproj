@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>EAExport.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -146,6 +147,7 @@
     </None>
     <None Include="App.config" />
     <None Include="app.manifest" />
+    <None Include="EAExport.ruleset" />
     <None Include="Icons\Search_48x48x32.png" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

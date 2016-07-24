@@ -22,7 +22,7 @@
         public FormatType Format { get; private set; }
 
         [OptionArguments]
-        private readonly List<string> m_Arguments = new List<string>();
+        private List<string> m_Arguments = new List<string>();
 
         public void Check()
         {

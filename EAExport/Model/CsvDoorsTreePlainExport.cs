@@ -10,7 +10,7 @@
     /// </summary>
     public class CsvDoorsTreePlainExport : ITreeExport
     {
-        private readonly StreamWriter m_Writer;
+        private StreamWriter m_Writer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvDoorsTreePlainExport"/> class.
