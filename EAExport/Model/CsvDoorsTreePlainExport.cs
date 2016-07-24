@@ -57,8 +57,8 @@
 
                 if (text != null) {
                     // Parse the text as HTML and strip all formatting
-                    string convertedTitle = ConvertHtmlToPlainText(new HtmlFormat(HtmlFormatMode.None), heading);
-                    string convertedText = ConvertHtmlToPlainText(new HtmlFormat(HtmlFormatMode.None), text);
+                    string convertedTitle = ConvertHtmlToPlainText(new HtmlFormatPlainText(HtmlFormatMode.None), heading);
+                    string convertedText = ConvertHtmlToPlainText(new HtmlFormatPlainText(HtmlFormatMode.None), text);
                     m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"",
                         element.Id, parentId,
                         convertedTitle != null ? EscapeCsvText(convertedTitle) : string.Empty,
@@ -71,7 +71,7 @@
             }
         }
 
-        private string ConvertHtmlToPlainText(HtmlFormat format, string text)
+        private string ConvertHtmlToPlainText(HtmlFormatPlainText format, string text)
         {
             StringBuilder sb = new StringBuilder();
             HtmlDocument html = new HtmlDocument();
@@ -82,7 +82,7 @@
             return sb.ToString();
         }
 
-        private void ParseHtml(HtmlFormat format, HtmlNode node, StringBuilder sb)
+        private void ParseHtml(HtmlFormatPlainText format, HtmlNode node, StringBuilder sb)
         {
             string html;
             switch (node.NodeType) {
@@ -109,18 +109,18 @@
                 sb.Append(HtmlEntity.DeEntitize(html));
                 break;
             case HtmlNodeType.Element:
-                HtmlFormat nextFormat = format;
+                HtmlFormatPlainText nextFormat = format;
 
                 switch (node.Name) {
                 case "p":
                     sb.Append(Environment.NewLine);
                     break;
                 case "ol":
-                    nextFormat = new HtmlFormat(HtmlFormatMode.OrderedList);
+                    nextFormat = new HtmlFormatPlainText(HtmlFormatMode.OrderedList);
                     nextFormat.Indent = format.Indent + 1;
                     break;
                 case "ul":
-                    nextFormat = new HtmlFormat(HtmlFormatMode.UnorderedList);
+                    nextFormat = new HtmlFormatPlainText(HtmlFormatMode.UnorderedList);
                     nextFormat.Indent = format.Indent + 1;
                     break;
                 case "li":
@@ -144,7 +144,7 @@
             }
         }
 
-        private void ParseHtmlChildren(HtmlFormat format, HtmlNode node, StringBuilder sb)
+        private void ParseHtmlChildren(HtmlFormatPlainText format, HtmlNode node, StringBuilder sb)
         {
             foreach (HtmlNode child in node.ChildNodes) {
                 ParseHtml(format, child, sb);
