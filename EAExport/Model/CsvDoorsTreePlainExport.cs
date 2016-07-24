@@ -13,12 +13,22 @@
         private readonly StreamWriter m_Writer;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CsvDoorsTreeExport"/> class.
+        /// Initializes a new instance of the <see cref="CsvDoorsTreePlainExport"/> class.
         /// </summary>
         /// <param name="fileName">Name of the file to export to.</param>
         public CsvDoorsTreePlainExport(string fileName)
         {
             m_Writer = new StreamWriter(fileName, false, Encoding.GetEncoding("iso-8859-15"), 4096);
+            m_Writer.WriteLine("EAID;EAParent;Heading;Text");
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CsvDoorsTreePlainExport"/> class.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        public CsvDoorsTreePlainExport(Stream stream)
+        {
+            m_Writer = new StreamWriter(stream);
             m_Writer.WriteLine("EAID;EAParent;Heading;Text");
         }
 
@@ -32,6 +42,12 @@
         {
             ExportElement(root, includeRoot, root.Id);
         }
+
+        /// <summary>
+        /// Gets the stream writer used to write the object.
+        /// </summary>
+        /// <value>The stream writer.</value>
+        public TextWriter StreamWriter { get { return m_Writer; } }
 
         private void ExportElement(EATree element, bool includeElement, string parentId)
         {
