@@ -15,6 +15,11 @@
         /// <summary>
         /// Convert to Comma Separated values format with Plain Text.
         /// </summary>
-        CsvText
+        CsvText,
+
+        /// <summary>
+        /// Convert to DocBook 4.5 fragment with Chapters.
+        /// </summary>
+        DB45Chapters
     }
 }

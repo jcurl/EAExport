@@ -34,6 +34,7 @@
             this.mnuFileOpenXmi = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileExport = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileExportCsv = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileExportCsvPlain = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDash1 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuEdit = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +61,7 @@
             this.lblHeading = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblElementCount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.mnuFileExportCsvPlain = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileExportDB45Chapters = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -107,7 +108,8 @@
             // 
             this.mnuFileExport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFileExportCsv,
-            this.mnuFileExportCsvPlain});
+            this.mnuFileExportCsvPlain,
+            this.mnuFileExportDB45Chapters});
             this.mnuFileExport.Enabled = false;
             this.mnuFileExport.Image = global::EAExport.Properties.Resources.SaveAs;
             this.mnuFileExport.Name = "mnuFileExport";
@@ -117,9 +119,16 @@
             // mnuFileExportCsv
             // 
             this.mnuFileExportCsv.Name = "mnuFileExportCsv";
-            this.mnuFileExportCsv.Size = new System.Drawing.Size(170, 22);
+            this.mnuFileExportCsv.Size = new System.Drawing.Size(232, 22);
             this.mnuFileExportCsv.Text = "As CSV...";
             this.mnuFileExportCsv.Click += new System.EventHandler(this.mnuFileExportCsv_Click);
+            // 
+            // mnuFileExportCsvPlain
+            // 
+            this.mnuFileExportCsvPlain.Name = "mnuFileExportCsvPlain";
+            this.mnuFileExportCsvPlain.Size = new System.Drawing.Size(232, 22);
+            this.mnuFileExportCsvPlain.Text = "As CSV PlainText...";
+            this.mnuFileExportCsvPlain.Click += new System.EventHandler(this.mnuFileExportCsvPlain_Click);
             // 
             // mnuDash1
             // 
@@ -345,7 +354,7 @@
             this.htmlNotes.Location = new System.Drawing.Point(70, 158);
             this.htmlNotes.Margin = new System.Windows.Forms.Padding(4);
             this.htmlNotes.Name = "htmlNotes";
-            this.htmlNotes.Size = new System.Drawing.Size(330, 117);
+            this.htmlNotes.Size = new System.Drawing.Size(330, 116);
             this.htmlNotes.TabIndex = 5;
             this.htmlNotes.Text = null;
             this.htmlNotes.UseSystemCursors = true;
@@ -421,12 +430,12 @@
             this.lblElementCount.Name = "lblElementCount";
             this.lblElementCount.Size = new System.Drawing.Size(0, 17);
             // 
-            // mnuFileExportCsvPlain
+            // mnuFileExportDB45Chapters
             // 
-            this.mnuFileExportCsvPlain.Name = "mnuFileExportCsvPlain";
-            this.mnuFileExportCsvPlain.Size = new System.Drawing.Size(170, 22);
-            this.mnuFileExportCsvPlain.Text = "As CSV PlainText...";
-            this.mnuFileExportCsvPlain.Click += new System.EventHandler(this.mnuFileExportCsvPlain_Click);
+            this.mnuFileExportDB45Chapters.Name = "mnuFileExportDB45Chapters";
+            this.mnuFileExportDB45Chapters.Size = new System.Drawing.Size(232, 22);
+            this.mnuFileExportDB45Chapters.Text = "As DocBook 4.5 with Chapters";
+            this.mnuFileExportDB45Chapters.Click += new System.EventHandler(this.mnuFileExportDB45Chapters_Click);
             // 
             // frmEAExport
             // 
@@ -490,6 +499,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuFileExport;
         private System.Windows.Forms.ToolStripMenuItem mnuFileExportCsv;
         private System.Windows.Forms.ToolStripMenuItem mnuFileExportCsvPlain;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileExportDB45Chapters;
     }
 }
 

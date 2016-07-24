@@ -104,6 +104,8 @@
     <Compile Include="EATrace.cs" />
     <Compile Include="Model\CsvDoorsTreeExport.cs" />
     <Compile Include="Model\CsvDoorsTreePlainExport.cs" />
+    <Compile Include="Model\DocBook45ChapterExport.cs" />
+    <Compile Include="Model\DocBookFormat.cs" />
     <Compile Include="Model\EAModel.cs" />
     <Compile Include="Model\EATree.cs" />
     <Compile Include="Model\FormatType.cs" />

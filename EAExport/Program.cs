@@ -70,6 +70,8 @@
                 return new Model.CsvDoorsTreeExport(fileName);
             case Model.FormatType.CsvText:
                 return new Model.CsvDoorsTreePlainExport(fileName);
+            case Model.FormatType.DB45Chapters:
+                return new Model.DocBook45ChapterExport(fileName);
             default:
                 return null;
             }
