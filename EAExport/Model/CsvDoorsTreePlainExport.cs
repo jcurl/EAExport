@@ -45,7 +45,7 @@
                     string convertedText = ConvertHtmlToPlainText(new HtmlFormat(HtmlFormatMode.None), text);
                     m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"",
                         element.Id, parentId,
-                        heading != null ? EscapeCsvText(heading) : string.Empty,
+                        convertedTitle != null ? EscapeCsvText(convertedTitle) : string.Empty,
                         convertedText != null ? EscapeCsvText(convertedText) : string.Empty);
                 }
             }
