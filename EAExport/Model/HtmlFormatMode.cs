@@ -20,6 +20,11 @@
         /// <summary>
         /// The current formatting is for an unordered list
         /// </summary>
-        UnorderedList
+        UnorderedList,
+
+        /// <summary>
+        /// The current formatting is for a list item
+        /// </summary>
+        ListItem
     }
 }

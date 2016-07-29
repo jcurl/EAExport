@@ -42,6 +42,8 @@
             m_XmlWriter = xmlWriter;
         }
 
+        XmlDocument m_XmlDocument;
+
         /// <summary>
         /// Exports the tree.
         /// </summary>
@@ -50,65 +52,73 @@
         /// if set to <c>false</c>, then the children are exported.</param>
         public void ExportTree(EATree root, bool includeRoot)
         {
-            ExportElement(root, includeRoot, new DocBookFormat());
+            m_XmlDocument = new XmlDocument();
+            XmlDocumentFragment xmlFragment = m_XmlDocument.CreateDocumentFragment();
+
+            DocBookFormat format = new DocBookFormat();
+            if (includeRoot) {
+                XmlNode xnode = ExportElement(root, format);
+                xmlFragment.AppendChild(xnode);
+            } else {
+                foreach (EATree child in root.Children) {
+                    XmlNode xnode = ExportElement(child, format);
+                    xmlFragment.AppendChild(xnode);
+                }
+            }
+            xmlFragment.WriteContentTo(m_XmlWriter);
         }
 
-        private void ExportElement(EATree element, bool includeElement, DocBookFormat format)
+        private XmlNode ExportElement(EATree element, DocBookFormat format)
         {
-            if (includeElement) {
-                string heading = (element.Heading == null) ? string.Empty : element.Heading.Trim();
-                string text = (element.Text == null) ? string.Empty : element.Text.Trim();
-
-                // Parse the text as HTML and strip all formatting
-                string convertedTitle = HtmlEntity.DeEntitize(heading);
-
-                // Write the section and the title for the section
-                if (format.SectionDepth == 0) {
-                    m_XmlWriter.WriteStartElement("chapter");
-                } else {
-                    m_XmlWriter.WriteStartElement("section");
-                }
-                format.SectionDepth++;
-
-                m_XmlWriter.WriteStartElement("title");
-                m_XmlWriter.WriteValue(convertedTitle);
-                m_XmlWriter.WriteEndElement();
-
-                ConvertHtmlToDocBook45(format, text);
+            XmlElement xmlSectionElement;
+            if (format.SectionDepth == 0) {
+                xmlSectionElement = m_XmlDocument.CreateElement("chapter");
+            } else {
+                xmlSectionElement = m_XmlDocument.CreateElement("section");
             }
+
+            format.SectionDepth++;
+            string heading = (element.Heading == null) ? string.Empty : element.Heading.Trim();
+            XmlElement xmlTitleElement = m_XmlDocument.CreateElement("title");
+            XmlText xmlTitleText = m_XmlDocument.CreateTextNode(HtmlEntity.DeEntitize(heading));
+            xmlTitleElement.AppendChild(xmlTitleText);
+            xmlSectionElement.AppendChild(xmlTitleElement);
+
+            string text = (element.Text == null) ? string.Empty : element.Text.Trim();
+            XmlNode textNode = ConvertHtmlToDocBook45(text, format);
+            if (textNode != null) xmlSectionElement.AppendChild(textNode);
 
             foreach (EATree child in element.Children) {
-                ExportElement(child, true, format);
+                XmlNode xmlChild = ExportElement(child, format);
+                xmlSectionElement.AppendChild(xmlChild);
             }
 
-            if (includeElement) {
-                format.SectionDepth--;
-                m_XmlWriter.WriteEndElement();
-            }
+            format.SectionDepth--;
+            return xmlSectionElement;
         }
 
-        private void ConvertHtmlToDocBook45(DocBookFormat format, string text)
+        private XmlNode ConvertHtmlToDocBook45(string text, DocBookFormat format)
         {
             if (!string.IsNullOrWhiteSpace(text)) {
-                m_XmlWriter.WriteStartElement("para");
 
                 HtmlDocument html = new HtmlDocument();
                 html.LoadHtml(text);
-                ParseHtml(format, html.DocumentNode);
-
-                m_XmlWriter.WriteEndElement();
+                XmlDocumentFragment xmlFragment = m_XmlDocument.CreateDocumentFragment();
+                return ParseHtml(html.DocumentNode, format, xmlFragment);
             }
+            return null;
         }
 
-        private void ParseHtml(DocBookFormat format, HtmlNode node)
+        private XmlNode ParseHtml(HtmlNode node, DocBookFormat format, XmlNode xmlNode)
         {
             string html;
             switch (node.NodeType) {
+            case HtmlNodeType.Document:
+                ParseHtmlChildren(node, format, xmlNode);
+                format.InParagraph = false;
+                break;
             case HtmlNodeType.Comment:
                 // Don't output comments
-                break;
-            case HtmlNodeType.Document:
-                ParseHtmlChildren(format, node);
                 break;
             case HtmlNodeType.Text:
                 string parentName = node.ParentNode.Name;
@@ -124,55 +134,86 @@
                     break;
                 }
 
-                m_XmlWriter.WriteValue(html);
+                if (!format.InParagraph && 
+                    format.Mode != HtmlFormatMode.OrderedList && format.Mode != HtmlFormatMode.UnorderedList) {
+                    format.InParagraph = true;
+                    XmlElement xmlPara = m_XmlDocument.CreateElement("para");
+                    xmlNode.AppendChild(xmlPara);
+                    xmlNode = xmlPara;
+                }
+
+                if (format.Mode != HtmlFormatMode.OrderedList && format.Mode != HtmlFormatMode.UnorderedList) {
+                    // Only add the text if we're not in an ordered list without a list element.
+                    XmlText xmlParaText = m_XmlDocument.CreateTextNode(html);
+                    xmlNode.AppendChild(xmlParaText);
+                }
                 break;
+
             case HtmlNodeType.Element:
                 DocBookFormat nextFormat = format;
+                XmlNode nextNode = xmlNode;
 
                 switch (node.Name) {
                 case "p":
-                    //sb.Append(Environment.NewLine);
-
-                    // End all elements, until we get to the paragraph
-                    // Then end the paragraph and start a new one.
-                    m_XmlWriter.WriteComment("p");
+                    // TODO
                     break;
+
                 case "ol":
-                    //nextFormat = new DocBookFormat(HtmlFormatMode.OrderedList);
-                    //nextFormat.Indent = format.Indent + 1;
-                    m_XmlWriter.WriteComment("ol");
+                    // Close the previous paragraph
+                    if (format.InParagraph) {
+                        while (xmlNode != null &&
+                            (xmlNode.NodeType != XmlNodeType.Element || !xmlNode.Name.Equals("para"))) {
+                            xmlNode = xmlNode.ParentNode;
+                        }
+                        xmlNode = xmlNode.ParentNode;
+                    }
+
+                    nextFormat = new DocBookFormat(format.SectionDepth, HtmlFormatMode.OrderedList);
+                    nextFormat.InParagraph = false;
+                    nextNode = m_XmlDocument.CreateElement("orderedlist");
+                    xmlNode.AppendChild(nextNode);
+                    format.InParagraph = false;
                     break;
                 case "ul":
-                    //nextFormat = new DocBookFormat(HtmlFormatMode.UnorderedList);
-                    //nextFormat.Indent = format.Indent + 1;
-                    m_XmlWriter.WriteComment("ul");
+                    // Close the previous paragraph
+                    if (format.InParagraph) {
+                        while (xmlNode != null &&
+                            (xmlNode.NodeType != XmlNodeType.Element || !xmlNode.Name.Equals("para"))) {
+                            xmlNode = xmlNode.ParentNode;
+                        }
+                        xmlNode = xmlNode.ParentNode;
+                    }
+
+                    nextFormat = new DocBookFormat(format.SectionDepth, HtmlFormatMode.UnorderedList);
+                    nextFormat.InParagraph = false;
+                    nextNode = m_XmlDocument.CreateElement("itemizedlist");
+                    xmlNode.AppendChild(nextNode);
+                    format.InParagraph = false;
                     break;
                 case "li":
-                    //nextFormat.Counter = nextFormat.Counter + 1;
-                    //sb.Append(' ', nextFormat.Indent);
-                    //switch (nextFormat.Mode) {
-                    //case HtmlFormatMode.OrderedList:
-                    //    sb.Append(string.Format("{0}. ", nextFormat.Counter));
-                    //    break;
-                    //case HtmlFormatMode.UnorderedList:
-                    //    sb.Append("* ");
-                    //    break;
-                    //}
-                    m_XmlWriter.WriteComment("li");
+                    nextFormat = new DocBookFormat(format.SectionDepth, HtmlFormatMode.ListItem);
+                    XmlElement xmlListItem = m_XmlDocument.CreateElement("listitem");
+                    XmlElement xmlPara = m_XmlDocument.CreateElement("para");
+                    nextFormat.InParagraph = true;
+                    xmlListItem.AppendChild(xmlPara);
+                    xmlNode.AppendChild(xmlListItem);
+                    nextNode = xmlPara;
                     break;
                 }
 
                 if (node.HasChildNodes) {
-                    ParseHtmlChildren(nextFormat, node);
+                    ParseHtmlChildren(node, nextFormat, nextNode);
                 }
                 break;
             }
+
+            return xmlNode;
         }
 
-        private void ParseHtmlChildren(DocBookFormat format, HtmlNode node)
+        private void ParseHtmlChildren(HtmlNode node, DocBookFormat format, XmlNode xmlNode)
         {
             foreach (HtmlNode child in node.ChildNodes) {
-                ParseHtml(format, child);
+                xmlNode = ParseHtml(child, format, xmlNode);
             }
         }
 
