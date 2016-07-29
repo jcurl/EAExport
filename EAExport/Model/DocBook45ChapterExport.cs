@@ -146,8 +146,7 @@
 
                 if (xmlParent.Name.Equals("para")) {
                     // Only add the the text if we're in a paragraph.
-                    XmlText xmlParaText = m_XmlDocument.CreateTextNode(html);
-                    xmlNode.AppendChild(xmlParaText);
+                    xmlNode = ParseHtmlText(html, xmlNode);
                 }
                 break;
 
@@ -217,6 +216,48 @@
                 node = node.ParentNode;
             }
             return null;
+        }
+
+        private XmlNode ParseHtmlText(string htmlText, XmlNode node)
+        {
+            string[] paragraphs = htmlText.Split('\n', '\r');
+            if (paragraphs.Length == 0) return node;
+
+            XmlNode xmlTopPara = GetParent(node, "para");
+            if (xmlTopPara == null) throw new ApplicationException("Not in a paragraph");
+
+            bool inParagraph = true;
+            XmlNode origNode = node;
+            foreach (string paragraph in paragraphs) {
+                string normalizedParagraph = paragraph.Trim();
+                if (normalizedParagraph.Length > 0) {
+                    if (!inParagraph) {
+                        // Here we construct a new paragraph and reset the formatting based on origNode
+                        XmlNode xmlCursor = origNode;
+                        XmlNode xmlPara = null;
+                        while (xmlCursor != null) {
+                            XmlNode xmlSubElement = m_XmlDocument.CreateElement(xmlCursor.Name);
+                            if (xmlPara == null) {
+                                xmlPara = xmlSubElement;
+                                node = xmlSubElement;
+                            } else {
+                                xmlSubElement.AppendChild(xmlPara);
+                                xmlPara = xmlSubElement;
+                            }
+                            if (xmlCursor.Name.Equals("para")) {
+                                xmlCursor = null;
+                            } else {
+                                xmlCursor = xmlCursor.ParentNode;
+                            }
+                        }
+                        xmlTopPara.ParentNode.AppendChild(xmlPara);
+                    }
+                    XmlText xmlText = m_XmlDocument.CreateTextNode(paragraph);
+                    node.AppendChild(xmlText);
+                    inParagraph = false;
+                }
+            }
+            return node;
         }
 
         /// <summary>
