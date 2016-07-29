@@ -183,6 +183,27 @@
                     xmlNode.AppendChild(xmlListItem);
                     nextNode = xmlPara;
                     break;
+                case "u":
+                    XmlElement xmlUnderline = m_XmlDocument.CreateElement("emphasis");
+                    XmlAttribute xmlUnderlineAttr = m_XmlDocument.CreateAttribute("role");
+                    xmlUnderlineAttr.Value = "underline";
+                    xmlUnderline.Attributes.Append(xmlUnderlineAttr);
+                    xmlNode.AppendChild(xmlUnderline);
+                    nextNode = xmlUnderline;
+                    break;
+                case "i":
+                    XmlElement xmlItalic = m_XmlDocument.CreateElement("emphasis");
+                    xmlNode.AppendChild(xmlItalic);
+                    nextNode = xmlItalic;
+                    break;
+                case "b":
+                    XmlElement xmlBold = m_XmlDocument.CreateElement("emphasis");
+                    XmlAttribute xmlBoldAttr = m_XmlDocument.CreateAttribute("role");
+                    xmlBoldAttr.Value = "bold";
+                    xmlBold.Attributes.Append(xmlBoldAttr);
+                    xmlNode.AppendChild(xmlBold);
+                    nextNode = xmlBold;
+                    break;
                 }
 
                 if (node.HasChildNodes) {
