@@ -86,6 +86,11 @@
 
             string text = (element.Text == null) ? string.Empty : element.Text.Trim();
             XmlNode textNode = ConvertHtmlToDocBook45(text, format);
+            if (textNode == null) {
+                if (element.Children.Count == 0) {
+                    textNode = m_XmlDocument.CreateElement("para");
+                }
+            }
             if (textNode != null) xmlSectionElement.AppendChild(textNode);
 
             foreach (EATree child in element.Children) {
