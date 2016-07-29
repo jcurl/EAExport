@@ -112,10 +112,11 @@
         private XmlNode ParseHtml(HtmlNode node, DocBookFormat format, XmlNode xmlNode)
         {
             string html;
+            XmlNode xmlParent;
+
             switch (node.NodeType) {
             case HtmlNodeType.Document:
                 ParseHtmlChildren(node, format, xmlNode);
-                format.InParagraph = false;
                 break;
             case HtmlNodeType.Comment:
                 // Don't output comments
@@ -134,16 +135,17 @@
                     break;
                 }
 
-                if (!format.InParagraph && 
-                    format.Mode != HtmlFormatMode.OrderedList && format.Mode != HtmlFormatMode.UnorderedList) {
-                    format.InParagraph = true;
+                xmlParent = GetParent(xmlNode, "para", "orderedlist", "itemizedlist");
+                if (xmlParent == null) {
+                    // We're not in an ordered list and we don't have a paragraph set up. So make a new element.
                     XmlElement xmlPara = m_XmlDocument.CreateElement("para");
                     xmlNode.AppendChild(xmlPara);
                     xmlNode = xmlPara;
+                    xmlParent = xmlPara;
                 }
 
-                if (format.Mode != HtmlFormatMode.OrderedList && format.Mode != HtmlFormatMode.UnorderedList) {
-                    // Only add the text if we're not in an ordered list without a list element.
+                if (xmlParent.Name.Equals("para")) {
+                    // Only add the the text if we're in a paragraph.
                     XmlText xmlParaText = m_XmlDocument.CreateTextNode(html);
                     xmlNode.AppendChild(xmlParaText);
                 }
@@ -154,47 +156,25 @@
                 XmlNode nextNode = xmlNode;
 
                 switch (node.Name) {
-                case "p":
-                    // TODO
-                    break;
-
                 case "ol":
-                    // Close the previous paragraph
-                    if (format.InParagraph) {
-                        while (xmlNode != null &&
-                            (xmlNode.NodeType != XmlNodeType.Element || !xmlNode.Name.Equals("para"))) {
-                            xmlNode = xmlNode.ParentNode;
-                        }
-                        xmlNode = xmlNode.ParentNode;
-                    }
-
+                    // Add the ordered list after the previous paragraph if there is one.
+                    xmlParent = GetParent(xmlNode, "para");
+                    if (xmlParent != null) xmlNode = xmlParent.ParentNode;
                     nextFormat = new DocBookFormat(format.SectionDepth, HtmlFormatMode.OrderedList);
-                    nextFormat.InParagraph = false;
                     nextNode = m_XmlDocument.CreateElement("orderedlist");
                     xmlNode.AppendChild(nextNode);
-                    format.InParagraph = false;
                     break;
                 case "ul":
-                    // Close the previous paragraph
-                    if (format.InParagraph) {
-                        while (xmlNode != null &&
-                            (xmlNode.NodeType != XmlNodeType.Element || !xmlNode.Name.Equals("para"))) {
-                            xmlNode = xmlNode.ParentNode;
-                        }
-                        xmlNode = xmlNode.ParentNode;
-                    }
-
+                    xmlParent = GetParent(xmlNode, "para");
+                    if (xmlParent != null) xmlNode = xmlParent.ParentNode;
                     nextFormat = new DocBookFormat(format.SectionDepth, HtmlFormatMode.UnorderedList);
-                    nextFormat.InParagraph = false;
                     nextNode = m_XmlDocument.CreateElement("itemizedlist");
                     xmlNode.AppendChild(nextNode);
-                    format.InParagraph = false;
                     break;
                 case "li":
                     nextFormat = new DocBookFormat(format.SectionDepth, HtmlFormatMode.ListItem);
                     XmlElement xmlListItem = m_XmlDocument.CreateElement("listitem");
                     XmlElement xmlPara = m_XmlDocument.CreateElement("para");
-                    nextFormat.InParagraph = true;
                     xmlListItem.AppendChild(xmlPara);
                     xmlNode.AppendChild(xmlListItem);
                     nextNode = xmlPara;
@@ -215,6 +195,28 @@
             foreach (HtmlNode child in node.ChildNodes) {
                 xmlNode = ParseHtml(child, format, xmlNode);
             }
+        }
+
+        private XmlNode GetParent(XmlNode node, string element)
+        {
+            while (node != null) {
+                if (node.NodeType == XmlNodeType.Element && node.Name.Equals(element)) return node;
+                node = node.ParentNode;
+            }
+            return null;
+        }
+
+        private XmlNode GetParent(XmlNode node, params string[] elements)
+        {
+            while (node != null) {
+                if (node.NodeType == XmlNodeType.Element) {
+                    foreach (string element in elements) {
+                        if (node.Name.Equals(element)) return node;
+                    }
+                }
+                node = node.ParentNode;
+            }
+            return null;
         }
 
         /// <summary>

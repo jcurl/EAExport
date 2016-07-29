@@ -38,7 +38,5 @@
         /// </summary>
         /// <value>The mode.</value>
         public HtmlFormatMode Mode { get; set; }
-
-        public bool InParagraph { get; set; }
     }
 }
