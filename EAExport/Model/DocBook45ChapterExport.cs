@@ -140,19 +140,7 @@
                     break;
                 }
 
-                xmlParent = GetParent(xmlNode, "para", "orderedlist", "itemizedlist");
-                if (xmlParent == null) {
-                    // We're not in an ordered list and we don't have a paragraph set up. So make a new element.
-                    XmlElement xmlPara = m_XmlDocument.CreateElement("para");
-                    xmlNode.AppendChild(xmlPara);
-                    xmlNode = xmlPara;
-                    xmlParent = xmlPara;
-                }
-
-                if (xmlParent.Name.Equals("para")) {
-                    // Only add the the text if we're in a paragraph.
-                    xmlNode = ParseHtmlText(html, xmlNode);
-                }
+                xmlNode = ParseHtmlText(HtmlEntity.DeEntitize(html), xmlNode);
                 break;
 
             case HtmlNodeType.Element:
@@ -244,43 +232,111 @@
             return null;
         }
 
+        private enum TextMode
+        {
+            None,
+            Paragraph,
+            Screen
+        }
+
         private XmlNode ParseHtmlText(string htmlText, XmlNode node)
         {
+            XmlNode xmlFormatNode = null;
+            XmlNode rootNode;
+            TextMode textMode;
+            XmlNode xmlParent = GetParent(node, "para", "screen", "orderedlist", "itemizedlist");
+            if (xmlParent == null) {
+                // We're not in a list, or a paragraph. We create a new node based on the next
+                // that that will be parsed.
+                textMode = TextMode.None;
+                rootNode = node;
+            } else if (xmlParent.Name.Equals("para")) {
+                // We're in a paragraph. The current node defines the formatting when a newline
+                // is observed.
+                xmlFormatNode = node;
+                rootNode = xmlParent.ParentNode;
+                textMode = TextMode.Paragraph;
+            } else if (xmlParent.Name.Equals("screen")) {
+                // We're in a literal block. Keep parsing it and we don't need to remember the
+                // formatting.
+                rootNode = xmlParent.ParentNode;
+                textMode = TextMode.Screen;
+            } else {
+                // We're in a list, which case we throw away the text as it's not allowed here.
+                return node;
+            }
+
             string[] paragraphs = htmlText.Split('\n', '\r');
             if (paragraphs.Length == 0) return node;
 
-            XmlNode xmlTopPara = GetParent(node, "para");
-            if (xmlTopPara == null) throw new ApplicationException("Not in a paragraph");
-
-            bool inParagraph = true;
-            XmlNode origNode = node;
             foreach (string paragraph in paragraphs) {
-                string normalizedParagraph = paragraph.Trim();
-                if (normalizedParagraph.Length > 0) {
-                    if (!inParagraph) {
-                        // Here we construct a new paragraph and reset the formatting based on origNode
-                        XmlNode xmlCursor = origNode;
-                        XmlNode xmlPara = null;
-                        while (xmlCursor != null) {
-                            XmlNode xmlSubElement = m_XmlDocument.CreateElement(xmlCursor.Name);
-                            if (xmlPara == null) {
-                                xmlPara = xmlSubElement;
-                                node = xmlSubElement;
-                            } else {
-                                xmlSubElement.AppendChild(xmlPara);
-                                xmlPara = xmlSubElement;
-                            }
-                            if (xmlCursor.Name.Equals("para")) {
-                                xmlCursor = null;
-                            } else {
-                                xmlCursor = xmlCursor.ParentNode;
-                            }
-                        }
-                        xmlTopPara.ParentNode.AppendChild(xmlPara);
+                TextMode nextMode;
+                switch (textMode) {
+                case TextMode.Paragraph:
+                    nextMode = TextMode.Paragraph;
+                    break;
+                default:
+                    if (paragraph.Length == 0) {
+                        nextMode = TextMode.Paragraph;
+                    } else {
+                        // Anything that starts with a space is considered code, like in mediawiki
+                        nextMode = paragraph[0] == ' ' ? TextMode.Screen : TextMode.Paragraph;
                     }
-                    XmlText xmlText = m_XmlDocument.CreateTextNode(paragraph);
-                    node.AppendChild(xmlText);
-                    inParagraph = false;
+                    break;
+                }
+
+                switch (nextMode) {
+                case TextMode.Paragraph:
+                    if (paragraph.Trim().Length > 0) {
+                        // Only create paragraphs for non-empty lines
+                        if (textMode != TextMode.Paragraph) {
+                            // Previously not in a paragraph, so we need to create a new one
+                            // and copy the formatting from the previous paragraph.
+                            XmlNode xmlPara = null;
+                            if (xmlFormatNode == null) {
+                                xmlPara = m_XmlDocument.CreateElement("para");
+                            } else {
+                                XmlNode xmlCursor = xmlFormatNode;
+                                while (xmlCursor != null) {
+                                    XmlNode xmlSubElement = m_XmlDocument.CreateElement(xmlCursor.Name);
+                                    if (xmlPara == null) {
+                                        xmlPara = xmlSubElement;
+                                    } else {
+                                        xmlSubElement.AppendChild(xmlPara);
+                                        xmlPara = xmlSubElement;
+                                    }
+                                    if (xmlCursor.Name.Equals("para")) {
+                                        xmlCursor = null;
+                                    } else {
+                                        xmlCursor = xmlCursor.ParentNode;
+                                    }
+                                }
+                            }
+                            rootNode.AppendChild(xmlPara);
+                            node = xmlPara;
+                        }
+                        XmlText xmlText = m_XmlDocument.CreateTextNode(paragraph);
+                        node.AppendChild(xmlText);
+                    }
+                    textMode = TextMode.None;
+                    break;
+                case TextMode.Screen:
+                    if (textMode != TextMode.Screen) {
+                        // Create a new screen element, but only for non-empty lines
+                        if (paragraph.Trim().Length == 0) break;
+
+                        XmlNode xmlScreen = m_XmlDocument.CreateElement("screen");
+                        rootNode.AppendChild(xmlScreen);
+                        node = xmlScreen;
+                        textMode = TextMode.Screen;
+                    } else {
+                        // End the previous screen line and start a new one
+                        XmlText xmlNewLine = m_XmlDocument.CreateTextNode("\n");
+                        node.AppendChild(xmlNewLine);
+                    }
+                    XmlText xmlScreenText = m_XmlDocument.CreateTextNode(paragraph.Substring(1));
+                    node.AppendChild(xmlScreenText);
+                    break;
                 }
             }
             return node;
