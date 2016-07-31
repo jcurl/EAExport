@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>EAExport.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -103,10 +104,13 @@
     <Compile Include="EATrace.cs" />
     <Compile Include="Model\CsvDoorsTreeExport.cs" />
     <Compile Include="Model\CsvDoorsTreePlainExport.cs" />
+    <Compile Include="Model\DocBook45ChapterExport.cs" />
+    <Compile Include="Model\DocBookFormat.cs" />
     <Compile Include="Model\EAModel.cs" />
     <Compile Include="Model\EATree.cs" />
     <Compile Include="Model\FormatType.cs" />
-    <Compile Include="Model\HtmlFormat.cs" />
+    <Compile Include="Model\HtmlFormatPlainText.cs" />
+    <Compile Include="Model\HtmlFormatMode.cs" />
     <Compile Include="Model\ITreeExport.cs" />
     <Compile Include="Model\Options.cs" />
     <Compile Include="Model\StringUtilities.cs" />
@@ -145,6 +149,7 @@
     </None>
     <None Include="App.config" />
     <None Include="app.manifest" />
+    <None Include="EAExport.ruleset" />
     <None Include="Icons\Search_48x48x32.png" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

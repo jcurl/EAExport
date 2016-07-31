@@ -391,9 +391,9 @@
             FileFormatException(xmlReader, "Unexpected end of stream");
         }
 
-        private readonly Dictionary<string, EATree> m_Elements = new Dictionary<string, EATree>();
+        private Dictionary<string, EATree> m_Elements = new Dictionary<string, EATree>();
 
-        private readonly Dictionary<string, EATree> m_PackageElements = new Dictionary<string, EATree>();
+        private Dictionary<string, EATree> m_PackageElements = new Dictionary<string, EATree>();
 
         private void AddElement(EATree element)
         {

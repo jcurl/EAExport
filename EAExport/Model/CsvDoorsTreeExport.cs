@@ -10,8 +10,8 @@
     /// </summary>
     public class CsvDoorsTreeExport : ITreeExport
     {
-        private readonly StreamWriter m_Writer;
-        private readonly Dictionary<string, string> m_Conversions = new Dictionary<string, string>();
+        private StreamWriter m_Writer;
+        private Dictionary<string, string> m_Conversions = new Dictionary<string, string>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvDoorsTreeExport"/> class.

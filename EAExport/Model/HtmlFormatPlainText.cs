@@ -2,37 +2,17 @@
 {
     using System;
 
-    /// <summary>
-    /// HtmlFormatMode.
-    /// </summary>
-    public enum HtmlFormatMode
-    {
-        /// <summary>
-        /// No special formatting required.
-        /// </summary>
-        None,
-
-        /// <summary>
-        /// The current formatting is for an ordered list.
-        /// </summary>
-        OrderedList,
-        
-        /// <summary>
-        /// The current formatting is for an unordered list
-        /// </summary>
-        UnorderedList
-    }
 
     /// <summary>
     /// Formatting State Object.
     /// </summary>
-    public class HtmlFormat
+    public class HtmlFormatPlainText
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HtmlFormat"/> class.
+        /// Initializes a new instance of the <see cref="HtmlFormatPlainText"/> class.
         /// </summary>
         /// <param name="mode">The mode.</param>
-        public HtmlFormat(HtmlFormatMode mode)
+        public HtmlFormatPlainText(HtmlFormatMode mode)
         {
             Mode = mode;
         }

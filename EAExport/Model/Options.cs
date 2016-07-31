@@ -22,7 +22,7 @@
         public FormatType Format { get; private set; }
 
         [OptionArguments]
-        private readonly List<string> m_Arguments = new List<string>();
+        private List<string> m_Arguments = new List<string>();
 
         public void Check()
         {
@@ -67,6 +67,7 @@
             Console.WriteLine("    Defines the format to use.");
             Console.WriteLine("     CSVHTML - HTML formatted CSV files. This is the default.");
             Console.WriteLine("     CSVTEXT - Plain text formatted CSV files.");
+            Console.WriteLine("     DB45CHAPTERS - DocBook 4.5 fragment with Chapters as root.");
             Console.WriteLine("");
             Console.WriteLine("  <inputfile>");
             Console.WriteLine("    The XML file from Enterprise Architect (XMI 1.1) to parse for requirements.");

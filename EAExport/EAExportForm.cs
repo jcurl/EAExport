@@ -198,6 +198,24 @@ namespace EAExport
             }
         }
 
+        private void mnuFileExportDB45Chapters_Click(object sender, EventArgs e)
+        {
+            Model.EATree element = GetElement();
+            if (element == null) return;
+
+            string fileName = GetFileName("xml", "DocBook 4.5 (*.xml)|*.xml", "Save As DocBook 4.5 with Chapters");
+            if (fileName == null) return;
+
+            try {
+                using (Model.ITreeExport exportFormat = new Model.DocBook45ChapterExport(fileName)) {
+                    exportFormat.ExportTree(element, false);
+                }
+            } catch (System.Exception exception) {
+                EATrace.XmiImport(System.Diagnostics.TraceEventType.Warning, "EAExport DocBook 4.5 Chapter Export Failure: {0}", exception.Message);
+                MessageBox.Show(exception.Message, "EAExport DocBook 4.5 Chapter Export Failure");
+            }
+        }
+
         private Model.EATree GetElement()
         {
             Model.EATree element;
