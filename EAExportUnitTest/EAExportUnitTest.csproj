@@ -41,10 +41,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvDoorsTreePlainExportTest.cs" />
     <Compile Include="DeploymentItemAttribute.cs" />
+    <Compile Include="DocBook45ExportTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

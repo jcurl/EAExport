@@ -27,7 +27,6 @@
             xmlSettings.CloseOutput = true;
             xmlSettings.Indent = true;
             xmlSettings.NewLineHandling = NewLineHandling.Entitize;
-            xmlSettings.Indent = true;
 
             m_XmlWriter = XmlWriter.Create(fs, xmlSettings);
             m_OwnWriter = true;
@@ -191,6 +190,16 @@
                     xmlBold.Attributes.Append(xmlBoldAttr);
                     xmlNode.AppendChild(xmlBold);
                     nextNode = xmlBold;
+                    break;
+                case "sub":
+                    XmlElement xmlSub = m_XmlDocument.CreateElement("subscript");
+                    xmlNode.AppendChild(xmlSub);
+                    nextNode = xmlSub;
+                    break;
+                case "sup":
+                    XmlElement xmlSup = m_XmlDocument.CreateElement("superscript");
+                    xmlNode.AppendChild(xmlSup);
+                    nextNode = xmlSup;
                     break;
                 }
 
