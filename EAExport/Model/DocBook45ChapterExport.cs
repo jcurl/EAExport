@@ -84,13 +84,16 @@
             xmlSectionElement.AppendChild(xmlTitleElement);
 
             string text = (element.Text == null) ? string.Empty : element.Text.Trim();
+            XmlNode infoNode = CreateInfoNode(element);
+            if (infoNode != null) xmlSectionElement.AppendChild(infoNode);
             XmlNode textNode = ConvertHtmlToDocBook45(text, format);
-            if (textNode == null) {
+            if (textNode != null) xmlSectionElement.AppendChild(textNode);
+
+            if (textNode == null && infoNode == null) {
                 if (element.Children.Count == 0) {
-                    textNode = m_XmlDocument.CreateElement("para");
+                    xmlSectionElement.AppendChild(m_XmlDocument.CreateElement("para"));
                 }
             }
-            if (textNode != null) xmlSectionElement.AppendChild(textNode);
 
             foreach (EATree child in element.Children) {
                 XmlNode xmlChild = ExportElement(child, format);
@@ -349,6 +352,37 @@
                 }
             }
             return node;
+        }
+
+        private XmlNode CreateInfoNode(EATree node)
+        {
+            bool hasField = false;
+            StringBuilder infoText = new StringBuilder();
+
+            AddField("Requirement", node.Alias, infoText, ref hasField);
+            AddField("Author", node.Author, infoText, ref hasField);
+            AddField("Stereotype", node.Stereotype, infoText, ref hasField);
+            AddField("Status", node.Status, infoText, ref hasField);
+            if (!hasField) return null;
+            infoText.Append(".");
+
+            XmlElement xmlPara = m_XmlDocument.CreateElement("para");
+            XmlElement xmlSuper = m_XmlDocument.CreateElement("superscript");
+            XmlElement xmlItalic = m_XmlDocument.CreateElement("emphasis");
+            XmlText xmlInfoText = m_XmlDocument.CreateTextNode(infoText.ToString());
+
+            xmlPara.AppendChild(xmlSuper);
+            xmlSuper.AppendChild(xmlItalic);
+            xmlItalic.AppendChild(xmlInfoText);
+            return xmlPara;
+        }
+
+        private void AddField(string field, string text, StringBuilder infoText, ref bool hasField)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return;
+            if (hasField) infoText.Append("; ");
+            infoText.Append(field).Append(": ").Append(text.Trim());
+            hasField = true;
         }
 
         /// <summary>
