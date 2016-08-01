@@ -340,7 +340,7 @@
 
         [Test]
         [Category("DocBook45")]
-        [DeploymentItem(@"XMI\TC41-OrderedList1.xml")]
+        [DeploymentItem(@"XMI\TC41-OrderedList2.xml")]
         public void OrderedList2()
         {
             EAModel model = EAModel.LoadXmi("TC41-OrderedList2.xml");
