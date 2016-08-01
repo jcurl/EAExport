@@ -10,7 +10,10 @@
     /// </summary>
     public class CsvDoorsTreePlainExport : ITreeExport
     {
-        private readonly StreamWriter m_Writer;
+        private Stream m_WriteStream;
+        private bool m_OwnsStream;
+        private Encoding m_Encoding = Encoding.GetEncoding("iso-8859-15");
+        private byte[] m_NewLine;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvDoorsTreePlainExport"/> class.
@@ -18,8 +21,8 @@
         /// <param name="fileName">Name of the file to export to.</param>
         public CsvDoorsTreePlainExport(string fileName)
         {
-            m_Writer = new StreamWriter(fileName, false, Encoding.GetEncoding("iso-8859-15"), 4096);
-            m_Writer.WriteLine("EAID;EAParent;Heading;Text");
+            m_WriteStream = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None);
+            m_OwnsStream = true;
         }
 
         /// <summary>
@@ -28,8 +31,50 @@
         /// <param name="writer">The writer.</param>
         public CsvDoorsTreePlainExport(Stream stream)
         {
-            m_Writer = new StreamWriter(stream);
-            m_Writer.WriteLine("EAID;EAParent;Heading;Text");
+            m_WriteStream = stream;
+        }
+
+        private void Write(string text)
+        {
+            byte[] buffer = m_Encoding.GetBytes(text);
+            m_WriteStream.Write(buffer, 0, buffer.Length);
+        }
+
+        private void Write(string format, params object[] args)
+        {
+            string text = string.Format(format, args);
+            Write(text);
+        }
+
+        private void WriteLine(string text)
+        {
+            Write(text);
+            if (m_NewLine == null) {
+                m_NewLine = m_Encoding.GetBytes(Environment.NewLine);
+            }
+            m_WriteStream.Write(m_NewLine, 0, m_NewLine.Length);
+        }
+
+        private void WriteLine(string format, params object[] args)
+        {
+            string text = string.Format(format, args);
+            WriteLine(text);
+        }
+
+        private void WriteEscaped(string text)
+        {
+            byte[] buffer = m_Encoding.GetBytes(text);
+            int p = 0;
+            for (int i = 0; i < buffer.Length; i++) {
+                if (buffer[i] == (byte)'"') {
+                    m_WriteStream.Write(buffer, p, i - p + 1);
+                    m_WriteStream.Write(buffer, i, 1);
+                    p = i + 1;
+                }
+            }
+            if (p < buffer.Length) {
+                m_WriteStream.Write(buffer, p, buffer.Length - p);
+            }
         }
 
         /// <summary>
@@ -40,14 +85,9 @@
         /// if set to <c>false</c>, then the children are exported.</param>
         public void ExportTree(EATree root, bool includeRoot)
         {
+            WriteLine("EAID;EAParent;Heading;Text");
             ExportElement(root, includeRoot, root.Id);
         }
-
-        /// <summary>
-        /// Gets the stream writer used to write the object.
-        /// </summary>
-        /// <value>The stream writer.</value>
-        public TextWriter StreamWriter { get { return m_Writer; } }
 
         private void ExportElement(EATree element, bool includeElement, string parentId)
         {
@@ -59,10 +99,12 @@
                     // Parse the text as HTML and strip all formatting
                     string convertedTitle = ConvertHtmlToPlainText(new HtmlFormat(HtmlFormatMode.None), heading);
                     string convertedText = ConvertHtmlToPlainText(new HtmlFormat(HtmlFormatMode.None), text);
-                    m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"",
-                        element.Id, parentId,
-                        convertedTitle != null ? EscapeCsvText(convertedTitle) : string.Empty,
-                        convertedText != null ? EscapeCsvText(convertedText) : string.Empty);
+                    Write("{0};{1};", element.Id, parentId);
+                    Write("\"");
+                    if (convertedTitle != null) WriteEscaped(convertedTitle);
+                    Write("\";\"");
+                    if (convertedText != null) WriteEscaped(convertedText);
+                    WriteLine("\"");
                 }
             }
 
@@ -151,27 +193,6 @@
             }
         }
 
-        private static string EscapeCsvText(string text)
-        {
-            StringBuilder sb = null;
-            int l = text.Length;
-            int p = 0;
-            while (p < l) {
-                int cp = text.IndexOf('"', p);
-                if (p == 0 && cp == -1) return text;
-                if (sb == null) sb = new StringBuilder();
-
-                if (cp == -1) {
-                    sb.Append(text.Substring(p, l - p));
-                    p = l;
-                } else {
-                    sb.Append(text.Substring(p, cp + 1 - p)).Append('"');
-                    p = cp + 1;
-                }
-            }
-            return sb == null ? text : sb.ToString();
-        }
-
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -189,7 +210,7 @@
         protected virtual void Dispose(bool disposing)
         {
             if (disposing) {
-                m_Writer.Dispose();
+                if (m_OwnsStream) m_WriteStream.Close();
             }
         }
     }
