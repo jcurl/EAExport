@@ -70,7 +70,7 @@
             XmlDocumentFragment xml = LoadDocumentFragment(ms);
             Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC02-TitleWithBody"));
             Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo("Requirement1"));
-            Assert.That(xml.SelectSingleNode("/chapter/section/para").InnerXml, Is.EqualTo("This is some text body."));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo("This is some text body."));
         }
 
         [Test]
@@ -88,8 +88,8 @@
             XmlDocumentFragment xml = LoadDocumentFragment(ms);
             Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC03-TitleWithBodyParagraphs"));
             Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo("Requirement1"));
-            Assert.That(xml.SelectSingleNode("/chapter/section/para[1]").InnerXml, Is.EqualTo("This text has two paragraphs"));
-            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo("This is paragraph 2."));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo("This text has two paragraphs"));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[3]").InnerXml, Is.EqualTo("This is paragraph 2."));
         }
 
         [Test]
@@ -107,9 +107,9 @@
             XmlDocumentFragment xml = LoadDocumentFragment(ms);
             Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC04-MultipleRequirements"));
             Assert.That(xml.SelectSingleNode("/chapter/section[1]/title").InnerXml, Is.EqualTo("Requirement1"));
-            Assert.That(xml.SelectSingleNode("/chapter/section[1]/para").InnerXml, Is.EqualTo("This is requirement 1"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[1]/para[2]").InnerXml, Is.EqualTo("This is requirement 1"));
             Assert.That(xml.SelectSingleNode("/chapter/section[2]/title").InnerXml, Is.EqualTo("Requirement2"));
-            Assert.That(xml.SelectSingleNode("/chapter/section[2]/para").InnerXml, Is.EqualTo("This is requirement 2"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[2]/para[2]").InnerXml, Is.EqualTo("This is requirement 2"));
         }
 
         [Test]
@@ -127,9 +127,9 @@
             XmlDocumentFragment xml = LoadDocumentFragment(ms);
             Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC05-NestedRequirements1"));
             Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo("Requirement1"));
-            Assert.That(xml.SelectSingleNode("/chapter/section/para").InnerXml, Is.EqualTo("This is requirement 1"));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo("This is requirement 1"));
             Assert.That(xml.SelectSingleNode("/chapter/section/section/title").InnerXml, Is.EqualTo("Subrequirement1"));
-            Assert.That(xml.SelectSingleNode("/chapter/section/section/para").InnerXml, Is.EqualTo("This is requirement 1.1"));
+            Assert.That(xml.SelectSingleNode("/chapter/section/section/para[2]").InnerXml, Is.EqualTo("This is requirement 1.1"));
         }
 
         [Test]
@@ -147,11 +147,11 @@
             XmlDocumentFragment xml = LoadDocumentFragment(ms);
             Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC06-NestedRequirements2"));
             Assert.That(xml.SelectSingleNode("/chapter/section[1]/title").InnerXml, Is.EqualTo("Requirement1"));
-            Assert.That(xml.SelectSingleNode("/chapter/section[1]/para").InnerXml, Is.EqualTo("Requirement 1"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[1]/para[2]").InnerXml, Is.EqualTo("Requirement 1"));
             Assert.That(xml.SelectSingleNode("/chapter/section[1]/section/title").InnerXml, Is.EqualTo("Requirement3"));
-            Assert.That(xml.SelectSingleNode("/chapter/section[1]/section/para").InnerXml, Is.EqualTo("Requirement 1.1"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[1]/section/para[2]").InnerXml, Is.EqualTo("Requirement 1.1"));
             Assert.That(xml.SelectSingleNode("/chapter/section[2]/title").InnerXml, Is.EqualTo("Requirement2"));
-            Assert.That(xml.SelectSingleNode("/chapter/section[2]/para").InnerXml, Is.EqualTo("Requirement 2"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[2]/para[2]").InnerXml, Is.EqualTo("Requirement 2"));
         }
 
         [Test]
@@ -169,7 +169,7 @@
             XmlDocumentFragment xml = LoadDocumentFragment(ms);
             Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC20-FormattingBold1"));
             Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo("Requirement1"));
-            Assert.That(xml.SelectSingleNode("/chapter/section/para").InnerXml, Is.EqualTo(@"This is some sample <emphasis role=""bold"">bold </emphasis>text."));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo(@"This is some sample <emphasis role=""bold"">bold </emphasis>text."));
         }
 
         [Test]
@@ -187,7 +187,7 @@
             XmlDocumentFragment xml = LoadDocumentFragment(ms);
             Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC21-FormattingBold2"));
             Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo("Requirement1"));
-            Assert.That(xml.SelectSingleNode("/chapter/section/para").InnerXml, Is.EqualTo(@"This <emphasis role=""bold"">text </emphasis>contains two <emphasis role=""bold"">bold </emphasis>elements."));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo(@"This <emphasis role=""bold"">text </emphasis>contains two <emphasis role=""bold"">bold </emphasis>elements."));
         }
 
         [Test]
@@ -205,7 +205,7 @@
             XmlDocumentFragment xml = LoadDocumentFragment(ms);
             Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC22-FormattingItalics"));
             Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo("Requirement1"));
-            Assert.That(xml.SelectSingleNode("/chapter/section/para").InnerXml, Is.EqualTo(@"This contains some <emphasis>italic </emphasis>text."));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo(@"This contains some <emphasis>italic </emphasis>text."));
         }
 
         [Test]
@@ -223,7 +223,7 @@
             XmlDocumentFragment xml = LoadDocumentFragment(ms);
             Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC23-FormattingUnderline"));
             Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo("Requirement1"));
-            Assert.That(xml.SelectSingleNode("/chapter/section/para").InnerXml, Is.EqualTo(@"This contains some <emphasis role=""underline"">underline </emphasis>text."));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo(@"This contains some <emphasis role=""underline"">underline </emphasis>text."));
         }
 
         [Test]
@@ -241,7 +241,7 @@
             XmlDocumentFragment xml = LoadDocumentFragment(ms);
             Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC24-FormattingSuperscript"));
             Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo("Requirement1"));
-            Assert.That(xml.SelectSingleNode("/chapter/section/para").InnerXml, Is.EqualTo(@"This contains superscript x<superscript>2</superscript>."));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo(@"This contains superscript x<superscript>2</superscript>."));
         }
 
         [Test]
@@ -259,7 +259,7 @@
             XmlDocumentFragment xml = LoadDocumentFragment(ms);
             Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC25-FormattingSubscript"));
             Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo("Requirement1"));
-            Assert.That(xml.SelectSingleNode("/chapter/section/para").InnerXml, Is.EqualTo(@"This contains a subscript v<subscript>t</subscript>."));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo(@"This contains a subscript v<subscript>t</subscript>."));
         }
 
         [Test]
@@ -279,7 +279,7 @@
             Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo("Requirement1"));
 
             // This <b>contains </b><i>multiple </i><u>elements</u>. <i>E</i><i><sub>t</sub></i><i> = mc</i><i><sup>2</sup></i>.
-            Assert.That(xml.SelectSingleNode("/chapter/section/para").InnerXml, 
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, 
                 Is.EqualTo(@"This <emphasis role=""bold"">contains </emphasis><emphasis>multiple </emphasis><emphasis role=""underline"">elements</emphasis>. " +
                 @"<emphasis>E</emphasis><emphasis><subscript>t</subscript></emphasis><emphasis> = mc</emphasis><emphasis><superscript>2</superscript></emphasis>."));
         }
@@ -299,7 +299,7 @@
             XmlDocumentFragment xml = LoadDocumentFragment(ms);
             Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC27-QuotesInTitle"));
             Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo(@"Requirement1 ""X"""));
-            Assert.That(xml.SelectSingleNode("/chapter/section/para").InnerXml, Is.EqualTo("This is a requirement."));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo("This is a requirement."));
         }
 
         [Test]
@@ -414,7 +414,7 @@
             Assert.That(xml.SelectSingleNode("/chapter/section/itemizedlist/listitem/para").InnerXml, Is.EqualTo("Itemized List 1"));
             Assert.That(xml.SelectSingleNode("/chapter/section/itemizedlist/listitem/itemizedlist/listitem/itemizedlist/listitem/itemizedlist/listitem[1]/para").InnerXml, Is.EqualTo("Itemized List 2"));
             Assert.That(xml.SelectSingleNode("/chapter/section/itemizedlist/listitem/itemizedlist/listitem/itemizedlist/listitem/itemizedlist/listitem[2]/para").InnerXml, Is.EqualTo("Itemized List 3"));
-            Assert.That(xml.SelectSingleNode("/chapter/section/para").InnerXml, Is.EqualTo("(Note we really wanted nested lists, but EA doesn't seem to let this happen)"));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo("(Note we really wanted nested lists, but EA doesn't seem to let this happen)"));
         }
     }
 }
