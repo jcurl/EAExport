@@ -156,6 +156,24 @@
 
         [Test]
         [Category("DocBook45")]
+        [DeploymentItem(@"XMI\TC07-SpecialQuotes.xml")]
+        public void SpecialQuotes()
+        {
+            EAModel model = EAModel.LoadXmi("TC07-SpecialQuotes.xml");
+            MemoryStream ms = new MemoryStream();
+            using (XmlWriter wr = GetWriter(ms))
+            using (DocBook45ChapterExport export = new DocBook45ChapterExport(wr)) {
+                export.ExportTree(model.Root, false);
+            }
+
+            XmlDocumentFragment xml = LoadDocumentFragment(ms);
+            Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC07-SpecialQuotes"));
+            Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo("Requirement1"));
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, Is.EqualTo("Special Quotes “HIGH”"));
+        }
+
+        [Test]
+        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC20-FormattingBold1.xml")]
         public void FormattingBold1()
         {
