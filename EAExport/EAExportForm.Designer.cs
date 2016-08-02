@@ -41,7 +41,7 @@
             this.mnuEditSearch = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuEditSearchAlias = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.treXmiStructure = new System.Windows.Forms.TreeView();
+            this.treXmiStructure = new EAExport.Windows.TreeView();
             this.imgIcons = new System.Windows.Forms.ImageList(this.components);
             this.txtStatus = new System.Windows.Forms.TextBox();
             this.lblStatus = new System.Windows.Forms.Label();
@@ -472,7 +472,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuFileOpenXmi;
         private System.Windows.Forms.ToolStripMenuItem mnuFileExit;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.TreeView treXmiStructure;
+        private EAExport.Windows.TreeView treXmiStructure;
         private System.Windows.Forms.TextBox txtIdentifier;
         private System.Windows.Forms.TextBox txtHeading;
         private System.Windows.Forms.Label lblNotes;

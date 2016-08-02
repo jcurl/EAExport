@@ -16,6 +16,9 @@ namespace EAExport
         public frmEAExport()
         {
             InitializeComponent();
+            treXmiStructure.ShowLines = true;
+            treXmiStructure.ExplorerStyle = true;
+
             Text = Text + " (version " + typeof(frmEAExport).Assembly.GetName().Version + ")";
         }
 

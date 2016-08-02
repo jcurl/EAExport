@@ -115,6 +115,7 @@
     <Compile Include="Model\Options.cs" />
     <Compile Include="Model\StringUtilities.cs" />
     <Compile Include="Native\SafeNativeMethods.cs" />
+    <Compile Include="Native\UnsafeNativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -127,6 +128,11 @@
     </Compile>
     <Compile Include="SearchForm.Designer.cs">
       <DependentUpon>SearchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Constants.cs" />
+    <Compile Include="Windows\Messages.cs" />
+    <Compile Include="Windows\TreeView.cs">
+      <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="EAExportForm.resx">
       <DependentUpon>EAExportForm.cs</DependentUpon>
