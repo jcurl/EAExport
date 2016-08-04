@@ -363,6 +363,9 @@
             AddField("Author", node.Author, infoText, ref hasField);
             AddField("Stereotype", node.Stereotype, infoText, ref hasField);
             AddField("Status", node.Status, infoText, ref hasField);
+            AddField("Version", node.Version, infoText, ref hasField);
+            if (node.CreateTime.Ticks != 0) AddField("Created", node.CreateTime.ToString("u"), infoText, ref hasField);
+            if (node.ModifiedTime.Ticks != 0) AddField("Modified", node.ModifiedTime.ToString("u"), infoText, ref hasField);
             if (!hasField) return null;
             infoText.Append(".");
 

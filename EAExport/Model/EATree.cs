@@ -100,6 +100,18 @@
         /// <value>The status of the object.</value>
         public string Status { get; set; }
 
+        /// <summary>
+        /// Gets or sets when the object was created.
+        /// </summary>
+        /// <value>The create time.</value>
+        public DateTime CreateTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets when the object was last modified.
+        /// </summary>
+        /// <value>The modified time.</value>
+        public DateTime ModifiedTime { get; set; }
+
         private LinkedList<EATree> m_Children = new LinkedList<EATree>();
 
         /// <summary>

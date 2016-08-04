@@ -326,6 +326,10 @@
                             parent.Author = xmlReader["value"];
                         } else if (xmlReader["tag"].Equals("status")) {
                             parent.Status = xmlReader["value"];
+                        } else if (xmlReader["tag"].Equals("date_created")) {
+                            parent.CreateTime = ConvertDateTime(xmlReader["value"]);
+                        } else if (xmlReader["tag"].Equals("date_modified")) {
+                            parent.ModifiedTime = ConvertDateTime(xmlReader["value"]);
                         }
 
                         if (!xmlReader.IsEmptyElement) {
@@ -362,6 +366,24 @@
             }
 
             FileFormatException(xmlReader, "Unexpected end of stream");
+        }
+
+        private DateTime ConvertDateTime(string datetime)
+        {
+            // 2016-07-25 20:38:16, assumed to be UTC
+
+            if (string.IsNullOrWhiteSpace(datetime)) return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            try {
+                int year = int.Parse(datetime.Substring(0, 4));
+                int month = int.Parse(datetime.Substring(5, 2));
+                int day = int.Parse(datetime.Substring(8, 2));
+                int hour = int.Parse(datetime.Substring(11, 2));
+                int min = int.Parse(datetime.Substring(14, 2));
+                int sec = int.Parse(datetime.Substring(17, 2));
+                return new DateTime(year, month, day, hour, min, sec, DateTimeKind.Utc);
+            } catch (FormatException) {
+                return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            }
         }
 
         private void LoadUmlModelElementStereotype(XmlReader xmlReader, EATree parent)

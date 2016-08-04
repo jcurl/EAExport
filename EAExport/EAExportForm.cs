@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -49,12 +44,16 @@ namespace EAExport
 
             txtAuthor.Width = m_Text1WidthOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
             txtStereotype.Width = m_Text1WidthOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
+            txtCreateTime.Width = m_Text1WidthOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
             txtVersion.Width = m_Text2WidthOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
             txtVersion.Left = m_Text2LeftOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
             txtStatus.Width = m_Text2WidthOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
             txtStatus.Left = m_Text2LeftOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
+            txtModifiedTime.Width = m_Text2WidthOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
+            txtModifiedTime.Left = m_Text2LeftOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
             lblVersion.Left = m_Label2LeftOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
             lblStatus.Left = m_Label2LeftOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
+            lblModifyTime.Left = m_Label2LeftOnLoad + (newWidth - m_FormWidthOnLoad) / 2;
         }
 
         private void mnuFileOpenXmi_Click(object sender, EventArgs e)
@@ -158,6 +157,8 @@ namespace EAExport
             txtStatus.Text = element.Status;
             txtStereotype.Text = element.Stereotype;
             txtVersion.Text = element.Version;
+            txtCreateTime.Text = element.CreateTime.Ticks == 0 ? string.Empty : element.CreateTime.ToString("g");
+            txtModifiedTime.Text = element.ModifiedTime.Ticks == 0 ? string.Empty : element.ModifiedTime.ToString("g");
         }
 
         private void mnuFileExit_Click(object sender, EventArgs e)
