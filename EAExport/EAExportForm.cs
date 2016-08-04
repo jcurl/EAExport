@@ -88,15 +88,23 @@ namespace EAExport
             treXmiStructure.BeginUpdate();
             treXmiStructure.Nodes.Clear();
 
-            int nodes = BuildTree(null, eaModel.Root);
+            TreeStatistics stats = new TreeStatistics();
+            BuildTree(null, eaModel.Root, stats);
 
-            lblElementCount.Text = string.Format("Nodes: {0}", nodes);
+            lblElementCount.Text = string.Format("Nodes: {0}", stats.Nodes);
+            lblMaxAlias.Text = string.Format("Last Alias: {0}", stats.MaxAlias);
             treXmiStructure.EndUpdate();
         }
 
-        private int BuildTree(TreeNode parent, Model.EATree element)
+        private class TreeStatistics
         {
-            int nodes = 0;
+            public int Nodes { get; set; }
+
+            public string MaxAlias { get; set; }
+        }
+
+        private void BuildTree(TreeNode parent, Model.EATree element, TreeStatistics statistics)
+        {
             TreeNode node;
 
             StringBuilder heading = new StringBuilder();
@@ -115,7 +123,10 @@ namespace EAExport
             } else {
                 parent.Nodes.Add(node);
             }
-            nodes++;
+            statistics.Nodes++;
+            if (string.Compare(element.Alias, statistics.MaxAlias) > 0) {
+                statistics.MaxAlias = element.Alias;
+            }
 
             if (element.Id.StartsWith("MX_EAID_")) {
                 node.ImageKey = "Model";
@@ -139,9 +150,8 @@ namespace EAExport
             node.SelectedImageKey = node.ImageKey;
 
             foreach (Model.EATree child in element.Children) {
-                nodes += BuildTree(node, child);
+                BuildTree(node, child, statistics);
             }
-            return nodes;
         }
 
         private void treXmiStructure_AfterSelect(object sender, TreeViewEventArgs e)

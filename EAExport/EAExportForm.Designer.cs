@@ -42,7 +42,12 @@
             this.mnuEditSearch = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuEditSearchAlias = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.treXmiStructure = new EAExport.Windows.TreeView();
             this.imgIcons = new System.Windows.Forms.ImageList(this.components);
+            this.txtModifiedTime = new System.Windows.Forms.TextBox();
+            this.lblModifyTime = new System.Windows.Forms.Label();
+            this.txtCreateTime = new System.Windows.Forms.TextBox();
+            this.lblCreateTime = new System.Windows.Forms.Label();
             this.txtStatus = new System.Windows.Forms.TextBox();
             this.lblStatus = new System.Windows.Forms.Label();
             this.txtStereotype = new System.Windows.Forms.TextBox();
@@ -61,11 +66,7 @@
             this.lblHeading = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblElementCount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.treXmiStructure = new EAExport.Windows.TreeView();
-            this.txtModifiedTime = new System.Windows.Forms.TextBox();
-            this.lblModifyTime = new System.Windows.Forms.Label();
-            this.txtCreateTime = new System.Windows.Forms.TextBox();
-            this.lblCreateTime = new System.Windows.Forms.Label();
+            this.lblMaxAlias = new System.Windows.Forms.ToolStripStatusLabel();
             this.mnuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -222,6 +223,24 @@
             this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 2;
             // 
+            // treXmiStructure
+            // 
+            this.treXmiStructure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treXmiStructure.EnableDragDropScrolling = false;
+            this.treXmiStructure.ExplorerStyle = false;
+            this.treXmiStructure.ImageIndex = 0;
+            this.treXmiStructure.ImageList = this.imgIcons;
+            this.treXmiStructure.Location = new System.Drawing.Point(4, 4);
+            this.treXmiStructure.Margin = new System.Windows.Forms.Padding(4);
+            this.treXmiStructure.Name = "treXmiStructure";
+            this.treXmiStructure.SelectedImageIndex = 0;
+            this.treXmiStructure.ShowLines = false;
+            this.treXmiStructure.Size = new System.Drawing.Size(466, 212);
+            this.treXmiStructure.TabIndex = 2;
+            this.treXmiStructure.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treXmiStructure_AfterSelect);
+            // 
             // imgIcons
             // 
             this.imgIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgIcons.ImageStream")));
@@ -234,6 +253,48 @@
             this.imgIcons.Images.SetKeyName(5, "RequirementMandatory");
             this.imgIcons.Images.SetKeyName(6, "RequirementProposed");
             this.imgIcons.Images.SetKeyName(7, "RequirementValidated");
+            // 
+            // txtModifiedTime
+            // 
+            this.txtModifiedTime.BackColor = System.Drawing.SystemColors.Window;
+            this.txtModifiedTime.Location = new System.Drawing.Point(300, 135);
+            this.txtModifiedTime.Margin = new System.Windows.Forms.Padding(4);
+            this.txtModifiedTime.Name = "txtModifiedTime";
+            this.txtModifiedTime.ReadOnly = true;
+            this.txtModifiedTime.Size = new System.Drawing.Size(170, 20);
+            this.txtModifiedTime.TabIndex = 19;
+            // 
+            // lblModifyTime
+            // 
+            this.lblModifyTime.AutoSize = true;
+            this.lblModifyTime.Location = new System.Drawing.Point(247, 138);
+            this.lblModifyTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblModifyTime.Name = "lblModifyTime";
+            this.lblModifyTime.Size = new System.Drawing.Size(50, 13);
+            this.lblModifyTime.TabIndex = 18;
+            this.lblModifyTime.Text = "Modified:";
+            this.lblModifyTime.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // txtCreateTime
+            // 
+            this.txtCreateTime.BackColor = System.Drawing.SystemColors.Window;
+            this.txtCreateTime.Location = new System.Drawing.Point(70, 135);
+            this.txtCreateTime.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCreateTime.Name = "txtCreateTime";
+            this.txtCreateTime.ReadOnly = true;
+            this.txtCreateTime.Size = new System.Drawing.Size(170, 20);
+            this.txtCreateTime.TabIndex = 17;
+            // 
+            // lblCreateTime
+            // 
+            this.lblCreateTime.AutoSize = true;
+            this.lblCreateTime.Location = new System.Drawing.Point(15, 138);
+            this.lblCreateTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCreateTime.Name = "lblCreateTime";
+            this.lblCreateTime.Size = new System.Drawing.Size(52, 13);
+            this.lblCreateTime.TabIndex = 16;
+            this.lblCreateTime.Text = "Creation: ";
+            this.lblCreateTime.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // txtStatus
             // 
@@ -354,7 +415,7 @@
             this.htmlNotes.Location = new System.Drawing.Point(70, 163);
             this.htmlNotes.Margin = new System.Windows.Forms.Padding(4);
             this.htmlNotes.Name = "htmlNotes";
-            this.htmlNotes.Size = new System.Drawing.Size(400, 193);
+            this.htmlNotes.Size = new System.Drawing.Size(400, 192);
             this.htmlNotes.TabIndex = 5;
             this.htmlNotes.Text = null;
             this.htmlNotes.UseSystemCursors = true;
@@ -417,7 +478,8 @@
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblElementCount});
+            this.lblElementCount,
+            this.lblMaxAlias});
             this.statusStrip1.Location = new System.Drawing.Point(0, 619);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
@@ -428,67 +490,14 @@
             // lblElementCount
             // 
             this.lblElementCount.Name = "lblElementCount";
-            this.lblElementCount.Size = new System.Drawing.Size(0, 17);
+            this.lblElementCount.Size = new System.Drawing.Size(52, 17);
+            this.lblElementCount.Text = "Nodes: -";
             // 
-            // treXmiStructure
+            // lblMaxAlias
             // 
-            this.treXmiStructure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.treXmiStructure.EnableDragDropScrolling = false;
-            this.treXmiStructure.ExplorerStyle = false;
-            this.treXmiStructure.ImageIndex = 0;
-            this.treXmiStructure.ImageList = this.imgIcons;
-            this.treXmiStructure.Location = new System.Drawing.Point(4, 4);
-            this.treXmiStructure.Margin = new System.Windows.Forms.Padding(4);
-            this.treXmiStructure.Name = "treXmiStructure";
-            this.treXmiStructure.SelectedImageIndex = 0;
-            this.treXmiStructure.ShowLines = false;
-            this.treXmiStructure.Size = new System.Drawing.Size(466, 212);
-            this.treXmiStructure.TabIndex = 2;
-            this.treXmiStructure.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treXmiStructure_AfterSelect);
-            // 
-            // txtModifiedTime
-            // 
-            this.txtModifiedTime.BackColor = System.Drawing.SystemColors.Window;
-            this.txtModifiedTime.Location = new System.Drawing.Point(300, 135);
-            this.txtModifiedTime.Margin = new System.Windows.Forms.Padding(4);
-            this.txtModifiedTime.Name = "txtModifiedTime";
-            this.txtModifiedTime.ReadOnly = true;
-            this.txtModifiedTime.Size = new System.Drawing.Size(170, 20);
-            this.txtModifiedTime.TabIndex = 19;
-            // 
-            // lblModifyTime
-            // 
-            this.lblModifyTime.AutoSize = true;
-            this.lblModifyTime.Location = new System.Drawing.Point(247, 138);
-            this.lblModifyTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblModifyTime.Name = "lblModifyTime";
-            this.lblModifyTime.Size = new System.Drawing.Size(50, 13);
-            this.lblModifyTime.TabIndex = 18;
-            this.lblModifyTime.Text = "Modified:";
-            this.lblModifyTime.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // txtCreateTime
-            // 
-            this.txtCreateTime.BackColor = System.Drawing.SystemColors.Window;
-            this.txtCreateTime.Location = new System.Drawing.Point(70, 135);
-            this.txtCreateTime.Margin = new System.Windows.Forms.Padding(4);
-            this.txtCreateTime.Name = "txtCreateTime";
-            this.txtCreateTime.ReadOnly = true;
-            this.txtCreateTime.Size = new System.Drawing.Size(170, 20);
-            this.txtCreateTime.TabIndex = 17;
-            // 
-            // lblCreateTime
-            // 
-            this.lblCreateTime.AutoSize = true;
-            this.lblCreateTime.Location = new System.Drawing.Point(15, 138);
-            this.lblCreateTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblCreateTime.Name = "lblCreateTime";
-            this.lblCreateTime.Size = new System.Drawing.Size(52, 13);
-            this.lblCreateTime.TabIndex = 16;
-            this.lblCreateTime.Text = "Creation: ";
-            this.lblCreateTime.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblMaxAlias.Name = "lblMaxAlias";
+            this.lblMaxAlias.Size = new System.Drawing.Size(67, 17);
+            this.lblMaxAlias.Text = "Last Alias: -";
             // 
             // frmEAExport
             // 
@@ -557,6 +566,7 @@
         private System.Windows.Forms.Label lblModifyTime;
         private System.Windows.Forms.TextBox txtCreateTime;
         private System.Windows.Forms.Label lblCreateTime;
+        private System.Windows.Forms.ToolStripStatusLabel lblMaxAlias;
     }
 }
 
