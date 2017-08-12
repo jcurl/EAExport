@@ -18,7 +18,7 @@
             return XmlWriter.Create(stream, xmlSettings);
         }
 
-        private XmlDocumentFragment LoadDocumentFragment(MemoryStream stream)
+        private XmlDocumentFragment LoadDocumentFragment(Stream stream)
         {
             XmlDocument xmlDoc = new XmlDocument();
 
@@ -297,7 +297,7 @@
             Assert.That(xml.SelectSingleNode("/chapter/section/title").InnerXml, Is.EqualTo("Requirement1"));
 
             // This <b>contains </b><i>multiple </i><u>elements</u>. <i>E</i><i><sub>t</sub></i><i> = mc</i><i><sup>2</sup></i>.
-            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml, 
+            Assert.That(xml.SelectSingleNode("/chapter/section/para[2]").InnerXml,
                 Is.EqualTo(@"This <emphasis role=""bold"">contains </emphasis><emphasis>multiple </emphasis><emphasis role=""underline"">elements</emphasis>. " +
                 @"<emphasis>E</emphasis><emphasis><subscript>t</subscript></emphasis><emphasis> = mc</emphasis><emphasis><superscript>2</superscript></emphasis>."));
         }

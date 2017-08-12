@@ -86,7 +86,7 @@
                 if (m_OSVista) {
                     // get style
                     int dw = (int)UnsafeNativeMethods.SendMessage(Handle, Msg.TVM_GETEXTENDEDSTYLE, IntPtr.Zero, IntPtr.Zero);
-                    dw |= Constants.TVS_EX_AUTOHSCROLL;       // autoscroll horizontaly
+                    dw |= Constants.TVS_EX_AUTOHSCROLL;       // auto-scroll horizontally
                     dw |= Constants.TVS_EX_FADEINOUTEXPANDOS; // auto hide the +/- signs
                     dw |= Constants.TVS_EX_DOUBLEBUFFER;
 
@@ -94,10 +94,11 @@
                     UnsafeNativeMethods.SendMessage(Handle, Msg.TVM_SETEXTENDEDSTYLE, IntPtr.Zero, (IntPtr)dw);
                 }
 
-                // Not all operating systems support this call, generally XP SP3 and later
                 try {
                     UnsafeNativeMethods.SetWindowTheme(Handle, "explorer", null);
-                } catch (EntryPointNotFoundException) { }
+                } catch (EntryPointNotFoundException) {
+                    // Not all operating systems support this call, generally XP SP3 and later
+                }
             }
         }
 
@@ -124,7 +125,7 @@
         /// Gets or sets the tree node that is currently selected in the tree view control.
         /// </summary>
         /// <remarks>
-        /// <para>If no TreeNode is currently selected, the SelectedNode property is 
+        /// <para>If no TreeNode is currently selected, the SelectedNode property is
         /// null.</para>
         /// <para>When you set this property, the specified node is scrolled into view
         /// and any parent nodes are expanded so that the specified node is
@@ -196,7 +197,7 @@
         /// The standard TreeView control doesn't support sorting the TreeView
         /// after a label edit. You get infinite loops and other strange effects.
         /// This TreeView control will check the property "sorted", and if it is
-        /// set, we'll reorganise the node in the tree for you. We don't attempt
+        /// set, we'll reorganize the node in the tree for you. We don't attempt
         /// to resort the entire tree for performance, and to allow you to only
         /// sort what you want.
         /// <para>You must set <b>e.CancelEdit</b> to <b>true</b> if you don't
