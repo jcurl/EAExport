@@ -62,39 +62,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\submodules\Automation\framework\Datastructures\code\Utilities\CommandLine\GenericList.cs">
-      <Link>Framework\Utilities\CommandLine\GenericList.cs</Link>
-    </Compile>
-    <Compile Include="..\submodules\Automation\framework\Datastructures\code\Utilities\CommandLine\IOptionParser.cs">
-      <Link>Framework\Utilities\CommandLine\IOptionParser.cs</Link>
-    </Compile>
-    <Compile Include="..\submodules\Automation\framework\Datastructures\code\Utilities\CommandLine\IOptions.cs">
-      <Link>Framework\Utilities\CommandLine\IOptions.cs</Link>
-    </Compile>
-    <Compile Include="..\submodules\Automation\framework\Datastructures\code\Utilities\CommandLine\OptionArgumentsAttribute.cs">
-      <Link>Framework\Utilities\CommandLine\OptionArgumentsAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\submodules\Automation\framework\Datastructures\code\Utilities\CommandLine\OptionAttribute.cs">
-      <Link>Framework\Utilities\CommandLine\OptionAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\submodules\Automation\framework\Datastructures\code\Utilities\CommandLine\OptionDefaultAttribute.cs">
-      <Link>Framework\Utilities\CommandLine\OptionDefaultAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\submodules\Automation\framework\Datastructures\code\Utilities\CommandLine\OptionException.cs">
-      <Link>Framework\Utilities\CommandLine\OptionException.cs</Link>
-    </Compile>
-    <Compile Include="..\submodules\Automation\framework\Datastructures\code\Utilities\CommandLine\Options.cs">
-      <Link>Framework\Utilities\CommandLine\Options.cs</Link>
-    </Compile>
-    <Compile Include="..\submodules\Automation\framework\Datastructures\code\Utilities\CommandLine\OptionToken.cs">
-      <Link>Framework\Utilities\CommandLine\OptionToken.cs</Link>
-    </Compile>
-    <Compile Include="..\submodules\Automation\framework\Datastructures\code\Utilities\CommandLine\UnixEnumerator.cs">
-      <Link>Framework\Utilities\CommandLine\UnixEnumerator.cs</Link>
-    </Compile>
-    <Compile Include="..\submodules\Automation\framework\Datastructures\code\Utilities\CommandLine\WindowsEnumerator.cs">
-      <Link>Framework\Utilities\CommandLine\WindowsEnumerator.cs</Link>
-    </Compile>
     <Compile Include="EAExportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +69,18 @@
       <DependentUpon>EAExportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="EATrace.cs" />
+    <Compile Include="Framework\System\InternalApplicationException.cs" />
+    <Compile Include="Framework\Utilities\CommandLine\GenericList.cs" />
+    <Compile Include="Framework\Utilities\CommandLine\IOptionParser.cs" />
+    <Compile Include="Framework\Utilities\CommandLine\IOptions.cs" />
+    <Compile Include="Framework\Utilities\CommandLine\OptionArgumentsAttribute.cs" />
+    <Compile Include="Framework\Utilities\CommandLine\OptionAttribute.cs" />
+    <Compile Include="Framework\Utilities\CommandLine\OptionDefaultAttribute.cs" />
+    <Compile Include="Framework\Utilities\CommandLine\OptionException.cs" />
+    <Compile Include="Framework\Utilities\CommandLine\Options.cs" />
+    <Compile Include="Framework\Utilities\CommandLine\OptionToken.cs" />
+    <Compile Include="Framework\Utilities\CommandLine\UnixEnumerator.cs" />
+    <Compile Include="Framework\Utilities\CommandLine\WindowsEnumerator.cs" />
     <Compile Include="Model\CsvDoorsTreeExport.cs" />
     <Compile Include="Model\CsvDoorsTreePlainExport.cs" />
     <Compile Include="Model\DocBook45ChapterExport.cs" />

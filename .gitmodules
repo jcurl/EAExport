@@ -1,3 +1,0 @@
-[submodule "submodules/Automation"]
-	path = submodules/Automation
-	url = ssh://git@redjam.ddns.net:7999/mgu/helios.git
