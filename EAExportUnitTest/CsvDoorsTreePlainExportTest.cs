@@ -4,11 +4,10 @@
     using System.IO;
     using NUnit.Framework;
 
-    [TestFixture]
+    [TestFixture(Category = "CsvPlainText")]
     public class CsvDoorsTreePlainExportTest
     {
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC01-TitleOnly.xml")]
         public void TitleOnly()
         {
@@ -27,7 +26,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC02-TitleWithBody.xml")]
         public void TitleWithBody()
         {
@@ -46,7 +44,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC03-TitleWithBodyParagraphs.xml")]
         public void TitleWithBodyParagraphs()
         {
@@ -66,7 +63,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC04-MultipleRequirements.xml")]
         public void MultipleRequirements()
         {
@@ -86,7 +82,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC05-NestedRequirements1.xml")]
         public void NestedRequirements1()
         {
@@ -106,7 +101,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC06-NestedRequirements2.xml")]
         public void NestedRequirements2()
         {
@@ -127,7 +121,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC07-SpecialQuotes.xml")]
         public void SpecialQuotes()
         {
@@ -146,7 +139,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC20-FormattingBold1.xml")]
         public void FormattingBold1()
         {
@@ -165,7 +157,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC21-FormattingBold2.xml")]
         public void FormattingBold2()
         {
@@ -184,7 +175,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC22-FormattingItalics.xml")]
         public void FormattingItalics()
         {
@@ -203,7 +193,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC23-FormattingUnderline.xml")]
         public void FormattingUnderline()
         {
@@ -222,7 +211,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC24-FormattingSuperscript.xml")]
         public void FormattingSuperscript()
         {
@@ -241,7 +229,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC25-FormattingSubscript.xml")]
         public void FormattingSubscript()
         {
@@ -260,7 +247,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC26-FormattingMultiple.xml")]
         public void FormattingMultiple()
         {
@@ -279,7 +265,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC27-QuotesInTitle.xml")]
         public void QuotesInTitle()
         {
@@ -298,7 +283,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC40-OrderedList1.xml")]
         public void OrderedList1()
         {
@@ -319,7 +303,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC41-OrderedList2.xml")]
         public void OrderedList2()
         {
@@ -341,7 +324,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC42-ItemizedList1.xml")]
         public void ItemizedList1()
         {
@@ -362,7 +344,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC43-ItemizedList2.xml")]
         public void ItemizedList2()
         {
@@ -384,7 +365,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC44-BothLists1.xml")]
         public void BothLists1()
         {
@@ -428,7 +408,6 @@
         }
 
         [Test]
-        [Category("CsvPlainText")]
         [DeploymentItem(@"XMI\TC45-BothLists2.xml")]
         public void BothLists2()
         {

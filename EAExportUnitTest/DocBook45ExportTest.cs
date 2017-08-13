@@ -5,6 +5,7 @@
     using System.Xml;
     using NUnit.Framework;
 
+    [TestFixture(Category = "DocBook45")]
     public class DocBook45ExportTest
     {
         private XmlWriter GetWriter(Stream stream)
@@ -39,7 +40,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC01-TitleOnly.xml")]
         public void TitleOnly()
         {
@@ -56,7 +56,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC02-TitleWithBody.xml")]
         public void TitleWithBody()
         {
@@ -74,7 +73,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC03-TitleWithBodyParagraphs.xml")]
         public void TitleWithBodyParagraphs()
         {
@@ -93,7 +91,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC04-MultipleRequirements.xml")]
         public void MultipleRequirements()
         {
@@ -113,7 +110,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC05-NestedRequirements1.xml")]
         public void NestedRequirements1()
         {
@@ -133,7 +129,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC06-NestedRequirements2.xml")]
         public void NestedRequirements2()
         {
@@ -155,7 +150,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC07-SpecialQuotes.xml")]
         public void SpecialQuotes()
         {
@@ -173,7 +167,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC20-FormattingBold1.xml")]
         public void FormattingBold1()
         {
@@ -191,7 +184,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC21-FormattingBold2.xml")]
         public void FormattingBold2()
         {
@@ -209,7 +201,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC22-FormattingItalics.xml")]
         public void FormattingItalics()
         {
@@ -227,7 +218,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC23-FormattingUnderline.xml")]
         public void FormattingUnderline()
         {
@@ -245,7 +235,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC24-FormattingSuperscript.xml")]
         public void FormattingSuperscript()
         {
@@ -263,7 +252,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC25-FormattingSubscript.xml")]
         public void FormattingSubscript()
         {
@@ -281,7 +269,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC26-FormattingMultiple.xml")]
         public void FormattingMultiple()
         {
@@ -303,7 +290,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC27-QuotesInTitle.xml")]
         public void QuotesInTitle()
         {
@@ -321,7 +307,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC28-Screen.xml")]
         public void ScreenFormatting()
         {
@@ -360,7 +345,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC29-MixedFormatting.xml")]
         public void MixedFormattingBold1()
         {
@@ -378,7 +362,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC29-MixedFormatting.xml")]
         public void MixedFormattingBold2()
         {
@@ -397,7 +380,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC29-MixedFormatting.xml")]
         public void MixedFormattingItalic1()
         {
@@ -415,7 +397,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC29-MixedFormatting.xml")]
         public void MixedFormattingItalic2()
         {
@@ -434,7 +415,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC40-OrderedList1.xml")]
         public void OrderedList1()
         {
@@ -452,7 +432,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC41-OrderedList2.xml")]
         public void OrderedList2()
         {
@@ -471,7 +450,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC42-ItemizedList1.xml")]
         public void ItemizedList1()
         {
@@ -489,7 +467,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC43-ItemizedList2.xml")]
         public void ItemizedList2()
         {
@@ -508,7 +485,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC44-BothLists1.xml")]
         public void BothLists1()
         {
@@ -528,7 +504,6 @@
         }
 
         [Test]
-        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC45-BothLists2.xml")]
         public void BothLists2()
         {
