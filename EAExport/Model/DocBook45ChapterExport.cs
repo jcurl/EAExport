@@ -107,7 +107,6 @@
         private XmlNode ConvertHtmlToDocBook45(string text, DocBookFormat format)
         {
             if (!string.IsNullOrWhiteSpace(text)) {
-
                 HtmlDocument html = new HtmlDocument();
                 html.LoadHtml(text);
                 XmlDocumentFragment xmlFragment = m_XmlDocument.CreateDocumentFragment();
@@ -174,6 +173,12 @@
                     nextNode = xmlPara;
                     break;
                 case "u":
+                    xmlParent = GetParent(xmlNode, "para", "screen");
+                    if (xmlParent == null) {
+                        XmlElement xmlNewPara = m_XmlDocument.CreateElement("para");
+                        xmlNode.AppendChild(xmlNewPara);
+                        xmlNode = xmlNewPara;
+                    }
                     XmlElement xmlUnderline = m_XmlDocument.CreateElement("emphasis");
                     XmlAttribute xmlUnderlineAttr = m_XmlDocument.CreateAttribute("role");
                     xmlUnderlineAttr.Value = "underline";
@@ -182,11 +187,23 @@
                     nextNode = xmlUnderline;
                     break;
                 case "i":
+                    xmlParent = GetParent(xmlNode, "para", "screen");
+                    if (xmlParent == null) {
+                        XmlElement xmlNewPara = m_XmlDocument.CreateElement("para");
+                        xmlNode.AppendChild(xmlNewPara);
+                        xmlNode = xmlNewPara;
+                    }
                     XmlElement xmlItalic = m_XmlDocument.CreateElement("emphasis");
                     xmlNode.AppendChild(xmlItalic);
                     nextNode = xmlItalic;
                     break;
                 case "b":
+                    xmlParent = GetParent(xmlNode, "para", "screen");
+                    if (xmlParent == null) {
+                        XmlElement xmlNewPara = m_XmlDocument.CreateElement("para");
+                        xmlNode.AppendChild(xmlNewPara);
+                        xmlNode = xmlNewPara;
+                    }
                     XmlElement xmlBold = m_XmlDocument.CreateElement("emphasis");
                     XmlAttribute xmlBoldAttr = m_XmlDocument.CreateAttribute("role");
                     xmlBoldAttr.Value = "bold";
@@ -195,11 +212,23 @@
                     nextNode = xmlBold;
                     break;
                 case "sub":
+                    xmlParent = GetParent(xmlNode, "para", "screen");
+                    if (xmlParent == null) {
+                        XmlElement xmlNewPara = m_XmlDocument.CreateElement("para");
+                        xmlNode.AppendChild(xmlNewPara);
+                        xmlNode = xmlNewPara;
+                    }
                     XmlElement xmlSub = m_XmlDocument.CreateElement("subscript");
                     xmlNode.AppendChild(xmlSub);
                     nextNode = xmlSub;
                     break;
                 case "sup":
+                    xmlParent = GetParent(xmlNode, "para", "screen");
+                    if (xmlParent == null) {
+                        XmlElement xmlNewPara = m_XmlDocument.CreateElement("para");
+                        xmlNode.AppendChild(xmlNewPara);
+                        xmlNode = xmlNewPara;
+                    }
                     XmlElement xmlSup = m_XmlDocument.CreateElement("superscript");
                     xmlNode.AppendChild(xmlSup);
                     nextNode = xmlSup;
@@ -257,9 +286,10 @@
             XmlNode rootNode;
             TextMode textMode;
             XmlNode xmlParent = GetParent(node, "para", "screen", "orderedlist", "itemizedlist");
+
             if (xmlParent == null) {
                 // We're not in a list, or a paragraph. We create a new node based on the next
-                // that that will be parsed.
+                // that will be parsed.
                 textMode = TextMode.None;
                 rootNode = node;
             } else if (xmlParent.Name.Equals("para")) {
@@ -280,6 +310,7 @@
 
             string[] paragraphs = htmlText.Split('\n', '\r');
             if (paragraphs.Length == 0) return node;
+            bool emptyParagraph = false;
 
             foreach (string paragraph in paragraphs) {
                 TextMode nextMode;
@@ -333,6 +364,9 @@
                         }
                         XmlText xmlText = m_XmlDocument.CreateTextNode(paragraph);
                         node.AppendChild(xmlText);
+                        emptyParagraph = false;
+                    } else {
+                        emptyParagraph = true;
                     }
                     textMode = TextMode.None;
                     break;
@@ -354,6 +388,9 @@
                     node.AppendChild(xmlScreenText);
                     break;
                 }
+            }
+            if (emptyParagraph && node != null && node.ParentNode != null) {
+                node = node.ParentNode;
             }
             return node;
         }

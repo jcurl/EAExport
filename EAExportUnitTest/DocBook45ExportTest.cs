@@ -361,6 +361,80 @@
 
         [Test]
         [Category("DocBook45")]
+        [DeploymentItem(@"XMI\TC29-MixedFormatting.xml")]
+        public void MixedFormattingBold1()
+        {
+            EAModel model = EAModel.LoadXmi("TC29-MixedFormatting.xml");
+            MemoryStream ms = new MemoryStream();
+            using (XmlWriter wr = GetWriter(ms))
+            using (DocBook45ChapterExport export = new DocBook45ChapterExport(wr)) {
+                export.ExportTree(model.Root, false);
+            }
+
+            XmlDocumentFragment xml = LoadDocumentFragment(ms);
+            Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC29-MixedFormatting"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[1]/para[2]/emphasis").InnerXml, Is.EqualTo("Example"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[1]/para[2]/text()[last()]").InnerText, Is.EqualTo(": Foo"));
+        }
+
+        [Test]
+        [Category("DocBook45")]
+        [DeploymentItem(@"XMI\TC29-MixedFormatting.xml")]
+        public void MixedFormattingBold2()
+        {
+            EAModel model = EAModel.LoadXmi("TC29-MixedFormatting.xml");
+            MemoryStream ms = new MemoryStream();
+            using (XmlWriter wr = GetWriter(ms))
+            using (DocBook45ChapterExport export = new DocBook45ChapterExport(wr)) {
+                export.ExportTree(model.Root, false);
+            }
+
+            XmlDocumentFragment xml = LoadDocumentFragment(ms);
+            Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC29-MixedFormatting"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[2]/para[2]").InnerXml, Is.EqualTo("This is a paragraph"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[2]/para[3]/emphasis").InnerXml, Is.EqualTo("Example"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[2]/para[3]/text()[last()]").InnerText, Is.EqualTo(": Foo"));
+        }
+
+        [Test]
+        [Category("DocBook45")]
+        [DeploymentItem(@"XMI\TC29-MixedFormatting.xml")]
+        public void MixedFormattingItalic1()
+        {
+            EAModel model = EAModel.LoadXmi("TC29-MixedFormatting.xml");
+            MemoryStream ms = new MemoryStream();
+            using (XmlWriter wr = GetWriter(ms))
+            using (DocBook45ChapterExport export = new DocBook45ChapterExport(wr)) {
+                export.ExportTree(model.Root, false);
+            }
+
+            XmlDocumentFragment xml = LoadDocumentFragment(ms);
+            Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC29-MixedFormatting"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[3]/para[2]/emphasis").InnerXml, Is.EqualTo("Example"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[3]/para[2]/text()[last()]").InnerText, Is.EqualTo(": Italic"));
+        }
+
+        [Test]
+        [Category("DocBook45")]
+        [DeploymentItem(@"XMI\TC29-MixedFormatting.xml")]
+        public void MixedFormattingItalic2()
+        {
+            EAModel model = EAModel.LoadXmi("TC29-MixedFormatting.xml");
+            MemoryStream ms = new MemoryStream();
+            using (XmlWriter wr = GetWriter(ms))
+            using (DocBook45ChapterExport export = new DocBook45ChapterExport(wr)) {
+                export.ExportTree(model.Root, false);
+            }
+
+            XmlDocumentFragment xml = LoadDocumentFragment(ms);
+            Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC29-MixedFormatting"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[4]/para[2]").InnerXml, Is.EqualTo("This is a paragraph"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[4]/para[3]/emphasis").InnerXml, Is.EqualTo("Example"));
+            Assert.That(xml.SelectSingleNode("/chapter/section[4]/para[3]/text()[last()]").InnerText, Is.EqualTo(": Italic"));
+        }
+
+        [Test]
+        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC40-OrderedList1.xml")]
         public void OrderedList1()
         {
