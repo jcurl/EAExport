@@ -288,11 +288,15 @@
                     nextMode = TextMode.Paragraph;
                     break;
                 default:
-                    if (paragraph.Length == 0) {
+                    if (paragraph.Length < 2) {
                         nextMode = TextMode.Paragraph;
                     } else {
                         // Anything that starts with a space is considered code, like in mediawiki
-                        nextMode = paragraph[0] == ' ' ? TextMode.Screen : TextMode.Paragraph;
+                        if (paragraph.Substring(0, 2).Equals("  ")) {
+                            nextMode = TextMode.Screen;
+                        } else {
+                            nextMode = TextMode.Paragraph;
+                        }
                     }
                     break;
                 }
@@ -346,7 +350,7 @@
                         XmlText xmlNewLine = m_XmlDocument.CreateTextNode("\n");
                         node.AppendChild(xmlNewLine);
                     }
-                    XmlText xmlScreenText = m_XmlDocument.CreateTextNode(paragraph.Substring(1));
+                    XmlText xmlScreenText = m_XmlDocument.CreateTextNode(paragraph.Substring(2));
                     node.AppendChild(xmlScreenText);
                     break;
                 }

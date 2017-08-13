@@ -322,6 +322,45 @@
 
         [Test]
         [Category("DocBook45")]
+        [DeploymentItem(@"XMI\TC28-Screen.xml")]
+        public void ScreenFormatting()
+        {
+            EAModel model = EAModel.LoadXmi("TC28-Screen.xml");
+            MemoryStream ms = new MemoryStream();
+            using (XmlWriter wr = GetWriter(ms))
+            using (DocBook45ChapterExport export = new DocBook45ChapterExport(wr)) {
+                export.ExportTree(model.Root, false);
+            }
+
+            XmlDocumentFragment xml = LoadDocumentFragment(ms);
+            Assert.That(xml.SelectSingleNode("/chapter/title").InnerXml, Is.EqualTo("TC28-Screen"));
+
+            // REQUIREMENT 1
+            Assert.That(xml.SelectSingleNode("/chapter/section[1]/para[2]").InnerXml, Is.EqualTo("Example of a screen element"));
+
+            // Check that the tag immediately after this paragraph is a screen with code
+            XmlNode node1 = xml.SelectSingleNode("/chapter/section[1]/para[2]");
+            node1 = node1.NextSibling;
+            while (node1.NodeType != XmlNodeType.Element) { node1 = node1.NextSibling; }
+
+            Assert.That(node1.InnerXml, Is.EqualTo("public void Dispose() { }"));
+            Assert.That(node1.Name, Is.EqualTo("screen"));
+
+            // REQUIREMENT 2
+            Assert.That(xml.SelectSingleNode("/chapter/section[2]/para[2]").InnerXml, Is.EqualTo("Further examples"));
+
+            // Check that the tag immediately after this paragraph is a screen with code
+            XmlNode node2 = xml.SelectSingleNode("/chapter/section[2]/para[2]");
+            node2 = node2.NextSibling;
+            while (node2.NodeType != XmlNodeType.Element) { node2 = node2.NextSibling; }
+
+            Assert.That(node2.InnerXml, Is.EqualTo(
+                "protected virtual void Dispose(bool disposing) {\n  if (disposing) {\n    // ..\n  }\n}"));
+            Assert.That(node2.Name, Is.EqualTo("screen"));
+        }
+
+        [Test]
+        [Category("DocBook45")]
         [DeploymentItem(@"XMI\TC40-OrderedList1.xml")]
         public void OrderedList1()
         {
