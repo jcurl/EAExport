@@ -132,7 +132,7 @@ namespace EAExport
                 node.ImageKey = "Model";
             } else if (element.Id.StartsWith("EAPK")) {
                 node.ImageKey = "Specification";
-            } else {
+            } else if (element.Status != null) {
                 if (element.Status.Equals("Approved", StringComparison.InvariantCultureIgnoreCase)) {
                     node.ImageKey = "RequirementApproved";
                 } else if (element.Status.Equals("Implemented", StringComparison.InvariantCultureIgnoreCase)) {
@@ -146,6 +146,8 @@ namespace EAExport
                 } else {
                     node.ImageKey = "Requirement";
                 }
+            } else {
+                node.ImageKey = "Requirement";
             }
             node.SelectedImageKey = node.ImageKey;
 
@@ -164,7 +166,7 @@ namespace EAExport
             htmlNotes.Text = element.Text;
             txtAlias.Text = element.Alias;
             txtAuthor.Text = element.Author;
-            txtStatus.Text = element.Status;
+            txtStatus.Text = element.Status == null ? "" : element.Status;
             txtStereotype.Text = element.Stereotype;
             txtVersion.Text = element.Version;
             txtCreateTime.Text = element.CreateTime.Ticks == 0 ? string.Empty : element.CreateTime.ToString("g");
