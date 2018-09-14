@@ -44,9 +44,9 @@
             if (includeElement) {
                 string heading = (element.Heading == null) ? string.Empty : element.Heading.Trim();
                 string text = (element.Text == null) ? string.Empty : element.Text.Trim();
-                m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"", 
+                m_Writer.WriteLine("{0};{1};\"{2}\";\"{3}\"",
                     element.Id, parentId,
-                    StringUtilities.SearchAndReplace(heading, m_Conversions), 
+                    StringUtilities.SearchAndReplace(heading, m_Conversions),
                     StringUtilities.SearchAndReplace(text, m_Conversions));
             }
 

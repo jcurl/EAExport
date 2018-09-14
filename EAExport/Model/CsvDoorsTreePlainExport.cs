@@ -1,6 +1,7 @@
 ﻿namespace EAExport.Model
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Text;
     using HtmlAgilityPack;
@@ -121,6 +122,20 @@
             html.LoadHtml(text);
             ParseHtml(format, html.DocumentNode, sb);
 
+            return TrimLines(sb.ToString());
+        }
+
+        private string TrimLines(string text)
+        {
+            string[] lines = text.Split(new char[] { '\n' });
+
+            StringBuilder sb = new StringBuilder();
+            bool firstLine = true;
+            foreach (string line in lines) {
+                if (!firstLine) sb.Append('\n');
+                sb.Append(line.TrimEnd());
+                firstLine = false;
+            }
             return sb.ToString();
         }
 
@@ -147,7 +162,7 @@
                     // Is it in fact a special closing node output as text?
                     break;
                 }
-                
+
                 sb.Append(HtmlEntity.DeEntitize(html));
                 break;
             case HtmlNodeType.Element:

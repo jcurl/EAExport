@@ -401,7 +401,7 @@
             Assert.That(sr.ReadLine(), Is.EqualTo(string.Empty));
             Assert.That(sr.ReadLine(), Is.EqualTo(string.Empty));
             Assert.That(sr.ReadLine(), Is.EqualTo(string.Empty));
-            Assert.That(sr.ReadLine(), Is.EqualTo("\t 1. Ordered List "));
+            Assert.That(sr.ReadLine(), Is.EqualTo("\t 1. Ordered List"));
             Assert.That(sr.ReadLine(), Is.EqualTo(string.Empty));
             Assert.That(sr.ReadLine(), Is.EqualTo("(Note we really wanted nested lists, but EA doesn't seem to let this happen)\""));
             Assert.That(sr.ReadLine(), Is.Null);
@@ -441,8 +441,8 @@
             Assert.That(sr.ReadLine(), Is.EqualTo("EAPK_A34D21F7_B624_4f82_B6FD_DD6E60EAD764;;\"TC45-BothLists2\";\"\""));
             Assert.That(sr.ReadLine(), Is.EqualTo("EAID_2EF736C4_FD48_472f_84E6_5FA4E0CC65BE;EAPK_A34D21F7_B624_4f82_B6FD_DD6E60EAD764;\"Requirement1\";\""));
             Assert.That(sr.ReadLine(), Is.EqualTo("\t * Itemized List 1"));
-            Assert.That(sr.ReadLine(), Is.EqualTo("\t  * "));
-            Assert.That(sr.ReadLine(), Is.EqualTo("\t   * "));
+            Assert.That(sr.ReadLine(), Is.EqualTo("\t  *"));
+            Assert.That(sr.ReadLine(), Is.EqualTo("\t   *"));
             Assert.That(sr.ReadLine(), Is.EqualTo("\t    * Itemized List 2"));
             Assert.That(sr.ReadLine(), Is.EqualTo("\t    * Itemized List 3"));
             Assert.That(sr.ReadLine(), Is.EqualTo(string.Empty));
