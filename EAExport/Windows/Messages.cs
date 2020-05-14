@@ -4,7 +4,6 @@
 
     internal static class Msg
     {
-        [Flags]
         private enum WM_TVM
         {
             TVM_INSERTITEMA = 0x1100,
@@ -70,7 +69,6 @@
 
         // The enum's are used to print the names of the constants in the
         // ToString() method. Otherwise they wouldn't be needed.
-        [Flags]
         private enum WM_Std
         {
             WM_NULL = 0x0000,
@@ -124,11 +122,11 @@
             WM_COMPAREITEM = 0x0039,
             WM_GETOBJECT = 0x003D,
             WM_COMPACTING = 0x0041,
-            [Obsolete]
+            [Obsolete("WinSDK")]
             WM_COMMNOTIFY = 0x0044,
             WM_WINDOWPOSCHANGING = 0x0046,
             WM_WINDOWPOSCHANGED = 0x0047,
-            [Obsolete]
+            [Obsolete("WinSDK")]
             WM_POWER = 0x0048,
             WM_COPYDATA = 0x004A,
             WM_CANCELJOURNAL = 0x004B,
@@ -375,87 +373,87 @@
 
         #region WM_CONSTANTS
         /// <summary>
-        /// The WM_NULL message performs no operation. An application sends 
-        /// the WM_NULL message if it wants to post a message that the 
+        /// The WM_NULL message performs no operation. An application sends
+        /// the WM_NULL message if it wants to post a message that the
         /// recipient window will ignore.
         /// </summary>
         public const int WM_NULL = (int)WM_Std.WM_NULL;
         /// <summary>
-        /// The WM_CREATE message is sent when an application requests that 
-        /// a window be created by calling the CreateWindowEx or 
-        /// CreateWindow function. (The message is sent before the function 
-        /// returns.) The window procedure of the new window receives this 
-        /// message after the window is created, but before the window 
+        /// The WM_CREATE message is sent when an application requests that
+        /// a window be created by calling the CreateWindowEx or
+        /// CreateWindow function. (The message is sent before the function
+        /// returns.) The window procedure of the new window receives this
+        /// message after the window is created, but before the window
         /// becomes visible.
         /// </summary>
         public const int WM_CREATE = (int)WM_Std.WM_CREATE;
         /// <summary>
-        /// The WM_DESTROY message is sent when a window is being destroyed. 
-        /// It is sent to the window procedure of the window being destroyed 
-        /// after the window is removed from the screen. 
+        /// The WM_DESTROY message is sent when a window is being destroyed.
+        /// It is sent to the window procedure of the window being destroyed
+        /// after the window is removed from the screen.
         /// This message is sent first to the window being destroyed and then
-        /// to the child windows (if any) as they are destroyed. During the 
-        /// processing of the message, it can be assumed that all child 
+        /// to the child windows (if any) as they are destroyed. During the
+        /// processing of the message, it can be assumed that all child
         /// windows still exist.
         /// /// </summary>
         public const int WM_DESTROY = (int)WM_Std.WM_DESTROY;
         /// <summary>
-        /// The WM_MOVE message is sent after a window has been moved. 
+        /// The WM_MOVE message is sent after a window has been moved.
         /// </summary>
         public const int WM_MOVE = (int)WM_Std.WM_MOVE;
         /// <summary>
-        /// The WM_SIZE message is sent to a window after its size has 
+        /// The WM_SIZE message is sent to a window after its size has
         /// changed.
         /// </summary>
         public const int WM_SIZE = (int)WM_Std.WM_SIZE;
         /// <summary>
-        /// The WM_ACTIVATE message is sent to both the window being 
-        /// activated and the window being deactivated. If the windows use 
-        /// the same input queue, the message is sent synchronously, first 
+        /// The WM_ACTIVATE message is sent to both the window being
+        /// activated and the window being deactivated. If the windows use
+        /// the same input queue, the message is sent synchronously, first
         /// to the window procedure of the top-level window being
-        /// deactivated, then to the window procedure of the top-level 
-        /// window being activated. If the windows use different input 
-        /// queues, the message is sent asynchronously, so the window is 
-        /// activated immediately. 
+        /// deactivated, then to the window procedure of the top-level
+        /// window being activated. If the windows use different input
+        /// queues, the message is sent asynchronously, so the window is
+        /// activated immediately.
         /// </summary>
         public const int WM_ACTIVATE = (int)WM_Std.WM_ACTIVATE;
         /// <summary>
-        /// The WM_SETFOCUS message is sent to a window after it has gained 
-        /// the keyboard focus. 
+        /// The WM_SETFOCUS message is sent to a window after it has gained
+        /// the keyboard focus.
         /// </summary>
         public const int WM_SETFOCUS = (int)WM_Std.WM_SETFOCUS;
         /// <summary>
-        /// The WM_KILLFOCUS message is sent to a window immediately before 
-        /// it loses the keyboard focus. 
+        /// The WM_KILLFOCUS message is sent to a window immediately before
+        /// it loses the keyboard focus.
         /// </summary>
         public const int WM_KILLFOCUS = (int)WM_Std.WM_KILLFOCUS;
         /// <summary>
         /// The WM_ENABLE message is sent when an application changes the
         /// enabled state of a window. It is sent to the window whose enabled
-        /// state is changing. This message is sent before the EnableWindow 
+        /// state is changing. This message is sent before the EnableWindow
         /// function returns, but after the enabled state (WS_DISABLED style
-        /// bit) of the window has changed. 
+        /// bit) of the window has changed.
         /// </summary>
         public const int WM_ENABLE = (int)WM_Std.WM_ENABLE;
         /// <summary>
-        /// An application sends the WM_SETREDRAW message to a window to 
+        /// An application sends the WM_SETREDRAW message to a window to
         /// allow changes in that window to be redrawn or to prevent changes
-        /// in that window from being redrawn. 
+        /// in that window from being redrawn.
         /// </summary>
         public const int WM_SETREDRAW = (int)WM_Std.WM_SETREDRAW;
         /// <summary>
         /// An application sends a WM_SETTEXT message to set the text of a
-        /// window. 
+        /// window.
         /// </summary>
         public const int WM_SETTEXT = (int)WM_Std.WM_SETTEXT;
         /// <summary>
         /// An application sends a WM_GETTEXT message to copy the text that
-        /// corresponds to a window into a buffer provided by the caller. 
+        /// corresponds to a window into a buffer provided by the caller.
         /// </summary>
         public const int WM_GETTEXT = (int)WM_Std.WM_GETTEXT;
         /// <summary>
         /// An application sends a WM_GETTEXTLENGTH message to determine the
-        /// length, in characters, of the text associated with a window. 
+        /// length, in characters, of the text associated with a window.
         /// </summary>
         public const int WM_GETTEXTLENGTH = (int)WM_Std.WM_GETTEXTLENGTH;
         /// <summary>
@@ -464,7 +462,7 @@
         /// application's window. The message is sent when the UpdateWindow
         /// or RedrawWindow function is called, or by the DispatchMessage
         /// function when the application obtains a WM_PAINT message by
-        /// using the GetMessage or PeekMessage function. 
+        /// using the GetMessage or PeekMessage function.
         /// </summary>
         public const int WM_PAINT = (int)WM_Std.WM_PAINT;
         /// <summary>
@@ -511,7 +509,7 @@
         public const int WM_ERASEBKGND = (int)WM_Std.WM_ERASEBKGND;
         /// <summary>
         /// This message is sent to all top-level windows when a change is
-        /// made to a system color setting. 
+        /// made to a system color setting.
         /// </summary>
         public const int WM_SYSCOLORCHANGE = (int)WM_Std.WM_SYSCOLORCHANGE;
         /// <summary>
@@ -521,10 +519,10 @@
         public const int WM_SHOWWINDOW = (int)WM_Std.WM_SHOWWINDOW;
         /// <summary>
         /// An application sends the WM_WININICHANGE message to all top-level
-        /// windows after making a change to the WIN.INI file. The 
-        /// SystemParametersInfo function sends this message after an 
+        /// windows after making a change to the WIN.INI file. The
+        /// SystemParametersInfo function sends this message after an
         /// application uses the function to change a setting in WIN.INI.
-        /// Note:  The WM_WININICHANGE message is provided only for 
+        /// Note:  The WM_WININICHANGE message is provided only for
         /// compatibility with earlier versions of the system. Applications
         /// should use the WM_SETTINGCHANGE message.
         /// </summary>
@@ -541,7 +539,7 @@
         public const int WM_SETTINGCHANGE = (int)WM_Std.WM_SETTINGCHANGE;
         /// <summary>
         /// The WM_DEVMODECHANGE message is sent to all top-level windows
-        /// whenever the user changes device-mode settings. 
+        /// whenever the user changes device-mode settings.
         /// </summary>
         public const int WM_DEVMODECHANGE = (int)WM_Std.WM_DEVMODECHANGE;
         /// <summary>
@@ -554,7 +552,7 @@
         public const int WM_ACTIVATEAPP = (int)WM_Std.WM_ACTIVATEAPP;
         /// <summary>
         /// An application sends the WM_FONTCHANGE message to all top-level
-        /// windows in the system after changing the pool of font resources. 
+        /// windows in the system after changing the pool of font resources.
         /// </summary>
         public const int WM_FONTCHANGE = (int)WM_Std.WM_FONTCHANGE;
         /// <summary>
@@ -575,7 +573,7 @@
         /// <summary>
         /// The WM_SETCURSOR message is sent to a window if the mouse causes
         /// the cursor to move within a window and mouse input is not
-        /// captured. 
+        /// captured.
         /// </summary>
         public const int WM_SETCURSOR = (int)WM_Std.WM_SETCURSOR;
         /// <summary>
@@ -594,14 +592,14 @@
         /// <summary>
         /// The WM_QUEUESYNC message is sent by a computer-based training
         /// (CBT) application to separate user-input messages from other
-        /// messages sent through the WH_JOURNALPLAYBACK Hook procedure. 
+        /// messages sent through the WH_JOURNALPLAYBACK Hook procedure.
         /// </summary>
         public const int WM_QUEUESYNC = (int)WM_Std.WM_QUEUESYNC;
         /// <summary>
         /// The WM_GETMINMAXINFO message is sent to a window when the size
         /// or position of the window is about to change. An application can
         /// use this message to override the window's default maximized size
-        /// and position, or its default minimum or maximum tracking size. 
+        /// and position, or its default minimum or maximum tracking size.
         /// </summary>
         public const int WM_GETMINMAXINFO = (int)WM_Std.WM_GETMINMAXINFO;
         /// <summary>
@@ -622,12 +620,12 @@
         public const int WM_ICONERASEBKGND = (int)WM_Std.WM_ICONERASEBKGND;
         /// <summary>
         /// The WM_NEXTDLGCTL message is sent to a dialog box procedure to
-        /// set the keyboard focus to a different control in the dialog box. 
+        /// set the keyboard focus to a different control in the dialog box.
         /// </summary>
         public const int WM_NEXTDLGCTL = (int)WM_Std.WM_NEXTDLGCTL;
         /// <summary>
         /// The WM_SPOOLERSTATUS message is sent from Print Manager whenever
-        /// a job is added to or removed from the Print Manager queue. 
+        /// a job is added to or removed from the Print Manager queue.
         /// </summary>
         public const int WM_SPOOLERSTATUS = (int)WM_Std.WM_SPOOLERSTATUS;
         /// <summary>
@@ -654,34 +652,34 @@
         public const int WM_DELETEITEM = (int)WM_Std.WM_DELETEITEM;
         /// <summary>
         /// Sent by a list box with the LBS_WANTKEYBOARDINPUT style to its
-        /// owner in response to a WM_KEYDOWN message. 
+        /// owner in response to a WM_KEYDOWN message.
         /// </summary>
         public const int WM_VKEYTOITEM = (int)WM_Std.WM_VKEYTOITEM;
         /// <summary>
         /// Sent by a list box with the LBS_WANTKEYBOARDINPUT style to its
-        /// owner in response to a WM_CHAR message. 
+        /// owner in response to a WM_CHAR message.
         /// </summary>
         public const int WM_CHARTOITEM = (int)WM_Std.WM_CHARTOITEM;
         /// <summary>
         /// An application sends a WM_SETFONT message to specify the font
-        /// that a control is to use when drawing text. 
+        /// that a control is to use when drawing text.
         /// </summary>
         public const int WM_SETFONT = (int)WM_Std.WM_SETFONT;
         /// <summary>
         /// An application sends a WM_GETFONT message to a control to
         /// retrieve the font with which the control is currently drawing its
-        /// text. 
+        /// text.
         /// </summary>
         public const int WM_GETFONT = (int)WM_Std.WM_GETFONT;
         /// <summary>
         /// An application sends a WM_SETHOTKEY message to a window to
         /// associate a hot key with the window. When the user presses the
-        /// hot key, the system activates the window. 
+        /// hot key, the system activates the window.
         /// </summary>
         public const int WM_SETHOTKEY = (int)WM_Std.WM_SETHOTKEY;
         /// <summary>
         /// An application sends a WM_GETHOTKEY message to determine the hot
-        /// key associated with a window. 
+        /// key associated with a window.
         /// </summary>
         public const int WM_GETHOTKEY = (int)WM_Std.WM_GETHOTKEY;
         /// <summary>
@@ -697,18 +695,18 @@
         /// relative position of a new item in the sorted list of an owner
         /// -drawn combo box or list box. Whenever the application adds a new
         /// item, the system sends this message to the owner of a combo box
-        /// or list box created with the CBS_SORT or LBS_SORT style. 
+        /// or list box created with the CBS_SORT or LBS_SORT style.
         /// </summary>
         public const int WM_COMPAREITEM = (int)WM_Std.WM_COMPAREITEM;
         /// <summary>
         /// Active Accessibility sends the WM_GETOBJECT message to obtain
         /// information about an accessible object contained in a server
-        /// application. 
+        /// application.
         /// Applications never send this message directly. It is sent only
         /// by Active Accessibility in response to calls to
         /// AccessibleObjectFromPoint, AccessibleObjectFromEvent, or
         /// AccessibleObjectFromWindow. However, server applications handle
-        /// this message. 
+        /// this message.
         /// </summary>
         public const int WM_GETOBJECT = (int)WM_Std.WM_GETOBJECT;
         /// <summary>
@@ -721,7 +719,7 @@
         /// <summary>
         /// WM_COMMNOTIFY is Obsolete for Win32-Based Applications
         /// </summary>
-        [Obsolete]
+        [Obsolete("WinSDK")]
         public const int WM_COMMNOTIFY = (int)WM_Std.WM_COMMNOTIFY;
         /// <summary>
         /// The WM_WINDOWPOSCHANGING message is sent to a window whose size,
@@ -742,32 +740,32 @@
         /// -powered personal computer, is about to enter a suspended mode.
         /// Use: POWERBROADCAST
         /// </summary>
-        [Obsolete]
+        [Obsolete("WinSDK")]
         public const int WM_POWER = (int)WM_Std.WM_POWER;
         /// <summary>
         /// An application sends the WM_COPYDATA message to pass data to
-        /// another application. 
+        /// another application.
         /// </summary>
         public const int WM_COPYDATA = (int)WM_Std.WM_COPYDATA;
         /// <summary>
         /// The WM_CANCELJOURNAL message is posted to an application when a
         /// user cancels the application's journaling activities. The message
-        /// is posted with a NULL window handle. 
+        /// is posted with a NULL window handle.
         /// </summary>
         public const int WM_CANCELJOURNAL = (int)WM_Std.WM_CANCELJOURNAL;
         /// <summary>
         /// Sent by a common control to its parent window when an event has
-        /// occurred or the control requires some information. 
+        /// occurred or the control requires some information.
         /// </summary>
         public const int WM_NOTIFY = (int)WM_Std.WM_NOTIFY;
         /// <summary>
         /// The WM_INPUTLANGCHANGEREQUEST message is posted to the window
         /// with the focus when the user chooses a new input language, either
-        /// with the hotkey (specified in the Keyboard control panel 
-        /// application) or from the indicator on the system taskbar. An 
-        /// application can accept the change by passing the message to the 
+        /// with the hotkey (specified in the Keyboard control panel
+        /// application) or from the indicator on the system taskbar. An
+        /// application can accept the change by passing the message to the
         /// DefWindowProc function or reject the change (and prevent it from
-        /// taking place) by returning immediately. 
+        /// taking place) by returning immediately.
         /// </summary>
         public const int WM_INPUTLANGCHANGEREQUEST = (int)WM_Std.WM_INPUTLANGCHANGEREQUEST;
         /// <summary>
@@ -777,7 +775,7 @@
         /// message to the DefWindowProc function, which passes the message
         /// to all first-level child windows. These child windows can pass
         /// the message to DefWindowProc to have it pass the message to their
-        /// child windows, and so on. 
+        /// child windows, and so on.
         /// </summary>
         public const int WM_INPUTLANGCHANGE = (int)WM_Std.WM_INPUTLANGCHANGE;
         /// <summary>
@@ -793,7 +791,7 @@
         /// when F1 is pressed, WM_HELP is sent to the window associated with
         /// the menu; otherwise, WM_HELP is sent to the window that has the
         /// keyboard focus. If no window has the keyboard focus, WM_HELP is
-        /// sent to the currently active window. 
+        /// sent to the currently active window.
         /// </summary>
         public const int WM_HELP = (int)WM_Std.WM_HELP;
         /// <summary>
@@ -836,14 +834,14 @@
         /// The WM_GETICON message is sent to a window to retrieve a handle
         /// to the large or small icon associated with a window. The system
         /// displays the large icon in the ALT+TAB dialog, and the small
-        /// icon in the window caption. 
+        /// icon in the window caption.
         /// </summary>
         public const int WM_GETICON = (int)WM_Std.WM_GETICON;
         /// <summary>
         /// An application sends the WM_SETICON message to associate a new
         /// large or small icon with a window. The system displays the large
         /// icon in the ALT+TAB dialog box, and the small icon in the window
-        /// caption. 
+        /// caption.
         /// </summary>
         public const int WM_SETICON = (int)WM_Std.WM_SETICON;
         /// <summary>
@@ -856,7 +854,7 @@
         /// is being destroyed. The DestroyWindow function sends the
         /// WM_NCDESTROY message to the window following the WM_DESTROY
         /// message. WM_DESTROY is used to free the allocated memory object
-        /// associated with the window. 
+        /// associated with the window.
         /// The WM_NCDESTROY message is sent after the child windows have
         /// been destroyed. In contrast, WM_DESTROY is sent before the child
         /// windows are destroyed.
@@ -879,7 +877,7 @@
         public const int WM_NCHITTEST = (int)WM_Std.WM_NCHITTEST;
         /// <summary>
         /// The WM_NCPAINT message is sent to a window when its frame must be
-        /// painted. 
+        /// painted.
         /// </summary>
         public const int WM_NCPAINT = (int)WM_Std.WM_NCPAINT;
         /// <summary>
@@ -1013,7 +1011,7 @@
         public const int WM_INPUT_DEVICE_CHANGE = (int)WM_Std.WM_INPUT_DEVICE_CHANGE;
         /// <summary>
         /// The WM_INPUT message is sent to the window that is getting raw
-        /// input. 
+        /// input.
         /// </summary>
         public const int WM_INPUT = (int)WM_Std.WM_INPUT;
         /// <summary>
@@ -1023,19 +1021,19 @@
         /// <summary>
         /// The WM_KEYDOWN message is posted to the window with the keyboard
         /// focus when a nonsystem key is pressed. A nonsystem key is a key
-        /// that is pressed when the ALT key is not pressed. 
+        /// that is pressed when the ALT key is not pressed.
         /// </summary>
         public const int WM_KEYDOWN = (int)WM_Std.WM_KEYDOWN;
         /// <summary>
         /// The WM_KEYUP message is posted to the window with the keyboard
         /// focus when a nonsystem key is released. A nonsystem key is a key
         /// that is pressed when the ALT key is not pressed, or a keyboard
-        /// key that is pressed when a window has the keyboard focus. 
+        /// key that is pressed when a window has the keyboard focus.
         /// </summary>
         public const int WM_KEYUP = (int)WM_Std.WM_KEYUP;
         /// <summary>
         /// The WM_CHAR message is posted to the window with the keyboard
-        /// focus when a WM_KEYDOWN message is translated by the TranslateMessage function. The WM_CHAR message contains the character code of the key that was pressed. 
+        /// focus when a WM_KEYDOWN message is translated by the TranslateMessage function. The WM_CHAR message contains the character code of the key that was pressed.
         /// </summary>
         public const int WM_CHAR = (int)WM_Std.WM_CHAR;
         /// <summary>
@@ -1046,7 +1044,7 @@
         /// a character, such as the umlaut (double-dot), that is combined
         /// with another character to form a composite character. For
         /// example, the umlaut-O character (Ö) is generated by typing the
-        /// dead key for the umlaut character, and then typing the O key. 
+        /// dead key for the umlaut character, and then typing the O key.
         /// </summary>
         public const int WM_DEADCHAR = (int)WM_Std.WM_DEADCHAR;
         /// <summary>
@@ -1057,7 +1055,7 @@
         /// focus; in this case, the WM_SYSKEYDOWN message is sent to the
         /// active window. The window that receives the message can
         /// distinguish between these two contexts by checking the context
-        /// code in the lParam parameter. 
+        /// code in the lParam parameter.
         /// </summary>
         public const int WM_SYSKEYDOWN = (int)WM_Std.WM_SYSKEYDOWN;
         /// <summary>
@@ -1067,7 +1065,7 @@
         /// the keyboard focus; in this case, the WM_SYSKEYUP message is sent
         /// to the active window. The window that receives the message can
         /// distinguish between these two contexts by checking the context
-        /// code in the lParam parameter. 
+        /// code in the lParam parameter.
         /// </summary>
         public const int WM_SYSKEYUP = (int)WM_Std.WM_SYSKEYUP;
         /// <summary>
@@ -1075,7 +1073,7 @@
         /// focus when a WM_SYSKEYDOWN message is translated by the
         /// TranslateMessage function. It specifies the character code of a
         /// system character key — that is, a character key that is pressed
-        /// while the ALT key is down. 
+        /// while the ALT key is down.
         /// </summary>
         public const int WM_SYSCHAR = (int)WM_Std.WM_SYSCHAR;
         /// <summary>
@@ -1083,14 +1081,14 @@
         /// keyboard focus when a WM_SYSKEYDOWN message is translated by the
         /// TranslateMessage function. WM_SYSDEADCHAR specifies the character
         /// code of a system dead key — that is, a dead key that is pressed
-        /// while holding down the ALT key. 
+        /// while holding down the ALT key.
         /// </summary>
         public const int WM_SYSDEADCHAR = (int)WM_Std.WM_SYSDEADCHAR;
         /// <summary>
         /// The WM_UNICHAR message is posted to the window with the keyboard
         /// focus when a WM_KEYDOWN message is translated by the
         /// TranslateMessage function. The WM_UNICHAR message contains the
-        /// character code of the key that was pressed. 
+        /// character code of the key that was pressed.
         /// The WM_UNICHAR message is equivalent to WM_CHAR, but it uses
         /// Unicode Transformation Format (UTF)-32, whereas WM_CHAR uses
         /// UTF-16. It is designed to send or post Unicode characters to
@@ -1105,18 +1103,18 @@
         /// <summary>
         /// Sent immediately before the IME generates the composition string
         /// as a result of a keystroke. A window receives this message
-        /// through its WindowProc function. 
+        /// through its WindowProc function.
         /// </summary>
         public const int WM_IME_STARTCOMPOSITION = (int)WM_Std.WM_IME_STARTCOMPOSITION;
         /// <summary>
         /// Sent to an application when the IME ends composition. A window
-        /// receives this message through its WindowProc function. 
+        /// receives this message through its WindowProc function.
         /// </summary>
         public const int WM_IME_ENDCOMPOSITION = (int)WM_Std.WM_IME_ENDCOMPOSITION;
         /// <summary>
         /// Sent to an application when the IME changes composition status
         /// as a result of a keystroke. A window receives this message
-        /// through its WindowProc function. 
+        /// through its WindowProc function.
         /// </summary>
         public const int WM_IME_COMPOSITION = (int)WM_Std.WM_IME_COMPOSITION;
         public const int WM_IME_KEYLAST = (int)WM_Std.WM_IME_KEYLAST;
@@ -1125,14 +1123,14 @@
         /// immediately before a dialog box is displayed. Dialog box
         /// procedures typically use this message to initialize controls and
         /// carry out any other initialization tasks that affect the
-        /// appearance of the dialog box. 
+        /// appearance of the dialog box.
         /// </summary>
         public const int WM_INITDIALOG = (int)WM_Std.WM_INITDIALOG;
         /// <summary>
         /// The WM_COMMAND message is sent when the user selects a command
         /// item from a menu, when a control sends a notification message to
         /// its parent window, or when an accelerator keystroke is
-        /// translated. 
+        /// translated.
         /// </summary>
         public const int WM_COMMAND = (int)WM_Std.WM_COMMAND;
         /// <summary>
@@ -1145,35 +1143,35 @@
         /// <summary>
         /// The WM_TIMER message is posted to the installing thread's message
         /// queue when a timer expires. The message is posted by the
-        /// GetMessage or PeekMessage function. 
+        /// GetMessage or PeekMessage function.
         /// </summary>
         public const int WM_TIMER = (int)WM_Std.WM_TIMER;
         /// <summary>
         /// The WM_HSCROLL message is sent to a window when a scroll event
         /// occurs in the window's standard horizontal scroll bar. This
         /// message is also sent to the owner of a horizontal scroll bar
-        /// control when a scroll event occurs in the control. 
+        /// control when a scroll event occurs in the control.
         /// </summary>
         public const int WM_HSCROLL = (int)WM_Std.WM_HSCROLL;
         /// <summary>
         /// The WM_VSCROLL message is sent to a window when a scroll event
         /// occurs in the window's standard vertical scroll bar. This
         /// message is also sent to the owner of a vertical scroll bar
-        /// control when a scroll event occurs in the control. 
+        /// control when a scroll event occurs in the control.
         /// </summary>
         public const int WM_VSCROLL = (int)WM_Std.WM_VSCROLL;
         /// <summary>
         /// The WM_INITMENU message is sent when a menu is about to become
         /// active. It occurs when the user clicks an item on the menu bar
         /// or presses a menu key. This allows the application to modify the
-        /// menu before it is displayed. 
+        /// menu before it is displayed.
         /// </summary>
         public const int WM_INITMENU = (int)WM_Std.WM_INITMENU;
         /// <summary>
         /// The WM_INITMENUPOPUP message is sent when a drop-down menu or
         /// submenu is about to become active. This allows an application to
         /// modify the menu before it is displayed, without changing the
-        /// entire menu. 
+        /// entire menu.
         /// </summary>
         public const int WM_INITMENUPOPUP = (int)WM_Std.WM_INITMENUPOPUP;
         /// <summary>
@@ -1183,47 +1181,47 @@
         public const int WM_SYSTIMER = (int)WM_Std.WM_SYSTIMER;
         /// <summary>
         /// The WM_MENUSELECT message is sent to a menu's owner window when
-        /// the user selects a menu item. 
+        /// the user selects a menu item.
         /// </summary>
         public const int WM_MENUSELECT = (int)WM_Std.WM_MENUSELECT;
         /// <summary>
         /// The WM_MENUCHAR message is sent when a menu is active and the
         /// user presses a key that does not correspond to any mnemonic or
         /// accelerator key. This message is sent to the window that owns
-        /// the menu. 
+        /// the menu.
         /// </summary>
         public const int WM_MENUCHAR = (int)WM_Std.WM_MENUCHAR;
         /// <summary>
         /// The WM_ENTERIDLE message is sent to the owner window of a modal
         /// dialog box or menu that is entering an idle state. A modal dialog
         /// box or menu enters an idle state when no messages are waiting in
-        /// its queue after it has processed one or more previous messages. 
+        /// its queue after it has processed one or more previous messages.
         /// </summary>
         public const int WM_ENTERIDLE = (int)WM_Std.WM_ENTERIDLE;
         /// <summary>
         /// The WM_MENURBUTTONUP message is sent when the user releases the
-        /// right mouse button while the cursor is on a menu item. 
+        /// right mouse button while the cursor is on a menu item.
         /// </summary>
         public const int WM_MENURBUTTONUP = (int)WM_Std.WM_MENURBUTTONUP;
         /// <summary>
         /// The WM_MENUDRAG message is sent to the owner of a drag-and-drop
-        /// menu when the user drags a menu item. 
+        /// menu when the user drags a menu item.
         /// </summary>
         public const int WM_MENUDRAG = (int)WM_Std.WM_MENUDRAG;
         /// <summary>
         /// The WM_MENUGETOBJECT message is sent to the owner of a drag-and
         /// -drop menu when the mouse cursor enters a menu item or moves
-        /// from the center of the item to the top or bottom of the item. 
+        /// from the center of the item to the top or bottom of the item.
         /// </summary>
         public const int WM_MENUGETOBJECT = (int)WM_Std.WM_MENUGETOBJECT;
         /// <summary>
         /// The WM_UNINITMENUPOPUP message is sent when a drop-down menu or
-        /// submenu has been destroyed. 
+        /// submenu has been destroyed.
         /// </summary>
         public const int WM_UNINITMENUPOPUP = (int)WM_Std.WM_UNINITMENUPOPUP;
         /// <summary>
         /// The WM_MENUCOMMAND message is sent when the user makes a
-        /// selection from a menu. 
+        /// selection from a menu.
         /// </summary>
         public const int WM_MENUCOMMAND = (int)WM_Std.WM_MENUCOMMAND;
         /// <summary>
@@ -1247,7 +1245,7 @@
         /// message box before Windows draws the message box. By responding
         /// to this message, the owner window can set the text and background
         /// colors of the message box by using the given display device
-        /// context handle. 
+        /// context handle.
         /// </summary>
         public const int WM_CTLCOLORMSGBOX = (int)WM_Std.WM_CTLCOLORMSGBOX;
         /// <summary>
@@ -1255,14 +1253,14 @@
         /// WM_CTLCOLOREDIT message to its parent window when the control is
         /// about to be drawn. By responding to this message, the parent
         /// window can use the specified device context handle to set the
-        /// text and background colors of the edit control. 
+        /// text and background colors of the edit control.
         /// </summary>
         public const int WM_CTLCOLOREDIT = (int)WM_Std.WM_CTLCOLOREDIT;
         /// <summary>
         /// Sent to the parent window of a list box before the system draws
         /// the list box. By responding to this message, the parent window
         /// can set the text and background colors of the list box by using
-        /// the specified display device context handle. 
+        /// the specified display device context handle.
         /// </summary>
         public const int WM_CTLCOLORLISTBOX = (int)WM_Std.WM_CTLCOLORLISTBOX;
         /// <summary>
@@ -1270,14 +1268,14 @@
         /// button before drawing the button. The parent window can change
         /// the button's text and background colors. However, only owner
         /// -drawn buttons respond to the parent window processing this
-        /// message. 
+        /// message.
         /// </summary>
         public const int WM_CTLCOLORBTN = (int)WM_Std.WM_CTLCOLORBTN;
         /// <summary>
         /// The WM_CTLCOLORDLG message is sent to a dialog box before the
         /// system draws the dialog box. By responding to this message, the
         /// dialog box can set its text and background colors using the
-        /// specified display device context handle. 
+        /// specified display device context handle.
         /// </summary>
         public const int WM_CTLCOLORDLG = (int)WM_Std.WM_CTLCOLORDLG;
         /// <summary>
@@ -1285,7 +1283,7 @@
         /// a scroll bar control when the control is about to be drawn. By
         /// responding to this message, the parent window can use the display
         /// context handle to set the background color of the scroll bar
-        /// control. 
+        /// control.
         /// </summary>
         public const int WM_CTLCOLORSCROLLBAR = (int)WM_Std.WM_CTLCOLORSCROLLBAR;
         /// <summary>
@@ -1294,7 +1292,7 @@
         /// window when the control is about to be drawn. By responding to
         /// this message, the parent window can use the specified device
         /// context handle to set the text and background colors of the
-        /// static control. 
+        /// static control.
         /// </summary>
         public const int WM_CTLCOLORSTATIC = (int)WM_Std.WM_CTLCOLORSTATIC;
         /// <summary>
@@ -1394,7 +1392,7 @@
         /// first or second X button while the cursor is in the client area
         /// of a window. If the mouse is not captured, the message is posted
         /// to the window beneath the cursor. Otherwise, the message is
-        /// posted to the window that has captured the mouse. 
+        /// posted to the window that has captured the mouse.
         /// </summary>
         public const int WM_XBUTTONDOWN = (int)WM_Std.WM_XBUTTONDOWN;
         /// <summary>
@@ -1440,25 +1438,25 @@
         public const int WM_PARENTNOTIFY = (int)WM_Std.WM_PARENTNOTIFY;
         /// <summary>
         /// The WM_ENTERMENULOOP message informs an application's main window
-        /// procedure that a menu modal loop has been entered. 
+        /// procedure that a menu modal loop has been entered.
         /// </summary>
         public const int WM_ENTERMENULOOP = (int)WM_Std.WM_ENTERMENULOOP;
         /// <summary>
         /// The WM_EXITMENULOOP message informs an application's main window
-        /// procedure that a menu modal loop has been exited. 
+        /// procedure that a menu modal loop has been exited.
         /// </summary>
         public const int WM_EXITMENULOOP = (int)WM_Std.WM_EXITMENULOOP;
         /// <summary>
         /// The WM_NEXTMENU message is sent to an application when the right
         /// or left arrow key is used to switch between the menu bar and the
-        /// system menu. 
+        /// system menu.
         /// </summary>
         public const int WM_NEXTMENU = (int)WM_Std.WM_NEXTMENU;
         /// <summary>
         /// The WM_SIZING message is sent to a window that the user is
         /// resizing. By processing this message, an application can monitor
         /// the size and position of the drag rectangle and, if needed,
-        /// change its size or position. 
+        /// change its size or position.
         /// </summary>
         public const int WM_SIZING = (int)WM_Std.WM_SIZING;
         /// <summary>
@@ -1485,31 +1483,31 @@
         /// <summary>
         /// An application sends the WM_MDICREATE message to a multiple
         /// -document interface (MDI) client window to create an MDI child
-        /// window. 
+        /// window.
         /// </summary>
         public const int WM_MDICREATE = (int)WM_Std.WM_MDICREATE;
         /// <summary>
         /// An application sends the WM_MDIDESTROY message to a multiple
         /// -document interface (MDI) client window to close an MDI child
-        /// window. 
+        /// window.
         /// </summary>
         public const int WM_MDIDESTROY = (int)WM_Std.WM_MDIDESTROY;
         /// <summary>
         /// An application sends the WM_MDIACTIVATE message to a multiple
         /// -document interface (MDI) client window to instruct the client
-        /// window to activate a different MDI child window. 
+        /// window to activate a different MDI child window.
         /// </summary>
         public const int WM_MDIACTIVATE = (int)WM_Std.WM_MDIACTIVATE;
         /// <summary>
         /// An application sends the WM_MDIRESTORE message to a multiple
         /// -document interface (MDI) client window to restore an MDI
-        /// child window from maximized or minimized size. 
+        /// child window from maximized or minimized size.
         /// </summary>
         public const int WM_MDIRESTORE = (int)WM_Std.WM_MDIRESTORE;
         /// <summary>
         /// An application sends the WM_MDINEXT message to a multiple
         /// -document interface (MDI) client window to activate the next
-        /// or previous child window. 
+        /// or previous child window.
         /// </summary>
         public const int WM_MDINEXT = (int)WM_Std.WM_MDINEXT;
         /// <summary>
@@ -1520,39 +1518,39 @@
         /// window menu icon in the rightmost position of the frame window's
         /// menu bar, and places the child window's restore icon in the
         /// leftmost position. The system also appends the title bar text of
-        /// the child window to that of the frame window. 
+        /// the child window to that of the frame window.
         /// </summary>
         public const int WM_MDIMAXIMIZE = (int)WM_Std.WM_MDIMAXIMIZE;
         /// <summary>
         /// An application sends the WM_MDITILE message to a multiple
         /// -document interface (MDI) client window to arrange all of its
-        /// MDI child windows in a tile format. 
+        /// MDI child windows in a tile format.
         /// </summary>
         public const int WM_MDITILE = (int)WM_Std.WM_MDITILE;
         /// <summary>
         /// An application sends the WM_MDICASCADE message to a multiple
         /// -document interface (MDI) client window to arrange all its child
-        /// windows in a cascade format. 
+        /// windows in a cascade format.
         /// </summary>
         public const int WM_MDICASCADE = (int)WM_Std.WM_MDICASCADE;
         /// <summary>
         /// An application sends the WM_MDIICONARRANGE message to a multiple
         /// -document interface (MDI) client window to arrange all minimized
         /// MDI child windows. It does not affect child windows that are not
-        /// minimized. 
+        /// minimized.
         /// </summary>
         public const int WM_MDIICONARRANGE = (int)WM_Std.WM_MDIICONARRANGE;
         /// <summary>
         /// An application sends the WM_MDIGETACTIVE message to a multiple
         /// -document interface (MDI) client window to retrieve the handle
-        /// to the active MDI child window. 
+        /// to the active MDI child window.
         /// </summary>
         public const int WM_MDIGETACTIVE = (int)WM_Std.WM_MDIGETACTIVE;
         /// <summary>
         /// An application sends the WM_MDISETMENU message to a multiple
         /// -document interface (MDI) client window to replace the entire
         /// menu of an MDI frame window, to replace the window menu of the
-        /// frame window, or both. 
+        /// frame window, or both.
         /// </summary>
         public const int WM_MDISETMENU = (int)WM_Std.WM_MDISETMENU;
         /// <summary>
@@ -1562,7 +1560,7 @@
         /// title bar or sizing border, or when the window passes the
         /// WM_SYSCOMMAND message to the DefWindowProc function and the
         /// wParam parameter of the message specifies the SC_MOVE or SC_SIZE
-        /// value. The operation is complete when DefWindowProc returns. 
+        /// value. The operation is complete when DefWindowProc returns.
         /// The system sends the WM_ENTERSIZEMOVE message regardless of
         /// whether the dragging of full windows is enabled.
         /// </summary>
@@ -1574,7 +1572,7 @@
         /// title bar or sizing border, or when the window passes the
         /// WM_SYSCOMMAND message to the DefWindowProc function and the
         /// wParam parameter of the message specifies the SC_MOVE or SC_SIZE
-        /// value. The operation is complete when DefWindowProc returns. 
+        /// value. The operation is complete when DefWindowProc returns.
         /// </summary>
         public const int WM_EXITSIZEMOVE = (int)WM_Std.WM_EXITSIZEMOVE;
         /// <summary>
@@ -1585,17 +1583,17 @@
         /// <summary>
         /// An application sends the WM_MDIREFRESHMENU message to a multiple
         /// -document interface (MDI) client window to refresh the window
-        /// menu of the MDI frame window. 
+        /// menu of the MDI frame window.
         /// </summary>
         public const int WM_MDIREFRESHMENU = (int)WM_Std.WM_MDIREFRESHMENU;
         /// <summary>
         /// Sent to an application when a window is activated. A window
-        /// receives this message through its WindowProc function. 
+        /// receives this message through its WindowProc function.
         /// </summary>
         public const int WM_IME_SETCONTEXT = (int)WM_Std.WM_IME_SETCONTEXT;
         /// <summary>
         /// Sent to an application to notify it of changes to the IME window.
-        /// A window receives this message through its WindowProc function. 
+        /// A window receives this message through its WindowProc function.
         /// </summary>
         public const int WM_IME_NOTIFY = (int)WM_Std.WM_IME_NOTIFY;
         /// <summary>
@@ -1609,37 +1607,37 @@
         /// <summary>
         /// Sent to an application when the IME window finds no space to
         /// extend the area for the composition window. A window receives
-        /// this message through its WindowProc function. 
+        /// this message through its WindowProc function.
         /// </summary>
         public const int WM_IME_COMPOSITIONFULL = (int)WM_Std.WM_IME_COMPOSITIONFULL;
         /// <summary>
         /// Sent to an application when the operating system is about to
         /// change the current IME. A window receives this message through
-        /// its WindowProc function. 
+        /// its WindowProc function.
         /// </summary>
         public const int WM_IME_SELECT = (int)WM_Std.WM_IME_SELECT;
         /// <summary>
         /// Sent to an application when the IME gets a character of the
         /// conversion result. A window receives this message through its
-        /// WindowProc function. 
+        /// WindowProc function.
         /// </summary>
         public const int WM_IME_CHAR = (int)WM_Std.WM_IME_CHAR;
         /// <summary>
         /// Sent to an application to provide commands and request
         /// information. A window receives this message through its
-        /// WindowProc function. 
+        /// WindowProc function.
         /// </summary>
         public const int WM_IME_REQUEST = (int)WM_Std.WM_IME_REQUEST;
         /// <summary>
         /// Sent to an application by the IME to notify the application of a
         /// key press and to keep message order. A window receives this
-        /// message through its WindowProc function. 
+        /// message through its WindowProc function.
         /// </summary>
         public const int WM_IME_KEYDOWN = (int)WM_Std.WM_IME_KEYDOWN;
         /// <summary>
         /// Sent to an application by the IME to notify the application of a
         /// key release and to keep message order. A window receives this
-        /// message through its WindowProc function. 
+        /// message through its WindowProc function.
         /// </summary>
         public const int WM_IME_KEYUP = (int)WM_Std.WM_IME_KEYUP;
         /// <summary>
@@ -1677,26 +1675,26 @@
         /// An application sends a WM_CUT message to an edit control or combo
         /// box to delete (cut) the current selection, if any, in the edit
         /// control and copy the deleted text to the clipboard in CF_TEXT
-        /// format. 
+        /// format.
         /// </summary>
         public const int WM_CUT = (int)WM_Std.WM_CUT;
         /// <summary>
         /// An application sends the WM_COPY message to an edit control or
         /// combo box to copy the current selection to the clipboard in
-        /// CF_TEXT format. 
+        /// CF_TEXT format.
         /// </summary>
         public const int WM_COPY = (int)WM_Std.WM_COPY;
         /// <summary>
         /// An application sends a WM_PASTE message to an edit control or
         /// combo box to copy the current content of the clipboard to the
         /// edit control at the current caret position. Data is inserted
-        /// only if the clipboard contains data in CF_TEXT format. 
+        /// only if the clipboard contains data in CF_TEXT format.
         /// </summary>
         public const int WM_PASTE = (int)WM_Std.WM_PASTE;
         /// <summary>
         /// An application sends a WM_CLEAR message to an edit control or
         /// combo box to delete (clear) the current selection, if any, from
-        /// the edit control. 
+        /// the edit control.
         /// </summary>
         public const int WM_CLEAR = (int)WM_Std.WM_CLEAR;
         /// <summary>
@@ -1711,7 +1709,7 @@
         /// has delayed rendering a specific clipboard format and if an
         /// application has requested data in that format. The clipboard
         /// owner must render data in the specified format and place it on
-        /// the clipboard by calling the SetClipboardData function. 
+        /// the clipboard by calling the SetClipboardData function.
         /// </summary>
         public const int WM_RENDERFORMAT = (int)WM_Std.WM_RENDERFORMAT;
         /// <summary>
@@ -1721,26 +1719,26 @@
         /// clipboard to remain available to other applications, the
         /// clipboard owner must render data in all the formats it is capable
         /// of generating, and place the data on the clipboard by calling
-        /// the SetClipboardData function. 
+        /// the SetClipboardData function.
         /// </summary>
         public const int WM_RENDERALLFORMATS = (int)WM_Std.WM_RENDERALLFORMATS;
         /// <summary>
         /// The WM_DESTROYCLIPBOARD message is sent to the clipboard owner
-        /// when a call to the EmptyClipboard function empties the clipboard. 
+        /// when a call to the EmptyClipboard function empties the clipboard.
         /// </summary>
         public const int WM_DESTROYCLIPBOARD = (int)WM_Std.WM_DESTROYCLIPBOARD;
         /// <summary>
         /// The WM_DRAWCLIPBOARD message is sent to the first window in the
         /// clipboard viewer chain when the content of the clipboard changes.
         /// This enables a clipboard viewer window to display the new content
-        /// of the clipboard. 
+        /// of the clipboard.
         /// </summary>
         public const int WM_DRAWCLIPBOARD = (int)WM_Std.WM_DRAWCLIPBOARD;
         /// <summary>
         /// The WM_PAINTCLIPBOARD message is sent to the clipboard owner by
         /// a clipboard viewer window when the clipboard contains data in
         /// the CF_OWNERDISPLAY format and the clipboard viewer's client
-        /// area needs repainting. 
+        /// area needs repainting.
         /// </summary>
         public const int WM_PAINTCLIPBOARD = (int)WM_Std.WM_PAINTCLIPBOARD;
         /// <summary>
@@ -1748,14 +1746,14 @@
         /// by a clipboard viewer window when the clipboard contains data in
         /// the CF_OWNERDISPLAY format and an event occurs in the clipboard
         /// viewer's vertical scroll bar. The owner should scroll the
-        /// clipboard image and update the scroll bar values. 
+        /// clipboard image and update the scroll bar values.
         /// </summary>
         public const int WM_VSCROLLCLIPBOARD = (int)WM_Std.WM_VSCROLLCLIPBOARD;
         /// <summary>
         /// The WM_SIZECLIPBOARD message is sent to the clipboard owner by a
         /// clipboard viewer window when the clipboard contains data in the
         /// CF_OWNERDISPLAY format and the clipboard viewer's client area has
-        /// changed size. 
+        /// changed size.
         /// </summary>
         public const int WM_SIZECLIPBOARD = (int)WM_Std.WM_SIZECLIPBOARD;
         /// <summary>
@@ -1767,7 +1765,7 @@
         /// <summary>
         /// The WM_CHANGECBCHAIN message is sent to the first window in the
         /// clipboard viewer chain when a window is being removed from the
-        /// chain. 
+        /// chain.
         /// </summary>
         public const int WM_CHANGECBCHAIN = (int)WM_Std.WM_CHANGECBCHAIN;
         /// <summary>
@@ -1775,24 +1773,24 @@
         /// a clipboard viewer window. This occurs when the clipboard contains
         /// data in the CF_OWNERDISPLAY format and an event occurs in the
         /// clipboard viewer's horizontal scroll bar. The owner should scroll
-        /// the clipboard image and update the scroll bar values. 
+        /// the clipboard image and update the scroll bar values.
         /// </summary>
         public const int WM_HSCROLLCLIPBOARD = (int)WM_Std.WM_HSCROLLCLIPBOARD;
         /// <summary>
         /// This message informs a window that it is about to receive the
         /// keyboard focus, giving the window the opportunity to realize its
-        /// logical palette when it receives the focus. 
+        /// logical palette when it receives the focus.
         /// </summary>
         public const int WM_QUERYNEWPALETTE = (int)WM_Std.WM_QUERYNEWPALETTE;
         /// <summary>
         /// The WM_PALETTEISCHANGING message informs applications that an
-        /// application is going to realize its logical palette. 
+        /// application is going to realize its logical palette.
         /// </summary>
         public const int WM_PALETTEISCHANGING = (int)WM_Std.WM_PALETTEISCHANGING;
         /// <summary>
         /// This message is sent by the OS to all top-level and overlapped
         /// windows after the window with the keyboard focus realizes its
-        /// logical palette. 
+        /// logical palette.
         /// This message enables windows that do not have the keyboard focus
         /// to realize their logical palettes and update their client areas.
         /// </summary>
@@ -1801,7 +1799,7 @@
         /// The WM_HOTKEY message is posted when the user presses a hot key
         /// registered by the RegisterHotKey function. The message is placed
         /// at the top of the message queue associated with the thread that
-        /// registered the hot key. 
+        /// registered the hot key.
         /// </summary>
         public const int WM_HOTKEY = (int)WM_Std.WM_HOTKEY;
         /// <summary>
@@ -1844,12 +1842,12 @@
         /// WM_DWMNCRENDERINGCHANGED is called when the non-client area
         /// rendering status of a window has changed. Only windows that have
         /// set the flag DWM_BLURBEHIND.fTransitionOnMaximized to true will
-        /// get this message. 
+        /// get this message.
         /// </summary>
         public const int WM_DWMNCRENDERINGCHANGED = (int)WM_Std.WM_DWMNCRENDERINGCHANGED;
         /// <summary>
         /// Sent to all top-level windows when the colorization color has
-        /// changed. 
+        /// changed.
         /// </summary>
         public const int WM_DWMCOLORIZATIONCOLORCHANGED = (int)WM_Std.WM_DWMCOLORIZATIONCOLORCHANGED;
         /// <summary>
@@ -1873,13 +1871,13 @@
         /// <summary>
         /// The WM_APP constant is used by applications to help define
         /// private messages, usually of the form WM_APP+X, where X is an
-        /// integer value. 
+        /// integer value.
         /// </summary>
         public const int WM_APP = (int)WM_Std.WM_APP;
         /// <summary>
         /// The WM_USER constant is used by applications to help define
         /// private messages for use by private window classes, usually of
-        /// the form WM_USER+X, where X is an integer value. 
+        /// the form WM_USER+X, where X is an integer value.
         /// </summary>
         public const int WM_USER = (int)WM_Std.WM_USER;
         /// <summary>
@@ -1891,7 +1889,7 @@
 
         /// <summary>
         /// An application sends the WM_CPL_LAUNCH message to Windows Control
-        /// Panel to request that a Control Panel application be started. 
+        /// Panel to request that a Control Panel application be started.
         /// </summary>
         public const int CPL_LAUNCH = (int)WM_Std.CPL_LAUNCH;
         /// <summary>
@@ -1899,7 +1897,7 @@
         /// application, started by the WM_CPL_LAUNCH message, has closed.
         /// The WM_CPL_LAUNCHED message is sent to the window identified by
         /// the wParam parameter of the WM_CPL_LAUNCH message that started
-        /// the application. 
+        /// the application.
         /// </summary>
         public const int CPL_LAUNCHED = (int)WM_Std.CPL_LAUNCHED;
         #endregion

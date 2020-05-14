@@ -1,7 +1,5 @@
 ﻿namespace EAExport.Model
 {
-    using System;
-
     /// <summary>
     /// The output Format Type.
     /// </summary>

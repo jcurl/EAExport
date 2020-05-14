@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Text;
 
     /// <summary>
     /// A structure describing a single Requirement object in Enterprise Architect.

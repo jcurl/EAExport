@@ -5,7 +5,6 @@
     using System.Diagnostics;
     using System.IO;
     using System.Xml;
-    using System.Xml.Schema;
 
     /// <summary>
     /// Enterprise Architect Model.
@@ -430,8 +429,7 @@
         {
             foreach (EATree element in m_PackageElements.Values) {
                 string package = "EAPK" + element.Id.Substring(4);
-                EATree packageElement;
-                if (m_Elements.TryGetValue(package, out packageElement)) {
+                if (m_Elements.TryGetValue(package, out EATree packageElement)) {
                     packageElement.Text = element.Text;
                     m_Elements.Remove(element.Id);
                 }
@@ -439,8 +437,7 @@
 
             foreach (EATree element in m_Elements.Values) {
                 if (element.ParentId != null) {
-                    EATree parent;
-                    if (!m_Elements.TryGetValue(element.ParentId, out parent)) {
+                    if (!m_Elements.TryGetValue(element.ParentId, out EATree parent)) {
                         EATrace.XmiImport(TraceEventType.Warning, "Element: {0} disassociated with parent {1}. Object Heading is {2}.",
                             element.Id, element.ParentId, element.Heading);
                     } else {

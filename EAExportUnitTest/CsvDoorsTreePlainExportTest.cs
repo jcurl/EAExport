@@ -366,6 +366,7 @@
 
         [Test]
         [DeploymentItem(@"XMI\TC44-BothLists1.xml")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S125:Sections of code should not be commented out", Justification = "False positive")]
         public void BothLists1()
         {
             EAModel model = EAModel.LoadXmi("TC44-BothLists1.xml");

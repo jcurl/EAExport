@@ -81,6 +81,7 @@
     <Compile Include="Framework\Utilities\CommandLine\OptionToken.cs" />
     <Compile Include="Framework\Utilities\CommandLine\UnixEnumerator.cs" />
     <Compile Include="Framework\Utilities\CommandLine\WindowsEnumerator.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\CsvDoorsTreeExport.cs" />
     <Compile Include="Model\CsvDoorsTreePlainExport.cs" />
     <Compile Include="Model\DocBook45ChapterExport.cs" />

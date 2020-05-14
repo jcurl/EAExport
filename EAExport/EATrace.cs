@@ -1,8 +1,6 @@
 ﻿namespace EAExport
 {
-    using System;
     using System.Diagnostics;
-    using System.Text;
     using System.Xml;
 
     public static class EATrace
@@ -26,9 +24,8 @@
 
         public static string XmiImport(XmlReader xmlReader, TraceEventType eventType, string format, params object[] args)
         {
-            XmlTextReader xmlTextReader = xmlReader as XmlTextReader;
             string message = string.Format(format, args);
-            if (xmlTextReader != null) {
+            if (xmlReader is XmlTextReader xmlTextReader) {
                 s_XmiImport.TraceEvent(eventType, 0, "XML ({0},{1}) {2}", xmlTextReader.LineNumber, xmlTextReader.LinePosition, message);
             } else {
                 s_XmiImport.TraceEvent(eventType, 0, message);

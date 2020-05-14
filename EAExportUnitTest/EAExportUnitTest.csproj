@@ -47,6 +47,7 @@
     <Compile Include="CsvDoorsTreePlainExportTest.cs" />
     <Compile Include="DeploymentItemAttribute.cs" />
     <Compile Include="DocBook45ExportTest.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

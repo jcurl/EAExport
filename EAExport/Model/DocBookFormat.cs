@@ -1,7 +1,5 @@
 ﻿namespace EAExport.Model
 {
-    using System;
-
     /// <summary>
     /// State while parsing HTML for DocBook 4.5 conversion.
     /// </summary>

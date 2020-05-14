@@ -58,15 +58,16 @@ namespace EAExport
 
         private void mnuFileOpenXmi_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.CheckFileExists = true;
-            openDialog.CheckPathExists = true;
-            openDialog.DefaultExt = "xml";
-            openDialog.Filter = "XMI (*.xml)|*.xml";
-            openDialog.Multiselect = false;
-            openDialog.ShowReadOnly = true;
-            openDialog.ReadOnlyChecked = true;
-            openDialog.Title = "Open XMI File";
+            OpenFileDialog openDialog = new OpenFileDialog {
+                CheckFileExists = true,
+                CheckPathExists = true,
+                DefaultExt = "xml",
+                Filter = "XMI (*.xml)|*.xml",
+                Multiselect = false,
+                ShowReadOnly = true,
+                ReadOnlyChecked = true,
+                Title = "Open XMI File"
+            };
             openDialog.ShowDialog();
             string fileName = openDialog.FileName;
             if (string.IsNullOrWhiteSpace(fileName)) return;
@@ -116,8 +117,9 @@ namespace EAExport
                 heading.Append(" (").Append(element.Alias).Append(")");
             }
 
-            node = new TreeNode(heading.ToString());
-            node.Tag = element;
+            node = new TreeNode(heading.ToString()) {
+                Tag = element
+            };
             if (parent == null) {
                 treXmiStructure.Nodes.Add(node);
             } else {
@@ -158,15 +160,14 @@ namespace EAExport
 
         private void treXmiStructure_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            Model.EATree element = e.Node.Tag as Model.EATree;
-            if (element == null) return;
+            if (!(e.Node.Tag is Model.EATree element)) return;
 
             txtHeading.Text = element.Heading;
             txtIdentifier.Text = element.Id;
             htmlNotes.Text = element.Text;
             txtAlias.Text = element.Alias;
             txtAuthor.Text = element.Author;
-            txtStatus.Text = element.Status == null ? "" : element.Status;
+            txtStatus.Text = element.Status ?? "";
             txtStereotype.Text = element.Stereotype;
             txtVersion.Text = element.Version;
             txtCreateTime.Text = element.CreateTime.Ticks == 0 ? string.Empty : element.CreateTime.ToString("g");
@@ -245,11 +246,12 @@ namespace EAExport
 
         private string GetFileName(string defaultExtension, string filter, string title)
         {
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.CheckPathExists = true;
-            saveDialog.DefaultExt = defaultExtension;
-            saveDialog.Filter = filter;
-            saveDialog.Title = title;
+            SaveFileDialog saveDialog = new SaveFileDialog {
+                CheckPathExists = true,
+                DefaultExt = defaultExtension,
+                Filter = filter,
+                Title = title
+            };
             saveDialog.ShowDialog();
             string fileName = saveDialog.FileName;
             if (string.IsNullOrWhiteSpace(fileName)) return null;
@@ -274,8 +276,7 @@ namespace EAExport
         private TreeNode SearchTreeAlias(TreeNodeCollection nodes, string alias)
         {
             foreach (TreeNode node in nodes) {
-                Model.EATree element = node.Tag as Model.EATree;
-                if (element != null) {
+                if (node.Tag is Model.EATree element) {
                     if (element.Alias != null && element.Alias.Equals(alias, StringComparison.CurrentCultureIgnoreCase)) {
                         return node;
                     }

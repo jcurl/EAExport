@@ -1,9 +1,6 @@
 ﻿namespace HBAS.Utilities.CommandLine
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Optional Interface IOptions that can be used to customize output

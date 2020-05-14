@@ -1,8 +1,5 @@
 ﻿namespace EAExport.Model
 {
-    using System;
-
-
     /// <summary>
     /// Formatting State Object.
     /// </summary>

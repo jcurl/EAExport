@@ -1,7 +1,6 @@
 ﻿namespace EAExport.Model
 {
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Text;
     using HtmlAgilityPack;
@@ -54,12 +53,6 @@
                 m_NewLine = m_Encoding.GetBytes(Environment.NewLine);
             }
             m_WriteStream.Write(m_NewLine, 0, m_NewLine.Length);
-        }
-
-        private void WriteLine(string format, params object[] args)
-        {
-            string text = string.Format(format, args);
-            WriteLine(text);
         }
 
         private void WriteEscaped(string text)
@@ -173,15 +166,17 @@
                     sb.Append(Environment.NewLine);
                     break;
                 case "ol":
-                    nextFormat = new HtmlFormatPlainText(HtmlFormatMode.OrderedList);
-                    nextFormat.Indent = format.Indent + 1;
+                    nextFormat = new HtmlFormatPlainText(HtmlFormatMode.OrderedList) {
+                        Indent = format.Indent + 1
+                    };
                     break;
                 case "ul":
-                    nextFormat = new HtmlFormatPlainText(HtmlFormatMode.UnorderedList);
-                    nextFormat.Indent = format.Indent + 1;
+                    nextFormat = new HtmlFormatPlainText(HtmlFormatMode.UnorderedList) {
+                        Indent = format.Indent + 1
+                    };
                     break;
                 case "li":
-                    nextFormat.Counter = nextFormat.Counter + 1;
+                    nextFormat.Counter += 1;
                     sb.Append(' ', nextFormat.Indent);
                     switch(nextFormat.Mode) {
                     case HtmlFormatMode.OrderedList:

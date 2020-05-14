@@ -8,7 +8,6 @@
     public class TreeView : System.Windows.Forms.TreeView
     {
         private Timer m_TreeViewScrollTimer;
-        private System.ComponentModel.IContainer m_Components;
         private int m_ScrollDirection;
 
         private bool m_OSVista;
@@ -30,8 +29,8 @@
 
         private void InitializeComponent()
         {
-            m_Components = new System.ComponentModel.Container();
-            m_TreeViewScrollTimer = new Timer(m_Components);
+            System.ComponentModel.IContainer components = new System.ComponentModel.Container();
+            m_TreeViewScrollTimer = new Timer(components);
             m_TreeViewScrollTimer.Tick += m_TreeViewScrollTimer_Tick;
         }
 

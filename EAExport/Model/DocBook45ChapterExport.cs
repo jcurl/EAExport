@@ -22,11 +22,12 @@
         public DocBook45ChapterExport(string fileName)
         {
             FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
-            XmlWriterSettings xmlSettings = new XmlWriterSettings();
-            xmlSettings.ConformanceLevel = ConformanceLevel.Fragment;
-            xmlSettings.CloseOutput = true;
-            xmlSettings.Indent = true;
-            xmlSettings.NewLineHandling = NewLineHandling.Entitize;
+            XmlWriterSettings xmlSettings = new XmlWriterSettings {
+                ConformanceLevel = ConformanceLevel.Fragment,
+                CloseOutput = true,
+                Indent = true,
+                NewLineHandling = NewLineHandling.Entitize
+            };
 
             m_XmlWriter = XmlWriter.Create(fs, xmlSettings);
             m_OwnWriter = true;

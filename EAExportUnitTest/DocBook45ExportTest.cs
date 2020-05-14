@@ -1,6 +1,5 @@
 ﻿namespace EAExport.Model
 {
-    using System;
     using System.IO;
     using System.Xml;
     using NUnit.Framework;
@@ -10,11 +9,12 @@
     {
         private XmlWriter GetWriter(Stream stream)
         {
-            XmlWriterSettings xmlSettings = new XmlWriterSettings();
-            xmlSettings.ConformanceLevel = ConformanceLevel.Fragment;
-            xmlSettings.CloseOutput = false;
-            xmlSettings.Indent = true;
-            xmlSettings.NewLineHandling = NewLineHandling.Entitize;
+            XmlWriterSettings xmlSettings = new XmlWriterSettings {
+                ConformanceLevel = ConformanceLevel.Fragment,
+                CloseOutput = false,
+                Indent = true,
+                NewLineHandling = NewLineHandling.Entitize
+            };
 
             return XmlWriter.Create(stream, xmlSettings);
         }
@@ -27,8 +27,9 @@
             stream.Seek(0, SeekOrigin.Begin);
             XmlDocumentFragment fragment = xmlDoc.CreateDocumentFragment();
 
-            XmlReaderSettings xrs = new XmlReaderSettings();
-            xrs.ConformanceLevel = ConformanceLevel.Fragment;
+            XmlReaderSettings xrs = new XmlReaderSettings {
+                ConformanceLevel = ConformanceLevel.Fragment
+            };
             using (XmlReader xr = XmlReader.Create(stream, xrs)) {
                 XmlNode node;
                 do {

@@ -101,8 +101,9 @@
         /// <returns>An instance of this object.</returns>
         public static Options Parse(object options, string[] arguments, OptionsStyle style)
         {
-            Options cmdLine = new Options(options);
-            cmdLine.OptionsStyle = style;
+            Options cmdLine = new Options(options) {
+                OptionsStyle = style
+            };
             cmdLine.ParseCommandLine(arguments);
             return cmdLine;
         }
@@ -451,8 +452,7 @@
 
         private void ParseShortOption(IOptionParser parser, OptionToken token)
         {
-            OptionData optionData;
-            if (!m_ShortOptionList.TryGetValue(token.Value[0], out optionData))
+            if (!m_ShortOptionList.TryGetValue(token.Value[0], out OptionData optionData))
                 throw new OptionUnknownException(token.ToString(parser));
 
             ParseOptionParameter(parser, optionData, token);
@@ -460,14 +460,14 @@
 
         private void ParseLongOption(IOptionParser parser, OptionToken token)
         {
-            OptionData optionData;
             string option = parser.LongOptionCaseInsensitive ? token.Value.ToLowerInvariant() : token.Value;
-            if (!m_LongOptionList.TryGetValue(option, out optionData))
+            if (!m_LongOptionList.TryGetValue(option, out OptionData optionData))
                 throw new OptionUnknownException(token.ToString(parser));
 
             ParseOptionParameter(parser, optionData, token);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Keep consistency in API groups")]
         private void ParseArgument(IOptionParser parser, OptionToken token)
         {
             m_Arguments.Add(token.Value);
