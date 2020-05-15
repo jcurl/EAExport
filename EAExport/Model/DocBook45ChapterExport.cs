@@ -12,8 +12,8 @@
     /// <seealso cref="EAExport.Model.ITreeExport" />
     public class DocBook45ChapterExport : ITreeExport
     {
-        private bool m_OwnWriter;
-        private XmlWriter m_XmlWriter;
+        private readonly bool m_OwnWriter;
+        private readonly XmlWriter m_XmlWriter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DocBook45ChapterExport"/> class.
@@ -432,6 +432,8 @@
             hasField = true;
         }
 
+        private bool m_IsDisposed;
+
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
@@ -448,9 +450,9 @@
         /// <c>false</c> to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing) {
+            if (disposing && !m_IsDisposed) {
                 if (m_XmlWriter != null && m_OwnWriter) m_XmlWriter.Close();
-                m_XmlWriter = null;
+                m_IsDisposed = true;
             }
         }
     }

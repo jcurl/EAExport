@@ -7,10 +7,10 @@
 
     public class TreeView : System.Windows.Forms.TreeView
     {
+        private readonly bool m_OSVista;
+
         private Timer m_TreeViewScrollTimer;
         private int m_ScrollDirection;
-
-        private bool m_OSVista;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TreeView" /> class.

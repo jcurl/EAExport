@@ -22,6 +22,7 @@
         public FormatType Format { get; private set; }
 
         [OptionArguments]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Written via reflection")]
         private List<string> m_Arguments = new List<string>();
 
         public void Check()

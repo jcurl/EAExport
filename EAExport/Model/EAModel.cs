@@ -11,6 +11,9 @@
     /// </summary>
     public class EAModel
     {
+        private readonly Dictionary<string, EATree> m_Elements = new Dictionary<string, EATree>();
+        private readonly Dictionary<string, EATree> m_PackageElements = new Dictionary<string, EATree>();
+
         private EAModel() { }
 
         /// <summary>
@@ -414,10 +417,6 @@
 
             FileFormatException(xmlReader, "Unexpected end of stream");
         }
-
-        private Dictionary<string, EATree> m_Elements = new Dictionary<string, EATree>();
-
-        private Dictionary<string, EATree> m_PackageElements = new Dictionary<string, EATree>();
 
         private void AddElement(EATree element)
         {

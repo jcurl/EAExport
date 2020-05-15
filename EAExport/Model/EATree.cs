@@ -10,6 +10,8 @@
     [DebuggerDisplay("{Id} ({ParentId}): {Heading}")]
     public class EATree
     {
+        private readonly LinkedList<EATree> m_Children = new LinkedList<EATree>();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EATree"/> class.
         /// </summary>
@@ -110,8 +112,6 @@
         /// </summary>
         /// <value>The modified time.</value>
         public DateTime ModifiedTime { get; set; }
-
-        private LinkedList<EATree> m_Children = new LinkedList<EATree>();
 
         /// <summary>
         /// Gets the children of this object.

@@ -80,6 +80,11 @@
     /// </remarks>
     public class Options
     {
+        private readonly object m_Options;
+        private readonly Dictionary<string, OptionData> m_LongOptionList = new Dictionary<string, OptionData>();
+        private readonly Dictionary<char, OptionData> m_ShortOptionList = new Dictionary<char, OptionData>();
+        private readonly List<OptionData> m_OptionList = new List<OptionData>();
+
         /// <summary>
         /// Parses the command line arguments writing to options.
         /// </summary>
@@ -186,8 +191,6 @@
             return cmdLine;
         }
 
-        private object m_Options;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Options"/> class using the Windows style.
         /// </summary>
@@ -284,9 +287,6 @@
             }
         }
 
-        private Dictionary<string, OptionData> m_LongOptionList = new Dictionary<string, OptionData>();
-        private Dictionary<char, OptionData> m_ShortOptionList = new Dictionary<char, OptionData>();
-        private List<OptionData> m_OptionList = new List<OptionData>();
         private IList<string> m_Arguments;
 
         private void BuildOptionList(bool longOptionCaseInsensitive)

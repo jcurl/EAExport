@@ -10,10 +10,9 @@
     /// </summary>
     public class CsvDoorsTreePlainExport : ITreeExport
     {
-        private Stream m_WriteStream;
-        private bool m_OwnsStream;
-        private Encoding m_Encoding = Encoding.GetEncoding("iso-8859-15");
-        private byte[] m_NewLine;
+        private readonly Stream m_WriteStream;
+        private readonly bool m_OwnsStream;
+        private readonly Encoding m_Encoding = Encoding.GetEncoding("iso-8859-15");
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CsvDoorsTreePlainExport"/> class.
@@ -45,6 +44,8 @@
             string text = string.Format(format, args);
             Write(text);
         }
+
+        private byte[] m_NewLine;
 
         private void WriteLine(string text)
         {

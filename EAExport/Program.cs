@@ -6,7 +6,7 @@
 
     static class Program
     {
-        private static Model.Options options = new Model.Options();
+        private static readonly Model.Options options = new Model.Options();
 
         /// <summary>
         /// The main entry point for the application.

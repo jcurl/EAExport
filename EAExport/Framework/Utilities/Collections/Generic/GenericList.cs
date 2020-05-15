@@ -14,7 +14,7 @@
     /// </remarks>
     public class GenericList<T> : IList<T> where T : class
     {
-        private IList m_List;
+        private readonly IList m_List;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GenericList{T}"/> class.
@@ -220,7 +220,7 @@
 
         private sealed class ListEnumerator : IEnumerator<T>
         {
-            private GenericList<T> m_Parent;
+            private readonly GenericList<T> m_Parent;
             private IEnumerator m_EnumeratorObj;
 
             public ListEnumerator(GenericList<T> parent)

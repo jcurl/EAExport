@@ -5,7 +5,7 @@
 
     public static class EATrace
     {
-        private static TraceSource s_XmiImport = new TraceSource("EAExport.XmiImport");
+        private static readonly TraceSource s_XmiImport = new TraceSource("EAExport.XmiImport");
 
         public static string XmiImport(TraceEventType eventType, string message)
         {
