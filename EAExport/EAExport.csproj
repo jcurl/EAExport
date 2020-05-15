@@ -70,7 +70,7 @@
     </Compile>
     <Compile Include="EATrace.cs" />
     <Compile Include="Framework\System\InternalApplicationException.cs" />
-    <Compile Include="Framework\Utilities\CommandLine\GenericList.cs" />
+    <Compile Include="Framework\Utilities\Collections\Generic\GenericList.cs" />
     <Compile Include="Framework\Utilities\CommandLine\IOptionParser.cs" />
     <Compile Include="Framework\Utilities\CommandLine\IOptions.cs" />
     <Compile Include="Framework\Utilities\CommandLine\OptionArgumentsAttribute.cs" />
@@ -81,6 +81,7 @@
     <Compile Include="Framework\Utilities\CommandLine\OptionToken.cs" />
     <Compile Include="Framework\Utilities\CommandLine\UnixEnumerator.cs" />
     <Compile Include="Framework\Utilities\CommandLine\WindowsEnumerator.cs" />
+    <Compile Include="Framework\Utilities\Environment\Platform.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\CsvDoorsTreeExport.cs" />
     <Compile Include="Model\CsvDoorsTreePlainExport.cs" />

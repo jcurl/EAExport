@@ -26,7 +26,7 @@
         /// Initializes a new instance of the <see cref="OptionAttribute"/> class for a short option. The option may be made mandatory.
         /// </summary>
         /// <param name="shortOption">The short option character for this field (case sensitive).</param>
-        /// <param name="required">Option will be made mandatory if <c>true</c>.</param>
+        /// <param name="required">Option will be made mandatory if <see langword="true"/>.</param>
         public OptionAttribute(char shortOption, bool required)
         {
             CheckShortOption(shortOption);
@@ -52,7 +52,7 @@
         /// </summary>
         /// <param name="shortOption">The short option character for this field (case sensitive).</param>
         /// <param name="longOption">The long option string (case insensitive).</param>
-        /// <param name="required">Option will be made mandatory if <c>true</c>.</param>
+        /// <param name="required">Option will be made mandatory if <see langword="true"/>.</param>
         public OptionAttribute(char shortOption, string longOption, bool required)
         {
             CheckShortOption(shortOption);
@@ -76,7 +76,7 @@
         /// Initializes a new instance of the <see cref="OptionAttribute"/> class.
         /// </summary>
         /// <param name="longOption">The long option string (case insensitive).</param>
-        /// <param name="required">Option will be made mandatory if <c>true</c>.</param>
+        /// <param name="required">Option will be made mandatory if <see langword="true"/>.</param>
         public OptionAttribute(string longOption, bool required)
         {
             CheckLongOption(longOption);
@@ -87,21 +87,43 @@
         private void CheckLongOption(string longOption)
         {
             if (string.IsNullOrWhiteSpace(longOption))
-                throw new ArgumentException("Long Option may not be empty", "longOption");
+                throw new ArgumentException("Long Option may not be empty", nameof(longOption));
 
-            char[] validOptionChars = new char[] { '-', '_' };
             for (int i = 0; i < longOption.Length; i++) {
-                if (!char.IsLetter(longOption[i]) && Array.IndexOf(validOptionChars, longOption[i]) == -1) {
+                if (!IsValidLongOptionChar(i, longOption[i])) {
                     string msg = string.Format("Long option has invalid character: {0}", longOption[i]);
-                    throw new ArgumentException(msg, "longOption");
+                    throw new ArgumentException(msg, nameof(longOption));
                 }
             }
         }
 
+        private static readonly char[] ValidLongOptionChars = new char[] { '-', '_' };
+
+        private static bool IsValidLongOptionChar(int pos, char longOptionChar)
+        {
+            if (char.IsLetter(longOptionChar)) return true;
+            if (pos == 0) return false;
+            if (char.IsDigit(longOptionChar)) return true;
+            if (Array.IndexOf<char>(ValidLongOptionChars, longOptionChar) != -1) return true;
+            return false;
+        }
+
         private void CheckShortOption(char shortOption)
         {
-            if (char.IsWhiteSpace(shortOption))
-                throw new ArgumentException("Short option must be a letter", "shortOption");
+            if (!IsValidShortOptionChar(shortOption)) {
+                string message = string.Format("Short option '{0}' character not allowed", shortOption);
+                throw new ArgumentException(message, nameof(shortOption));
+            }
+        }
+
+        private static readonly char[] ValidShortOptionChars = new char[] { '-', '_', '!', '+', '?', '#' };
+
+        private static bool IsValidShortOptionChar(char shortOptionChar)
+        {
+            if (char.IsLetter(shortOptionChar)) return true;
+            if (char.IsDigit(shortOptionChar)) return true;
+            if (Array.IndexOf(ValidShortOptionChars, shortOptionChar) != -1) return true;
+            return false;
         }
 
         /// <summary>
@@ -119,7 +141,7 @@
         /// <summary>
         /// Gets a value indicating whether the option is required (mandatory).
         /// </summary>
-        /// <value><c>true</c> if required; otherwise, <c>false</c>.</value>
+        /// <value><see langword="true"/> if required; otherwise, <see langword="false"/>.</value>
         public bool Required { get; private set; }
     }
 }

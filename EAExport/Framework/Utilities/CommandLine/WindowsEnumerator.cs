@@ -1,6 +1,5 @@
 ﻿namespace HBAS.Utilities.CommandLine
 {
-    using System;
     using System.Collections.Generic;
 
     internal sealed class WindowsOptionEnumerator : IOptionParser
@@ -47,7 +46,7 @@
         {
             string argument = m_Arguments[m_ArgumentPosition];
 
-            if (argument.Length > 0 && argument[0] == '/') {
+            if (argument.Length > 1 && argument[0] == '/') {
                 // This is either a long or a short option
                 int valueOperator = argument.IndexOf(':', 2);
                 if (valueOperator == -1) {

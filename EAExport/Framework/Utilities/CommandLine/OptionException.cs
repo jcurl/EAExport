@@ -27,15 +27,15 @@
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
-        ///  or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        ///  or a <see langword="null"/> reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         public OptionException(string message, Exception innerException) : base(message, innerException) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionException" /> class with serialized data.
         /// </summary>
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// <param name="info">The <see cref="SerializationInfo" />
         ///  that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" />
+        /// <param name="context">The <see cref="StreamingContext" />
         ///  that contains contextual information about the source or destination.</param>
         protected OptionException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
@@ -63,15 +63,15 @@
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
-        ///  or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        ///  or a <see langword="null"/> reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         public OptionDuplicateException(string message, Exception innerException) : base(message, innerException) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionDuplicateException" /> class with serialized data.
         /// </summary>
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// <param name="info">The <see cref="SerializationInfo" />
         ///  that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" />
+        /// <param name="context">The <see cref="StreamingContext" />
         ///  that contains contextual information about the source or destination.</param>
         protected OptionDuplicateException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
@@ -92,7 +92,7 @@
         /// </summary>
         /// <param name="option">The option provided on the command line that is unknown.</param>
         public OptionUnknownException(string option)
-            : base("Unknown option '" + option + "'")
+            : base(UnknownOptionMessage(option))
         {
             Option = option;
         }
@@ -103,9 +103,9 @@
         /// </summary>
         /// <param name="option">The option provided on the command line that is unknown.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
-        ///  or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        ///  or a <see langword="null"/> reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         public OptionUnknownException(string option, Exception innerException)
-            : base("Unknown option '" + option + "'", innerException)
+            : base(UnknownOptionMessage(option), innerException)
         {
             Option = option;
         }
@@ -123,22 +123,27 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionUnknownException" /> class with serialized data.
         /// </summary>
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// <param name="info">The <see cref="SerializationInfo" />
         ///  that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" />
+        /// <param name="context">The <see cref="StreamingContext" />
         ///  that contains contextual information about the source or destination.</param>
         protected OptionUnknownException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             Option = info.GetString("option");
         }
 
+        private static string UnknownOptionMessage(string option)
+        {
+            return string.Format("Unknown option '{0}'", option);
+        }
+
         /// <summary>
-        /// When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// When overridden in a derived class, sets the <see cref="SerializationInfo" />
         /// with information about the exception.
         /// </summary>
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// <param name="info">The <see cref="SerializationInfo" />
         ///  that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" />
+        /// <param name="context">The <see cref="StreamingContext" />
         ///  that contains contextual information about the source or destination.</param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -171,7 +176,7 @@
         /// </summary>
         /// <param name="option">The option provided on the command line that is unknown.</param>
         public OptionMissingArgumentException(string option)
-            : base("Missing argument for '" + option + "'")
+            : base(MissingOptionMessage(option))
         {
             Option = option;
         }
@@ -182,9 +187,9 @@
         /// </summary>
         /// <param name="option">The option provided on the command line that is unknown.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
-        ///  or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        ///  or a <see langword="null"/> reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         public OptionMissingArgumentException(string option, Exception innerException)
-            : base("Missing argument for '" + option + "'", innerException)
+            : base(MissingOptionMessage(option), innerException)
         {
             Option = option;
         }
@@ -200,12 +205,17 @@
             Option = option;
         }
 
+        private static string MissingOptionMessage(string option)
+        {
+            return string.Format("Missing argument for '{0}'", option);
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionMissingArgumentException" /> class with serialized data.
         /// </summary>
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// <param name="info">The <see cref="SerializationInfo" />
         ///  that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" />
+        /// <param name="context">The <see cref="StreamingContext" />
         ///  that contains contextual information about the source or destination.</param>
         protected OptionMissingArgumentException(SerializationInfo info, StreamingContext context)
             : base(info, context)
@@ -214,12 +224,12 @@
         }
 
         /// <summary>
-        /// When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// When overridden in a derived class, sets the <see cref="SerializationInfo" />
         /// with information about the exception.
         /// </summary>
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// <param name="info">The <see cref="SerializationInfo" />
         ///  that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" />
+        /// <param name="context">The <see cref="StreamingContext" />
         ///  that contains contextual information about the source or destination.</param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -237,7 +247,7 @@
     }
 
     /// <summary>
-    /// An option was specified on the command line and is missing a mandatory argument.
+    /// A mandatory option was not specified on the command line.
     /// </summary>
     [Serializable]
     public class OptionMissingException : OptionException
@@ -252,7 +262,7 @@
         /// </summary>
         /// <param name="options">The options missing.</param>
         public OptionMissingException(string options)
-            : base("Missing argument for options '" + options + "'")
+            : base(MissingOptionMessage(options))
         {
             Options = options;
         }
@@ -263,9 +273,9 @@
         /// </summary>
         /// <param name="options">The options missing.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
-        ///  or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        ///  or a <see langword="null"/> reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         public OptionMissingException(string options, Exception innerException)
-            : base("Missing argument for options '" + options + "'", innerException)
+            : base(MissingOptionMessage(options), innerException)
         {
             Options = options;
         }
@@ -284,9 +294,9 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionMissingException" /> class with serialized data.
         /// </summary>
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// <param name="info">The <see cref="SerializationInfo" />
         ///  that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" />
+        /// <param name="context">The <see cref="StreamingContext" />
         ///  that contains contextual information about the source or destination.</param>
         protected OptionMissingException(SerializationInfo info, StreamingContext context)
             : base(info, context)
@@ -294,13 +304,18 @@
             Options = info.GetString("option");
         }
 
+        private static string MissingOptionMessage(string option)
+        {
+            return string.Format("Missing argument for options '{0}'", option);
+        }
+
         /// <summary>
-        /// When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// When overridden in a derived class, sets the <see cref="SerializationInfo" />
         /// with information about the exception.
         /// </summary>
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// <param name="info">The <see cref="SerializationInfo" />
         ///  that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" />
+        /// <param name="context">The <see cref="StreamingContext" />
         ///  that contains contextual information about the source or destination.</param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -333,7 +348,7 @@
         /// </summary>
         /// <param name="option">The options missing.</param>
         public OptionAssignedException(string option)
-            : base("Option '" + option + "' provided multiple times")
+            : base(DuplicateOptionMessage(option))
         {
             Option = option;
         }
@@ -344,9 +359,9 @@
         /// </summary>
         /// <param name="option">The options missing.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
-        ///  or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        ///  or a <see langword="null"/> reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         public OptionAssignedException(string option, Exception innerException)
-            : base("Option '" + option + "' provided multiple times", innerException)
+            : base(DuplicateOptionMessage(option), innerException)
         {
             Option = option;
         }
@@ -365,9 +380,9 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionAssignedException" /> class with serialized data.
         /// </summary>
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// <param name="info">The <see cref="SerializationInfo" />
         ///  that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" />
+        /// <param name="context">The <see cref="StreamingContext" />
         ///  that contains contextual information about the source or destination.</param>
         protected OptionAssignedException(SerializationInfo info, StreamingContext context)
             : base(info, context)
@@ -375,13 +390,18 @@
             Option = info.GetString("option");
         }
 
+        private static string DuplicateOptionMessage(string option)
+        {
+            return string.Format("Option '{0}' provided multiple times", option);
+        }
+
         /// <summary>
-        /// When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// When overridden in a derived class, sets the <see cref="SerializationInfo" />
         /// with information about the exception.
         /// </summary>
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// <param name="info">The <see cref="SerializationInfo" />
         ///  that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" />
+        /// <param name="context">The <see cref="StreamingContext" />
         ///  that contains contextual information about the source or destination.</param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -414,7 +434,7 @@
         /// </summary>
         /// <param name="option">The option provided with the wrong format.</param>
         public OptionFormatException(string option)
-            : base("Option '" + option + "' has incorrect format")
+            : base(IncorrectFormatOptionMessage(option))
         {
             Option = option;
         }
@@ -425,9 +445,9 @@
         /// </summary>
         /// <param name="option">The option provided with the wrong format.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
-        ///  or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        ///  or a <see langword="null"/> reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         public OptionFormatException(string option, Exception innerException)
-            : base("Option '" + option + "' has incorrect format", innerException)
+            : base(IncorrectFormatOptionMessage(option), innerException)
         {
             Option = option;
         }
@@ -438,7 +458,7 @@
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="option">The option provided with the wrong format.</param>
         /// <param name="innerException">The exception that is the cause of the current exception,
-        ///  or a null reference (Nothing in Visual Basic) if no inner exception is specified.</param>
+        ///  or a <see langword="null"/> reference (Nothing in Visual Basic) if no inner exception is specified.</param>
         public OptionFormatException(string option, string message, Exception innerException)
             : base(message, innerException)
         {
@@ -448,9 +468,9 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="OptionFormatException" /> class with serialized data.
         /// </summary>
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// <param name="info">The <see cref="SerializationInfo" />
         ///  that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" />
+        /// <param name="context">The <see cref="StreamingContext" />
         ///  that contains contextual information about the source or destination.</param>
         protected OptionFormatException(SerializationInfo info, StreamingContext context)
             : base(info, context)
@@ -458,13 +478,18 @@
             Option = info.GetString("option");
         }
 
+        private static string IncorrectFormatOptionMessage(string option)
+        {
+            return string.Format("Option '{0}' has incorrect format", option);
+        }
+
         /// <summary>
-        /// When overridden in a derived class, sets the <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// When overridden in a derived class, sets the <see cref="SerializationInfo" />
         /// with information about the exception.
         /// </summary>
-        /// <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" />
+        /// <param name="info">The <see cref="SerializationInfo" />
         ///  that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" />
+        /// <param name="context">The <see cref="StreamingContext" />
         ///  that contains contextual information about the source or destination.</param>
         [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
