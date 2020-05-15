@@ -1,5 +1,6 @@
-This software is (C) 2015 Jason Curl and was developed entirely in my own time
-outside of my involvement with Harman.
+# Preamble
+
+This software is (C) 2015-2020 Jason Curl.
 
 The binaries are licensed for general use in any way that you see fit. No
 warranties are offered for any particular purpose.
@@ -8,8 +9,9 @@ This software is intended as an easy way to open XMI 1.1 files exported from
 Enterprise Architect v11.1 (and compatible) for use with the Automation
 Framework and the MGU project.
 
-# The MIT License (MIT)
-Copyright (c) 2015-2016 Jason Curl.
+## The MIT License (MIT)
+
+Copyright (c) 2015-2020 Jason Curl.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in
@@ -28,4 +30,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
