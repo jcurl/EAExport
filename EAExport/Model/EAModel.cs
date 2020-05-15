@@ -25,7 +25,10 @@
             EATrace.XmiImport(TraceEventType.Information, "Time: {0}", DateTime.Now.ToString("G"));
             EATrace.XmiImport(TraceEventType.Information, "Loading file {0}", fileName);
             FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-            using (XmlTextReader xmlReader = new XmlTextReader(fs)) {
+            using (XmlTextReader xmlReader = new XmlTextReader(fs) {
+                XmlResolver = null,
+                DtdProcessing = DtdProcessing.Prohibit
+            }) {
                 model.LoadXmi(xmlReader);
                 model.BuildTree();
                 return model;
@@ -348,7 +351,7 @@
                                 parent.ParentId = package;
                             }
                         }
-                        
+
                         if (package2 != null) {
                             // In EA, we see a package contains a ClassifierRole object as well as a Package.
                             // We need to filter these ClassifierRole objects out, else they occur twice in

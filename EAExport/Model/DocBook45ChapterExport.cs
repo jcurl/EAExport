@@ -42,7 +42,7 @@
             m_XmlWriter = xmlWriter;
         }
 
-        XmlDocument m_XmlDocument;
+        private XmlDocument m_XmlDocument;
 
         /// <summary>
         /// Exports the tree.
@@ -52,7 +52,9 @@
         /// if set to <c>false</c>, then the children are exported.</param>
         public void ExportTree(EATree root, bool includeRoot)
         {
-            m_XmlDocument = new XmlDocument();
+            m_XmlDocument = new XmlDocument() {
+                XmlResolver = null
+            };
             XmlDocumentFragment xmlFragment = m_XmlDocument.CreateDocumentFragment();
 
             DocBookFormat format = new DocBookFormat();

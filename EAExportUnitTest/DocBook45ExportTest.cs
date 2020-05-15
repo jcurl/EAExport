@@ -22,10 +22,14 @@
 
         private static XmlDocumentFragment LoadDocumentFragment(Stream stream)
         {
-            XmlDocument xmlDoc = new XmlDocument();
+            XmlDocument xmlDoc = new XmlDocument() {
+                XmlResolver = null
+            };
             XmlDocumentFragment fragment = xmlDoc.CreateDocumentFragment();
             XmlReaderSettings xrs = new XmlReaderSettings {
-                ConformanceLevel = ConformanceLevel.Fragment
+                ConformanceLevel = ConformanceLevel.Fragment,
+                DtdProcessing = DtdProcessing.Prohibit,
+                XmlResolver = null
             };
 
             using (XmlReader xr = XmlReader.Create(stream, xrs)) {
